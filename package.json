@@ -2,6 +2,11 @@
   "name": "react-playground",
   "private": true,
   "version": "0.0.0",
+  "engines": {
+    "node": ">=20.17.0 <21",
+    "pnpm": ">=9.0.0 <10"
+  },
+  "packageManager": "pnpm@9.12.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
