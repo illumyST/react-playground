@@ -264,7 +264,7 @@
 /* shimmer */
 @utility shimmer-bg {
     /* Shimmer */
-    @apply from-gray-150/100 to-shimmer-end/60 animate-pulse bg-linear-to-r;
+    @apply from-gray-150 to-shimmer-end/60 animate-pulse bg-linear-to-r;
 }
 
 /* page loading */
@@ -306,7 +306,7 @@
     }
 
     &::-webkit-scrollbar {
-        @apply h-[16px] w-[16px];
+        @apply h-lg w-lg;
     }
 }
 /* 

@@ -13,67 +13,67 @@ const buttonVariants = cva(
         text: 'bg-transparent underline-offset-4 hover:underline',
       },
       color: {
-        cube: '',
+        primary: '',
         product: '',
       },
       size: {
-        small: 'h-8 px-3 text-sm',
-        medium: 'h-10 px-4 text-base',
-        large: 'h-12 px-6 text-lg',
+        small: 'px-md py-xs min-w-[48px] text-sm',
+        medium: 'px-lg py-sm text-base',
+        large: 'px-2xl py-md text-lg md:min-w-[160px]',
       },
     },
     compoundVariants: [
       {
         variant: 'filled',
-        color: 'cube',
-        className: 'bg-cube-600 text-white hover:bg-cube-700',
+        color: 'primary',
+        className: 'bg-steel-500 text-white hover:bg-steel-600 active:bg-steel-700',
       },
       {
         variant: 'filled',
         color: 'product',
-        className: 'bg-product-600 text-white hover:bg-product-700',
+        className: 'bg-rose-500 text-white hover:bg-rose-600 active:bg-rose-700',
       },
       {
         variant: 'outlined',
-        color: 'cube',
-        className: 'border-cube-600 text-cube-600 hover:bg-cube-50',
+        color: 'primary',
+        className: 'border-steel-500 text-steel-500 hover:bg-steel-50',
       },
       {
         variant: 'outlined',
         color: 'product',
-        className: 'border-product-600 text-product-600 hover:bg-product-50',
+        className: 'border-rose-500 text-rose-500 hover:bg-rose-50',
       },
       {
         variant: 'ghost',
-        color: 'cube',
-        className: 'text-cube-600 hover:bg-cube-600',
+        color: 'primary',
+        className: 'text-steel-500 hover:bg-steel-50',
       },
       {
         variant: 'ghost',
         color: 'product',
-        className: 'text-product-600 hover:bg-product-600',
+        className: 'text-rose-500 hover:bg-rose-50',
       },
       {
         variant: 'text',
-        color: 'cube',
-        className: 'text-cube-600',
+        color: 'primary',
+        className: 'text-steel-500',
       },
       {
         variant: 'text',
         color: 'product',
-        className: 'text-product-600',
+        className: 'text-rose-500',
       },
     ],
     defaultVariants: {
       variant: 'filled',
-      color: 'cube',
+      color: 'primary',
       size: 'medium',
     },
   },
 );
 
 export interface ButtonProps
-  extends React.ButtonHTMLAttributes<HTMLButtonElement>,
+  extends Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, 'color'>,
     VariantProps<typeof buttonVariants> {
   isLoading?: boolean;
 }

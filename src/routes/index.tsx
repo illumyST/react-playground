@@ -3,12 +3,18 @@ import type { RouteObject } from 'react-router-dom';
 import { lazy } from 'react';
 
 const HomePage = lazy(() => import('@/pages/HomePage'));
+const RemotionPage = lazy(() => import('@/pages/RemotionPage'));
 const NotFoundPage = lazy(() => import('@/pages/NotFoundPage'));
 
 export const routes: RouteObject[] = [
   {
     path: '/',
     element: <HomePage />,
+    errorElement: <NotFoundPage />,
+  },
+  {
+    path: '/remotion',
+    element: <RemotionPage />,
     errorElement: <NotFoundPage />,
   },
   { path: '*', element: <NotFoundPage /> },

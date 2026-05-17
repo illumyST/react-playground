@@ -9,17 +9,17 @@ const HomePage = () => {
       <section className="space-y-md">
         <h2 className="text-lg font-semibold">Variants</h2>
         <div className="flex gap-sm flex-wrap">
-          <Button variant="filled" color="cube">Filled</Button>
-          <Button variant="outlined" color="cube">Outlined</Button>
-          <Button variant="ghost" color="cube">Ghost</Button>
-          <Button variant="text" color="cube">Text</Button>
+          <Button variant="filled" color="primary">Filled</Button>
+          <Button variant="outlined" color="primary">Outlined</Button>
+          <Button variant="ghost" color="primary">Ghost</Button>
+          <Button variant="text" color="primary">Text</Button>
         </div>
       </section>
 
       <section className="space-y-md">
         <h2 className="text-lg font-semibold">Colors</h2>
         <div className="flex gap-sm flex-wrap">
-          <Button color="cube">Cube</Button>
+          <Button color="primary">Primary</Button>
           <Button color="product">Product</Button>
         </div>
       </section>

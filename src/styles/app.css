@@ -1,20 +1,4 @@
-/* Variable Fonts */
-@font-face {
-    font-family: 'Noto Sans TC';
-    font-style: normal;
-    font-weight: 300 600;
-    src: url('/fonts/NotoSansTC-VariableFont_wght.ttf') format('truetype-variations');
-    font-display: swap;
-}
-
-@font-face {
-    font-family: 'Roboto Flex';
-    font-style: normal;
-    font-weight: 300 600;
-    src: url('/fonts/RobotoFlex-wght.ttf') format('truetype-variations');
-    font-display: swap;
-    unicode-range: U+0020-007F;
-}
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@375;550&family=Roboto+Flex:wght@375;550&display=swap');
 
 :root {
     font-family: 'Roboto Flex', 'Noto Sans TC', system-ui;
