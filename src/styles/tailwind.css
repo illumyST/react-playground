@@ -61,6 +61,9 @@
     --spacing-5xl: 36px;
     --spacing-6xl: 40px;
     --spacing-7xl: 100px;
+    
+    /* 修正 w-full, h-full 因 --spacing-*: initial 而失效的問題 */
+    --spacing-full: 100%;
 
     /* header spacings */
     --spacing-header-mobile: 56px;
@@ -226,6 +229,14 @@
     font-weight: var(--font-weight-bold);
     font-size: 1.625rem;
     line-height: 160%;
+}
+
+@utility min-h-main {
+    min-height: calc(100vh - 48px);
+    
+    @variant lg {
+        min-height: 100vh;
+    }
 }
 
 /* custom animation */

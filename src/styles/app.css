@@ -14,6 +14,7 @@
 
 #root {
     text-align: center;
+    min-height: 100vh;
 }
 
 /* 避免dialog, dropdown 隱藏scrollbar, 畫面寬度偏移 */

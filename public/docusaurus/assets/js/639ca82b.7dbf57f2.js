@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkdocusaurus_test=self.webpackChunkdocusaurus_test||[]).push([[4601],{7690:(s,e,u)=>{u.r(e),u.d(e,{default:()=>t});u(6540);var a=u(781),c=u(4848);function t(){return(0,c.jsxs)(a.A,{children:[(0,c.jsx)("h1",{children:"My React page"}),(0,c.jsx)("p",{children:"This is a React page"})]})}}}]);
