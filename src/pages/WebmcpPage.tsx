@@ -23,7 +23,7 @@ const Declarative = (): React.ReactNode => {
   return (
     <div className="max-w-[576px] rounded-lg border border-outline-2 bg-surface-1 p-2xl shadow-light-down-3">
       <h2 className="title-lg mb-lg">Declarative API (個人資料表單)</h2>
-      <ul className="mb-lg list-disc space-y-xs pl-xl text-sm text-on-surface-variant">
+      <ul className="text-left mb-lg list-disc space-y-xs pl-xl text-sm text-on-surface-variant">
         <li>使用標準 HTML 表單宣告 Tool 等待 Agent 填寫。設定 <code>toolautosubmit</code> 屬性，當 Agent 填寫完畢會自動送出。</li>
         <li>Agent 操作期間會對應觸發 <code>:tool-form-active</code> 和 <code>:tool-submit-active</code> CSS</li>
       </ul>
@@ -121,7 +121,7 @@ const Imperative = (): React.ReactNode => {
   return (
     <div className="max-w-[576px] rounded-lg border border-outline-2 bg-surface-1 p-2xl shadow-light-down-3">
       <h2 className="title-lg mb-lg">Imperative API</h2>
-      <ul className="mb-lg list-disc space-y-xs pl-xl text-sm text-on-surface-variant">
+      <ul className="text-left mb-lg list-disc space-y-xs pl-xl text-sm text-on-surface-variant">
         <li>切換到此 Tab 時，已自動透過 <code>navigator.modelContext.registerTool</code> 註冊了 <code>addTodo</code> Tool。</li>
         <li>切換離開時會呼叫 <code>unregisterTool</code> 清除註冊。</li>
       </ul>

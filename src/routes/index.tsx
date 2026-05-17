@@ -4,7 +4,7 @@ import { Loading } from '@/components';
 
 const SidebarLayout = lazy(() => import('@/components/layout/SidebarLayout'));
 const HomePage = lazy(() => import('@/pages/HomePage'));
-const RemotionPage = lazy(() => import('@/pages/RemotionPage'));
+const RemotionPage = lazy(() => import('@/pages/Remotion/RemotionPage'));
 const GroupingPage = lazy(() => import('@/pages/GroupingPage'));
 const EmojiPage = lazy(() => import('@/pages/EmojiPage'));
 const WeatherPage = lazy(() => import('@/pages/WeatherPage'));

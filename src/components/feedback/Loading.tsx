@@ -6,9 +6,9 @@ interface LoadingProps {
 }
 
 const sizeMap = {
-  small: 'h-4 w-4 border-2',
-  medium: 'h-6 w-6 border-2',
-  large: 'h-10 w-10 border-3',
+  small: 'h-lg w-lg border-2',
+  medium: 'h-2xl w-2xl border-2',
+  large: 'h-6xl w-6xl border-3',
 } as const;
 
 export const Loading = ({ className, size = 'medium' }: LoadingProps): React.ReactNode => (

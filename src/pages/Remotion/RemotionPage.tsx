@@ -6,11 +6,11 @@ import {
     formatFrameTime,
     parseLyricsMarkdown,
     type CaptionSegment,
-} from '@/remotion/captions';
-import SubtitledVideoComposition from '@/remotion/SubtitledVideoComposition';
+} from './components/captions';
+import SubtitledVideoComposition from './components/SubtitledVideoComposition';
 
 const FPS = 30;
-const VIDEO_SOURCES = ['/video/stone.mp4', '/video/stone.mov'] as const;
+const VIDEO_SOURCES = ['/video/stone.mp4'] as const;
 const LYRICS_SRC = '/video/lyrics.md';
 const DEFAULT_DURATION_IN_FRAMES = 26 * FPS;
 const FALLBACK_LYRICS = `在草地躺著看星空
@@ -197,12 +197,12 @@ const RemotionPage = () => {
     }, []);
 
     return (
-        <main className="min-h-screen bg-[radial-gradient(circle_at_top,#2f4f4f_0%,#10182f_35%,#06070b_100%)] px-6 py-8 text-stone-50 md:px-10 md:py-10">
-            <div className="mx-auto grid max-w-2/3 gap-8 lg:grid-cols-[minmax(0,1.7fr)_360px]">
-                <section className="space-y-5">
+        <main className="min-h-main bg-[radial-gradient(circle_at_top,#2f4f4f_0%,#10182f_35%,#06070b_100%)] px-2xl py-4xl text-stone-50 md:px-6xl md:py-6xl">
+            <div className="mx-auto grid max-w-2/3 gap-4xl lg:grid-cols-[minmax(0,1.7fr)_360px]">
+                <section className="space-y-xl">
  
 
-                    <div className="overflow-hidden rounded-[36px] border border-white/12 bg-black/25 p-3 shadow-[0_40px_120px_rgba(0,0,0,0.32)] backdrop-blur-xl">
+                    <div className="overflow-hidden rounded-[36px] border border-white/12 bg-black/25 p-md shadow-[0_40px_120px_rgba(0,0,0,0.32)] backdrop-blur-xl">
                         <div
                             className="overflow-hidden rounded-[28px] bg-black"
                             style={{ aspectRatio: `${videoMetadata.width} / ${videoMetadata.height}` }}
@@ -218,7 +218,7 @@ const RemotionPage = () => {
                                 durationInFrames={videoMetadata.durationInFrames}
                                 errorFallback={({ error }) => {
                                     return (
-                                        <div className="flex h-full items-center justify-center bg-black px-6 text-center text-sm leading-7 text-red-100">
+                                        <div className="flex h-full items-center justify-center bg-black px-2xl text-center text-sm leading-7 text-red-100">
                                             Remotion 播放器發生錯誤：{error.message}
                                         </div>
                                     );
@@ -239,34 +239,34 @@ const RemotionPage = () => {
                     </div>
                 </section>
 
-                <aside className="space-y-4 text-left">
-                    <div className="rounded-[28px] border border-white/12 bg-white/8 p-5 backdrop-blur-xl">
-                        <div className="mb-4 flex items-center justify-between gap-4">
+                <aside className="space-y-lg text-left">
+                    <div className="rounded-[28px] border border-white/12 bg-white/8 p-xl backdrop-blur-xl">
+                        <div className="mb-lg flex items-center justify-between gap-lg">
                             <h2 className="text-lg font-semibold">字幕設定</h2>
-                            <span className="rounded-full bg-amber-300/18 px-3 py-1 text-xs font-medium text-amber-100">
+                            <span className="rounded-full bg-amber-300/18 px-md py-xs text-xs font-medium text-amber-100">
                                 {isLoading ? '載入中' : `${captions.length} 段字幕`}
                             </span>
                         </div>
-                        <dl className="space-y-3 text-sm text-white/70">
-                            <div className="flex items-center justify-between gap-4">
+                        <dl className="space-y-md text-sm text-white/70">
+                            <div className="flex items-center justify-between gap-lg">
                                 <dt>影片來源</dt>
                                 <dd className="font-medium text-white">{videoSrc}</dd>
                             </div>
-                            <div className="flex items-center justify-between gap-4">
+                            <div className="flex items-center justify-between gap-lg">
                                 <dt>歌詞來源</dt>
                                 <dd className="font-medium text-white">/video/lyrics.md</dd>
                             </div>
-                            <div className="flex items-center justify-between gap-4">
+                            <div className="flex items-center justify-between gap-lg">
                                 <dt>影格率</dt>
                                 <dd className="font-medium text-white">30 fps</dd>
                             </div>
-                            <div className="flex items-center justify-between gap-4">
+                            <div className="flex items-center justify-between gap-lg">
                                 <dt>影片尺寸</dt>
                                 <dd className="font-medium text-white">
                                     {videoMetadata.width} × {videoMetadata.height}
                                 </dd>
                             </div>
-                            <div className="flex items-center justify-between gap-4">
+                            <div className="flex items-center justify-between gap-lg">
                                 <dt>總長度</dt>
                                 <dd className="font-medium text-white">
                                     {formatFrameTime(videoMetadata.durationInFrames, FPS)}
@@ -274,21 +274,21 @@ const RemotionPage = () => {
                             </div>
                         </dl>
                         {warning ? (
-                            <p className="mt-4 rounded-2xl border border-amber-200/15 bg-amber-200/10 px-4 py-3 text-sm leading-6 text-amber-50">
+                            <p className="mt-lg rounded-2xl border border-amber-200/15 bg-amber-200/10 px-lg py-md text-sm leading-6 text-amber-50">
                                 {warning}
                             </p>
                         ) : null}
                     </div>
 
-                    <div className="rounded-[28px] border border-white/12 bg-black/18 p-5 backdrop-blur-xl">
-                        <h2 className="mb-4 text-lg font-semibold">字幕時間軸</h2>
-                        <div className="space-y-3">
+                    <div className="rounded-[28px] border border-white/12 bg-black/18 p-xl backdrop-blur-xl">
+                        <h2 className="mb-lg text-lg font-semibold">字幕時間軸</h2>
+                        <div className="space-y-md">
                             {captions.map((caption, index) => (
                                 <div
                                     key={caption.id}
-                                    className="rounded-2xl border border-white/8 bg-white/6 px-4 py-3"
+                                    className="rounded-2xl border border-white/8 bg-white/6 px-lg py-md"
                                 >
-                                    <div className="mb-1 flex items-center justify-between gap-3 text-xs uppercase tracking-[0.2em] text-white/48">
+                                    <div className="mb-xs flex items-center justify-between gap-md text-xs uppercase tracking-[0.2em] text-white/48">
                                         <span>#{String(index + 1).padStart(2, '0')}</span>
                                         <span>
                                             {formatFrameTime(caption.startFrame, FPS)} -{' '}
