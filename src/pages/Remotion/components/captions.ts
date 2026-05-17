@@ -6,6 +6,30 @@ export type CaptionSegment = {
   emphasis: boolean;
 };
 
+/** 以秒為單位的可編輯字幕條目（對應 captions.json 格式） */
+export type EditableCaption = {
+  id: string;
+  text: string;
+  startTime: number; // seconds
+  endTime: number;   // seconds
+  emphasis: boolean;
+};
+
+/**
+ * 編輯面板以秒為單位比較直覺；真正交給 Remotion 播放時，
+ * 仍要先轉成 frame，才能和播放器目前幀數對齊。
+ */
+export const editableCaptionToSegment = (
+  entry: EditableCaption,
+  fps: number
+): CaptionSegment => ({
+  id: entry.id,
+  text: entry.text,
+  startFrame: Math.round(entry.startTime * fps),
+  endFrame: Math.round(entry.endTime * fps),
+  emphasis: entry.emphasis,
+});
+
 const MIN_CAPTION_FRAMES = 18;
 
 const sanitizeLine = (line: string): string =>
@@ -88,6 +112,7 @@ export const formatFrameTime = (frame: number, fps: number): string => {
   const minutes = Math.floor(totalSeconds / 60);
   const seconds = totalSeconds - minutes * 60;
 
+  // 顯示成 mm:ss.s，方便側邊欄直接對照字幕區間。
   return `${String(minutes).padStart(2, '0')}:${seconds
     .toFixed(1)
     .padStart(4, '0')}`;

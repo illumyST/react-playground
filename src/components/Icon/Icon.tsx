@@ -8,6 +8,8 @@ import {
   FileDocIcon,
   FilmSlateIcon,
   MagnifyingGlassIcon,
+  CaretDownIcon,
+  CaretUpIcon,
 } from '@phosphor-icons/react';
 
 type IconName = keyof typeof ICONS;
@@ -30,6 +32,8 @@ const ICONS = {
   FileDoc: FileDocIcon, // docusaurus
   FilmSlate: FilmSlateIcon, // remotion
   MagnifyingGlass: MagnifyingGlassIcon, // search / 404
+  CaretDown: CaretDownIcon,
+  CaretUp: CaretUpIcon,
 };
 
 const Icon = ({

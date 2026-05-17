@@ -8,7 +8,7 @@ import {
   useVideoConfig,
 } from 'remotion';
 
-import type { CaptionSegment } from '@/remotion/captions';
+import type { CaptionSegment } from './captions';
 
 export type SubtitledVideoCompositionProps = {
   videoSrc: string;
@@ -16,6 +16,7 @@ export type SubtitledVideoCompositionProps = {
   captions: CaptionSegment[];
 };
 
+// 依目前 frame 找出要顯示的字幕；超過最後一段時保留最後一句，避免畫面瞬間變空。
 const findActiveCaption = (
   captions: CaptionSegment[],
   frame: number
@@ -26,11 +27,11 @@ const findActiveCaption = (
 
 const SubtitledVideoComposition = ({
   videoSrc,
-  videoLabel,
   captions,
 }: SubtitledVideoCompositionProps) => {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
+  // public 目錄下的素材會透過 staticFile 映射成 Remotion composition 可讀的路徑。
   const resolvedVideoSrc = staticFile(videoSrc.replace(/^\//u, ''));
   const activeCaption = findActiveCaption(captions, frame);
   const previousCaption =
@@ -38,6 +39,7 @@ const SubtitledVideoComposition = ({
       ? undefined
       : captions[captions.findIndex((caption) => caption.id === activeCaption.id) - 1];
 
+  // spring 會回傳一條隨時間變化的動畫曲線，用來讓字幕進場不要像硬切。
   const captionProgress =
     activeCaption == null
       ? 0
@@ -51,6 +53,7 @@ const SubtitledVideoComposition = ({
           },
         });
 
+  // 透明度與位移分開控制，讓字幕有進場、停留、退場三段式效果。
   const captionOpacity =
     activeCaption == null
       ? 0
@@ -85,46 +88,14 @@ const SubtitledVideoComposition = ({
           width: '100%',
         }}
       />
+      {/* 疊一層漸層，確保底部字幕在亮背景上仍保有可讀性。 */}
       <AbsoluteFill
         style={{
           background:
             'linear-gradient(180deg, rgba(4,10,26,0.2) 0%, rgba(4,10,26,0.08) 38%, rgba(4,10,26,0.82) 100%)',
         }}
       />
-      <AbsoluteFill style={{ justifyContent: 'space-between', padding: '44px 40px' }}>
-        <div
-          style={{
-            alignItems: 'center',
-            display: 'inline-flex',
-            gap: 12,
-            letterSpacing: '0.08em',
-          }}
-        >
-          <span
-            style={{
-              backdropFilter: 'blur(20px)',
-              background: 'rgba(255, 248, 237, 0.14)',
-              border: '1px solid rgba(255, 248, 237, 0.2)',
-              borderRadius: 999,
-              fontSize: 18,
-              fontWeight: 600,
-              padding: '10px 18px',
-              textTransform: 'uppercase',
-            }}
-          >
-            Remotion Subtitle Pass
-          </span>
-          <span
-            style={{
-              color: 'rgba(255, 247, 235, 0.72)',
-              fontSize: 20,
-              fontWeight: 500,
-            }}
-          >
-            {videoLabel ?? 'video'}
-          </span>
-        </div>
-
+      <AbsoluteFill style={{ justifyContent: 'flex-end', padding: '44px 40px' }}>
         <div
           style={{
             alignItems: 'center',
@@ -135,42 +106,43 @@ const SubtitledVideoComposition = ({
         >
           <div
             style={{
-              backdropFilter: 'blur(28px)',
-              background: 'rgba(8, 13, 31, 0.64)',
-              border: '1px solid rgba(255, 247, 235, 0.18)',
-              borderRadius: 32,
-              boxShadow: '0 28px 80px rgba(0, 0, 0, 0.34)',
+              backdropFilter: 'blur(8px)',
+              background: 'rgba(90, 144, 166, 0.15)',
+              border: '1px solid rgba(155, 218, 242, 0.15)',
+              borderRadius: 16,
+              boxShadow: '0 4px 16px rgba(0, 0, 0, 0.1)',
               marginTop: 'auto',
-              maxWidth: 980,
-              padding: '28px 34px 32px',
-              transform: `translateY(${(1 - captionProgress) * 32}px)`,
+              maxWidth: 700,
+              padding: '16px 24px',
+              transform: `translateY(${(1 - captionProgress) * 10}px)`,
               width: '100%',
             }}
           >
             <div
               style={{
-                color: 'rgba(255, 247, 235, 0.56)',
-                fontSize: 20,
-                lineHeight: 1.45,
-                marginBottom: 12,
-                minHeight: 29,
-                opacity: captionOpacity * 0.72,
+                color: 'rgba(255, 255, 255, 0.5)',
+                fontSize: 16,
+                fontWeight: 400,
+                lineHeight: 1.5,
+                marginBottom: 6,
+                minHeight: 24,
+                opacity: captionOpacity * 0.8,
                 textAlign: 'center',
+                letterSpacing: '0.02em',
               }}
             >
               {previousCaption?.text ?? ' '}
             </div>
             <div
               style={{
-                fontSize: activeCaption?.emphasis === true ? 44 : 56,
-                fontWeight: activeCaption?.emphasis === true ? 600 : 700,
-                letterSpacing:
-                  activeCaption?.emphasis === true ? '0.04em' : '0.02em',
-                lineHeight: 1.18,
-                minHeight: 132,
+                color: activeCaption?.emphasis === true ? '#9BDAF2' : '#ffffff',
+                fontSize: 32,
+                fontWeight: 500,
+                letterSpacing: '0.04em',
+                lineHeight: 1.4,
                 opacity: captionOpacity,
                 textAlign: 'center',
-                textShadow: '0 4px 24px rgba(0, 0, 0, 0.45)',
+                textShadow: '0 2px 8px rgba(0, 0, 0, 0.4)',
                 whiteSpace: 'pre-wrap',
               }}
             >
@@ -178,17 +150,17 @@ const SubtitledVideoComposition = ({
             </div>
             <div
               style={{
-                background: 'rgba(255, 247, 235, 0.12)',
+                background: 'rgba(255, 255, 255, 0.1)',
                 borderRadius: 999,
-                height: 8,
-                margin: '18px auto 0',
+                height: 2,
+                margin: '12px auto 0',
                 overflow: 'hidden',
                 width: '40%',
               }}
             >
               <div
                 style={{
-                  background: 'linear-gradient(90deg, #ffb56b 0%, #ffe8bb 100%)',
+                  background: 'linear-gradient(90deg, #5A90A6 0%, #9BDAF2 100%)',
                   borderRadius: 999,
                   height: '100%',
                   transform: `scaleX(${captionProgress})`,

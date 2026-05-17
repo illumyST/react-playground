@@ -29,7 +29,7 @@
 - Metronome：使用 Web Audio API 的節拍器
 - WebMCP：Declarative / Imperative API 範例頁
 - Docusaurus：嵌入靜態文件站內容
-- Remotion：字幕與影片播放實驗
+- Remotion：可編輯字幕時間軸與影片播放實驗
 
 ## 專案結構
 
@@ -44,7 +44,9 @@
 │  ├─ styles/          # 全域樣式與 design tokens
 │  ├─ types/           # 型別宣告
 │  └─ utils/           # 共用工具
-└─ video/              # Remotion / 字幕相關素材
+└─ public/
+	├─ docusaurus/      # Docusaurus 靜態輸出
+	└─ remotion/        # Remotion 影片、音訊、字幕素材
 ```
 
 ## 開發方式
@@ -98,3 +100,36 @@ Vite 會從 ./env 讀取環境變數。在程式碼中，透過 Vite 原生的 `
 - 這個 repo 偏向實驗用途，不保證每個 playground 都是完整產品級實作
 - 某些頁面依賴外部 API；若未設定對應 env，API 請求會安全地失敗並由 catch 區塊接手處理，介面不會崩潰。
 - public/docusaurus 內容為靜態輸出結果，可直接由頁面 iframe 載入
+
+## Remotion Playground
+
+Remotion 頁面目前使用 public/remotion 底下的素材：
+
+- stone.mp4：背景影片
+- my-song.mp3：預留的音訊素材
+- captions.json：字幕時間軸資料來源
+
+目前字幕不再由 lyrics.md 自動切段，而是直接讀取 captions.json，這樣可以更精準地控制每段字幕的開始時間、結束時間與是否強調。
+
+captions.json 格式如下：
+
+```json
+{
+  "captions": [
+    {
+      "id": "caption-1",
+      "text": "在草地躺著看星空",
+      "startTime": 0.5,
+      "endTime": 6,
+      "emphasis": false
+    }
+  ]
+}
+```
+
+欄位說明：
+
+- id：字幕識別值，用於 React list key 與編輯操作
+- text：字幕內容
+- startTime / endTime：以秒為單位，頁面會再換算成 Remotion 的 frame
+- emphasis：是否用較強的視覺樣式顯示這句字幕
