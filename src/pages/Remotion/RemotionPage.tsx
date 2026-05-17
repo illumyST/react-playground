@@ -197,14 +197,16 @@ const RemotionPage = () => {
     }, []);
 
     return (
-        <main className="min-h-main bg-[radial-gradient(circle_at_top,#2f4f4f_0%,#10182f_35%,#06070b_100%)] px-2xl py-4xl text-stone-50 md:px-6xl md:py-6xl">
-            <div className="mx-auto grid max-w-2/3 gap-4xl lg:grid-cols-[minmax(0,1.7fr)_360px]">
+        <div className="flex w-full min-h-main flex-col space-y-lg">
+            <h1 className="title-2xl">Remotion</h1>
+            
+            <div className="grid gap-4xl lg:grid-cols-[minmax(0,1.7fr)_360px]">
                 <section className="space-y-xl">
  
 
-                    <div className="overflow-hidden rounded-[36px] border border-white/12 bg-black/25 p-md shadow-[0_40px_120px_rgba(0,0,0,0.32)] backdrop-blur-xl">
+                    <div className="overflow-hidden rounded-lg border border-outline-2 bg-surface-1 p-md shadow-light-down-3">
                         <div
-                            className="overflow-hidden rounded-[28px] bg-black"
+                            className="overflow-hidden rounded-md bg-black"
                             style={{ aspectRatio: `${videoMetadata.width} / ${videoMetadata.height}` }}
                         >
                             <Player
@@ -218,7 +220,7 @@ const RemotionPage = () => {
                                 durationInFrames={videoMetadata.durationInFrames}
                                 errorFallback={({ error }) => {
                                     return (
-                                        <div className="flex h-full items-center justify-center bg-black px-2xl text-center text-sm leading-7 text-red-100">
+                                        <div className="flex h-full items-center justify-center bg-black px-2xl text-center text-sm leading-7 text-rose-500">
                                             Remotion 播放器發生錯誤：{error.message}
                                         </div>
                                     );
@@ -240,69 +242,69 @@ const RemotionPage = () => {
                 </section>
 
                 <aside className="space-y-lg text-left">
-                    <div className="rounded-[28px] border border-white/12 bg-white/8 p-xl backdrop-blur-xl">
+                    <div className="rounded-lg border border-outline-2 bg-surface-1 p-xl shadow-light-down-3">
                         <div className="mb-lg flex items-center justify-between gap-lg">
-                            <h2 className="text-lg font-semibold">字幕設定</h2>
-                            <span className="rounded-full bg-amber-300/18 px-md py-xs text-xs font-medium text-amber-100">
+                            <h2 className="title-lg">字幕設定</h2>
+                            <span className="rounded-md border border-outline-2 bg-surface-3 px-md py-xs text-xs font-medium text-on-surface">
                                 {isLoading ? '載入中' : `${captions.length} 段字幕`}
                             </span>
                         </div>
-                        <dl className="space-y-md text-sm text-white/70">
+                        <dl className="space-y-md text-sm text-on-surface-variant">
                             <div className="flex items-center justify-between gap-lg">
                                 <dt>影片來源</dt>
-                                <dd className="font-medium text-white">{videoSrc}</dd>
+                                <dd className="font-medium text-on-surface">{videoSrc}</dd>
                             </div>
                             <div className="flex items-center justify-between gap-lg">
                                 <dt>歌詞來源</dt>
-                                <dd className="font-medium text-white">/video/lyrics.md</dd>
+                                <dd className="font-medium text-on-surface">/video/lyrics.md</dd>
                             </div>
                             <div className="flex items-center justify-between gap-lg">
                                 <dt>影格率</dt>
-                                <dd className="font-medium text-white">30 fps</dd>
+                                <dd className="font-medium text-on-surface">30 fps</dd>
                             </div>
                             <div className="flex items-center justify-between gap-lg">
                                 <dt>影片尺寸</dt>
-                                <dd className="font-medium text-white">
+                                <dd className="font-medium text-on-surface">
                                     {videoMetadata.width} × {videoMetadata.height}
                                 </dd>
                             </div>
                             <div className="flex items-center justify-between gap-lg">
                                 <dt>總長度</dt>
-                                <dd className="font-medium text-white">
+                                <dd className="font-medium text-on-surface">
                                     {formatFrameTime(videoMetadata.durationInFrames, FPS)}
                                 </dd>
                             </div>
                         </dl>
                         {warning ? (
-                            <p className="mt-lg rounded-2xl border border-amber-200/15 bg-amber-200/10 px-lg py-md text-sm leading-6 text-amber-50">
+                            <p className="mt-lg rounded-md border border-rose-500/20 bg-rose-500/10 px-lg py-md text-sm leading-6 text-rose-500">
                                 {warning}
                             </p>
                         ) : null}
                     </div>
 
-                    <div className="rounded-[28px] border border-white/12 bg-black/18 p-xl backdrop-blur-xl">
-                        <h2 className="mb-lg text-lg font-semibold">字幕時間軸</h2>
+                    <div className="rounded-lg border border-outline-2 bg-surface-1 p-xl shadow-light-down-3">
+                        <h2 className="title-lg mb-lg">字幕時間軸</h2>
                         <div className="space-y-md">
                             {captions.map((caption, index) => (
                                 <div
                                     key={caption.id}
-                                    className="rounded-2xl border border-white/8 bg-white/6 px-lg py-md"
+                                    className="rounded-md border border-outline-2 bg-surface-3 px-lg py-md"
                                 >
-                                    <div className="mb-xs flex items-center justify-between gap-md text-xs uppercase tracking-[0.2em] text-white/48">
+                                    <div className="mb-xs flex items-center justify-between gap-md text-xs uppercase tracking-[0.2em] text-on-surface-variant">
                                         <span>#{String(index + 1).padStart(2, '0')}</span>
                                         <span>
                                             {formatFrameTime(caption.startFrame, FPS)} -{' '}
                                             {formatFrameTime(caption.endFrame, FPS)}
                                         </span>
                                     </div>
-                                    <p className="text-sm leading-6 text-white/88">{caption.text}</p>
+                                    <p className="text-sm leading-6 text-on-surface">{caption.text}</p>
                                 </div>
                             ))}
                         </div>
                     </div>
                 </aside>
             </div>
-        </main>
+        </div>
     );
 };
 

@@ -1,73 +1,100 @@
-# React + TypeScript + Vite
+# React Playground
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+這個專案是個人的 React Playground，用來快速試驗新的套件、互動元件、瀏覽器 API、外部服務串接，以及一些小型工具頁面的實作方式。
 
-Currently, two official plugins are available:
+## 目的
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- 作為 React / TypeScript / Vite 的實驗場
+- 快速驗證新套件是否適合之後的正式專案
+- 累積可重用的 UI primitive、頁面模式與整合經驗
+- 放置獨立的小工具或 demo，而不是單一產品功能
 
-## React Compiler
+## 技術棧
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- React 19
+- TypeScript 5
+- Vite 7（rolldown-vite）
+- React Router 6
+- Tailwind CSS 4
+- Axios
+- React Hook Form
+- ESLint 9 + Prettier
+- pnpm
 
-## Expanding the ESLint configuration
+## 目前功能
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+- Grouping Tool：隨機分組，支援拖曳調整名單
+- Emoji：搜尋 emoji、依群組篩選、點擊複製
+- Weather API：查詢城市即時天氣
+- Metronome：使用 Web Audio API 的節拍器
+- WebMCP：Declarative / Imperative API 範例頁
+- Docusaurus：嵌入靜態文件站內容
+- Remotion：字幕與影片播放實驗
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+## 專案結構
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```text
+.
+├─ env/                # Vite environment files
+├─ public/             # 靜態資源與 Docusaurus 輸出
+├─ src/
+│  ├─ components/      # 可重用元件
+│  ├─ pages/           # 各 playground 頁面
+│  ├─ routes/          # 路由配置
+│  ├─ styles/          # 全域樣式與 design tokens
+│  ├─ types/           # 型別宣告
+│  └─ utils/           # 共用工具
+└─ video/              # Remotion / 字幕相關素材
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## 開發方式
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+### 需求
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+- Node.js 20.17+
+- pnpm 9+
+
+### 安裝與啟動
+
+```bash
+pnpm install
+pnpm dev
 ```
+
+### 常用指令
+
+```bash
+pnpm dev
+pnpm build
+pnpm lint
+pnpm preview
+```
+
+## Environment Variables
+
+Vite 會從 ./env 讀取環境變數。在程式碼中，透過 Vite 原生的 `import.meta.env.VITE_XXX` 來存取環境變數。
+
+### 已使用的 env 值
+
+- VITE_APP_NAME：應用名稱
+- VITE_API_BASE_URL：共用 API base URL
+- VITE_ENABLE_MOCK：是否啟用 mock
+- VITE_FEATURE_EXPERIMENTAL_UI：是否開啟實驗性 UI
+- VITE_EMOJI_API_URL：Emoji API endpoint
+- VITE_EMOJI_API_KEY：Emoji API access key
+- VITE_WEATHER_API_URL：OpenWeather API endpoint
+- VITE_WEATHER_API_KEY：OpenWeather API key
+- VITE_WEATHER_ICON_BASE_URL：Weather icon base URL
+
+### 這次盤點後，適合放入 env 的值
+
+- EmojiPage 內的 access_key
+- WeatherPage 內的 OpenWeather API key
+- 外部 API endpoint URL
+- 既有的 app name / feature flags / API base URL
+
+## 備註
+
+- 這個 repo 偏向實驗用途，不保證每個 playground 都是完整產品級實作
+- 某些頁面依賴外部 API；若未設定對應 env，API 請求會安全地失敗並由 catch 區塊接手處理，介面不會崩潰。
+- public/docusaurus 內容為靜態輸出結果，可直接由頁面 iframe 載入
