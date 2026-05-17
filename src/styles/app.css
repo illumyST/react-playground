@@ -1,0 +1,41 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@375;550&family=Roboto+Flex:wght@375;550&display=swap');
+
+:root {
+    font-family: 'Roboto Flex', 'Noto Sans TC', system-ui;
+    line-height: 1.6;
+    font-weight: 375;
+    font-synthesis: none;
+    font-feature-settings:
+        'kern' 1,
+        'liga' 1;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+#root {
+    text-align: center;
+    min-height: 100vh;
+}
+
+/* 避免dialog, dropdown 隱藏scrollbar, 畫面寬度偏移 */
+html body[data-scroll-locked] {
+    --removed-body-scroll-bar-size: 0 !important;
+
+    margin-right: 0 !important;
+    overflow-y: auto !important;
+}
+
+/* 複寫highcharts的inline style */
+.highcharts-root,
+.highcharts-subtitle,
+.highcharts-tooltip > span,
+.highcharts-legend-item > span {
+    font-family: 'Roboto Flex', 'Noto Sans TC', sans-serif !important;
+    font-size: 12px;
+    line-height: 160%;
+}
+
+/* hide default legend dot (when set custom legend label) */
+.highcharts-root .hidden-legend-dot g.highcharts-legend-item {
+    display: none;
+}

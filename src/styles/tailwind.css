@@ -1,0 +1,388 @@
+/* default tailwind setup */
+@import 'tailwindcss';
+
+/* animate related library */
+@import 'tw-animate-css';
+
+/* design token converted tailwind theme variables: colors, shadows */
+@import './tokens.css';
+
+@theme {
+    /* breakpoints */
+    --breakpoint-*: initial;
+    --breakpoint-sm: 0px;
+    --breakpoint-md: 441px;
+    --breakpoint-lg: 1025px;
+    --breakpoint-xl: 1280px;
+
+    /* font */
+    --font-roboto-flex: 'Roboto Flex', 'sans-serif';
+    --font-noto-sans-tc: 'Noto Sans TC', 'sans-serif';
+
+    /* font-weight */
+    --font-weight-*: initial;
+    --font-weight-normal: 375;
+    --font-weight-bold: 550;
+
+    /* text */
+    --text-*: initial;
+    --text-xs: 0.75rem; /* 12px */
+    --text-xs--line-height: 160%;
+    --text-sm: 0.875rem; /* 14px */
+    --text-sm--line-height: 160%;
+    --text-base: 1rem; /* 16px */
+    --text-base--line-height: 160%;
+    --text-md: 1rem; /* 16px */
+    --text-md--line-height: 160%;
+    --text-lg: 1.125rem; /* 18px */
+    --text-lg--line-height: 160%;
+    --text-xl: 1.25rem; /* 20px */
+    --text-xl--line-height: 160%;
+    --text-2xl: 1.5rem; /* 24px */
+    --text-2xl--line-height: 160%;
+    --text-3xl: 2rem; /* 32px */
+    --text-3xl--line-height: 160%;
+    --text-4xl: 2.25rem; /* 36px */
+    --text-4xl--line-height: 160%;
+    --text-5xl: 3rem; /* 48px */
+    --text-5xl--line-height: 160%;
+
+    /* spacing */
+    --spacing-*: initial;
+    --spacing-0: 0;
+    --spacing-xs: 4px;
+    --spacing-sm: 8px;
+    --spacing-md: 12px;
+    --spacing-lg: 16px;
+    --spacing-xl: 20px;
+    --spacing-2xl: 24px;
+    --spacing-3xl: 28px;
+    --spacing-4xl: 32px;
+    --spacing-5xl: 36px;
+    --spacing-6xl: 40px;
+    --spacing-7xl: 100px;
+    
+    /* 修正 w-full, h-full 因 --spacing-*: initial 而失效的問題 */
+    --spacing-full: 100%;
+
+    /* header spacings */
+    --spacing-header-mobile: 56px;
+    --spacing-header-desktop: 66px;
+
+    /* radius */
+    --radius-*: initial;
+    --radius-sm: 4px;
+    --radius-md: 6px;
+    --radius-lg: 12px;
+
+    /* color with alpha */
+    --color-overlay-4: rgba(255, 255, 255, 0.04);
+    --color-overlay-3: rgba(0, 0, 0, 0.06);
+    --color-overlay-2: rgba(0, 0, 0, 0.04);
+    --color-overlay-1: rgba(0, 0, 0, 0.5);
+    --color-surface-2: rgba(255, 255, 255, 0.8);
+
+    --color-white: #fff;
+    --color-black: #000;
+    --color-shimmer-end: #f1f1f1;
+
+    /* width */
+    --width-mobile-select: calc(100dvw - 40px);
+
+    @keyframes accordion-down {
+        from {
+            height: 0;
+        }
+        to {
+            height: var(--radix-accordion-content-height);
+        }
+    }
+
+    @keyframes accordion-up {
+        from {
+            height: var(--radix-accordion-content-height);
+        }
+        to {
+            height: 0;
+        }
+    }
+
+    @keyframes collapsible-down {
+        from {
+            height: 0;
+        }
+        to {
+            height: var(--radix-collapsible-content-height);
+        }
+    }
+
+    @keyframes collapsible-up {
+        from {
+            height: var(--radix-collapsible-content-height);
+        }
+        to {
+            height: 0;
+        }
+    }
+}
+
+/*
+  The default border color has changed to `currentColor` in Tailwind CSS v4,
+  so we've added these compatibility styles to make sure everything still
+  looks the same as it did with Tailwind CSS v3.
+
+  If we ever want to remove these styles, we need to add an explicit border
+  color utility to any element that depends on these defaults.
+*/
+
+@layer base {
+    *,
+    ::after,
+    ::before,
+    ::backdrop,
+    ::file-selector-button {
+        border-color: var(--color-outline-5, currentColor);
+    }
+}
+
+@layer base {
+    html {
+        /* 預設的黑色字體顏色 */
+        @apply text-on-surface;
+    }
+
+    :focus-visible {
+        outline: none;
+    }
+
+    /* remove input [type=number] 上下箭頭 */
+    input[type='number']::-webkit-inner-spin-button,
+    input[type='number']::-webkit-outer-spin-button {
+        appearance: none;
+        margin: 0;
+    }
+}
+
+/* 複寫 tailwind內建的 utility - container, 預設會以pixel填滿breakpoint定義的寬度, 並且只能以padding控制container外的間距, 無法用margin控制 */
+@utility container {
+    max-width: 100%;
+
+    @variant sm {
+        padding-inline: 20px;
+    }
+
+    @variant md {
+        padding-inline: 32px;
+    }
+
+    @variant lg {
+        padding-inline: 40px;
+    }
+
+    @variant xl {
+        max-width: 1200px;
+        padding-inline: 0;
+        margin-inline: auto;
+    }
+}
+
+/** utility 自定義className */
+
+/* titles */
+@utility title-xs {
+    font-weight: var(--font-weight-bold);
+    font-size: 0.875rem;
+    line-height: 160%;
+}
+
+@utility title-sm {
+    font-weight: var(--font-weight-bold);
+    font-size: 1rem;
+    line-height: 160%;
+}
+
+@utility title-md {
+    font-weight: var(--font-weight-bold);
+    font-size: 1.125rem;
+    line-height: 160%;
+}
+
+@utility title-lg {
+    font-weight: var(--font-weight-bold);
+    font-size: 1.25rem;
+    line-height: 160%;
+}
+
+@utility title-xl {
+    font-weight: var(--font-weight-bold);
+    font-size: 1.375rem;
+    line-height: 160%;
+}
+
+@utility title-2xl {
+    font-weight: var(--font-weight-bold);
+    font-size: 1.5rem;
+    line-height: 160%;
+}
+
+@utility title-3xl {
+    font-weight: var(--font-weight-bold);
+    font-size: 1.625rem;
+    line-height: 160%;
+}
+
+@utility min-h-main {
+    min-height: calc(100vh - 48px);
+    
+    @variant lg {
+        min-height: 100vh;
+    }
+}
+
+/* custom animation */
+@utility animate-accordion-down {
+    animation: accordion-down 0.2s ease-out;
+}
+
+@utility animate-accordion-up {
+    animation: accordion-up 0.2s ease-out;
+}
+
+@utility animate-collapsible-down {
+    animation: collapsible-down 0.2s ease-out;
+}
+
+@utility animate-collapsible-up {
+    animation: collapsible-up 0.2s ease-out;
+}
+
+/* overlay style - 會在原件上蓋上一層透明色 */
+@utility overlay-2 {
+    /* 在畫面上蓋上4%的黑色 */
+    @apply relative after:pointer-events-none after:absolute after:inset-0 after:bg-black after:opacity-[0.04];
+}
+
+@utility overlay-3 {
+    /* 在畫面上蓋上6%的黑色 */
+    @apply relative after:pointer-events-none after:absolute after:inset-0 after:bg-black after:opacity-[0.06];
+}
+
+@utility accessible-zone {
+    /* 無障礙觸控範圍 讓感應區有48*48px而不改變元件尺寸 min width, height 48px */
+    @apply relative before:absolute before:top-1/2 before:left-1/2 before:h-full before:min-h-[48px] before:w-full before:min-w-[48px] before:-translate-x-1/2 before:-translate-y-1/2;
+}
+
+/* shimmer */
+@utility shimmer-bg {
+    /* Shimmer */
+    @apply from-gray-150 to-shimmer-end/60 animate-pulse bg-linear-to-r;
+}
+
+/* page loading */
+@utility page-spin-bg {
+    &:before {
+        @apply top-header-mobile lg:top-header-desktop fixed right-0 bottom-0 left-0 content-[''];
+        @apply bg-overlay-3 z-80 backdrop-blur-[1.5px];
+        @apply pointer-events-auto;
+    }
+}
+
+/* managePage, dashboardPage background */
+@utility gradient-bg {
+    @apply bg-contain bg-no-repeat;
+    @apply bg-[url("/assets/layout/robo-gradient_mb.png")] md:bg-[url("/assets/layout/robo-gradient_tb.png")] lg:bg-[url("/assets/layout/robo-gradient_pc.png")];
+}
+
+@utility scroll-base {
+    box-sizing: border-box;
+    @apply box-border overflow-scroll;
+
+    scrollbar-gutter: stable;
+
+    /* 滾動條的底部控制 */
+    &::-webkit-scrollbar-corner {
+        @apply bg-transparent;
+    }
+
+    /* Fallback for iOS, 右邊推scrollbar寬度，避免緊貼右邊邊緣 */
+    @supports (-webkit-touch-callout: none) {
+        padding-right: 16px;
+    }
+
+    /* 在下拉選單(Select, ChipSelect) 時重設 iOS裝置的 padding-right */
+    &[data-radix-select-viewport] {
+        @supports (-webkit-touch-callout: none) {
+            padding-right: 0;
+        }
+    }
+
+    &::-webkit-scrollbar {
+        @apply h-lg w-lg;
+    }
+}
+/* 
+ * 請在需要使用scroll的區塊外一層使用 .scroll或 scroll-x, scroll-y
+ * scroll-x, scroll-y 只會在對應的軸保留空白spacing
+ */
+
+/* Only vertical scroll, gutter on y axis */
+@utility scroll-y {
+    @apply scroll-base overflow-x-hidden overflow-y-scroll;
+    scrollbar-gutter: stable vertical;
+
+    /* 滾動條軌道 - 垂直 */
+    &::-webkit-scrollbar-track:vertical {
+        @apply mx-md bg-transparent;
+    }
+
+    /* 滾動條滑塊 - 垂直 */
+    &::-webkit-scrollbar-thumb:vertical {
+        @apply bg-surface-5 rounded-[7.5px] border-y-0 border-solid border-white;
+    }
+}
+
+/* Only horizontal scroll, gutter on x axis */
+@utility scroll-x {
+    @apply scroll-base overflow-x-scroll overflow-y-hidden;
+    scrollbar-gutter: stable horizontal;
+
+    /* 滾動條軌道 - 水平 */
+    &::-webkit-scrollbar-track:horizontal {
+        @apply my-md bg-transparent;
+    }
+
+    /* 滾動條滑塊 - 水平 */
+    &::-webkit-scrollbar-thumb:horizontal {
+        @apply bg-surface-5 rounded-[7.5px] border-x-0 border-solid border-white;
+    }
+}
+
+/* Both axis scroll, gutter on both */
+@utility scroll {
+    @apply scroll-base overflow-auto;
+    scrollbar-gutter: stable both-edges;
+
+    /* 滾動條軌道 - 垂直 */
+    &::-webkit-scrollbar-track:vertical {
+        @apply mx-md bg-transparent;
+    }
+
+    /* 滾動條滑塊 - 垂直 */
+    &::-webkit-scrollbar-thumb:vertical {
+        @apply bg-surface-5 rounded-[7.5px] border-y-0 border-solid border-white;
+    }
+
+    /* 滾動條軌道 - 水平 */
+    &::-webkit-scrollbar-track:horizontal {
+        @apply my-md bg-transparent;
+    }
+
+    /* 滾動條滑塊 - 水平 */
+    &::-webkit-scrollbar-thumb:horizontal {
+        @apply bg-surface-5 rounded-[7.5px] border-x-0 border-solid border-white;
+    }
+}
+
+@utility scroll-none {
+    scrollbar-gutter: unset;
+}

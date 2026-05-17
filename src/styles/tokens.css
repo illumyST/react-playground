@@ -1,0 +1,226 @@
+@theme {
+    /* ===== Semantic Colors ===== */
+
+    /* Primary — 鋼藍色系 (源自 #5A90A6 / #9BDAF2) */
+    --color-primary: #5A90A6;
+    --color-primary-hover: #4A7A8F;
+    --color-primary-active: #3B6578;
+    --color-primary-light: #9BDAF2;
+    --color-primary-container: #E8F4FA;
+    --color-primary-container-disabled: #e7e7e7;
+    --color-primary-disabled: #bdbdbd;
+    --color-on-primary: #fff;
+
+    /* Secondary / Product — 柔粉色系 (源自 #F2B3C0) */
+    --color-secondary: #D4728A;
+    --color-secondary-hover: #BF5A74;
+    --color-secondary-active: #A8445F;
+    --color-secondary-light: #F2B3C0;
+    --color-secondary-container: #FDF0F3;
+    --color-secondary-variant: #E8899E;
+    --color-on-secondary: #fff;
+
+    /* Highlight — 柔黃色 (源自 #F2ED83) */
+    --color-highlight: #F2ED83;
+    --color-highlight-hover: #E5DF5C;
+    --color-highlight-container: #FDFCE8;
+    --color-on-highlight: #4A4700;
+
+    /* Muted — 橄欖色 (源自 #A6A262) */
+    --color-muted: #A6A262;
+    --color-muted-hover: #8F8B4F;
+    --color-muted-container: #F5F4E8;
+    --color-on-muted: #fff;
+
+    /* Focus */
+    --color-focus: #5A90A6;
+    --color-focus-variant-1: #3B6578;
+
+    /* Error */
+    --color-error: #bc0000;
+    --color-error-container-1: #fdf2f2;
+    --color-error-container-2: #fce1e1;
+    --color-error-container-3: #facfcf;
+    --color-error-outline: #facfcf;
+    --color-error-variant-1: #ec5555;
+    --color-error-variant-2: #f38282;
+    --color-on-error: #fff;
+
+    /* Success */
+    --color-success: #0a6a36;
+    --color-success-container-1: #e9f8f0;
+    --color-success-container-2: #cbefdc;
+    --color-success-container-3: #ade6c7;
+    --color-success-outline: #ade6c7;
+    --color-success-variant-1: #1d9c58;
+    --color-success-variant-2: #3bb875;
+    --color-on-success: #fff;
+
+    /* Warning */
+    --color-warning: #d56c00;
+    --color-warning-container-1: #fff3e6;
+    --color-warning-container-2: #ffe2c2;
+    --color-warning-container-3: #ffd19d;
+    --color-warning-outline: #ffd19d;
+    --color-warning-variant-1: #944600;
+    --color-warning-variant-2: #f28815;
+    --color-on-warning: #fff;
+
+    /* Neutral / Surface */
+    --color-neutral: #5c5c5c;
+    --color-neutral-container-1: #e7e7e7;
+    --color-neutral-container-2: #d9d9d9;
+    --color-neutral-outline: #d9d9d9;
+    --color-neutral-variant-1: #898989;
+    --color-neutral-variant-2: #a3a3a3;
+    --color-on-neutral: #fff;
+
+    --color-on-surface: #373737;
+    --color-on-surface-variant: #707070;
+    --color-surface: #f5f5f5;
+    --color-surface-1: #fff;
+    --color-surface-1-disabled: #f5f5f5;
+    --color-surface-2: #fff;
+    --color-surface-3: #f5f5f5;
+    --color-surface-4: #e7e7e7;
+    --color-surface-5: #bdbdbd;
+
+    --color-inverse-surface: #494949;
+    --color-inverse-surface-variant: #898989;
+    --color-on-inverse-surface: #fff;
+
+    --color-positive: #dd1b1b;
+    --color-negative: #1d9c58;
+    --color-steady: #707070;
+    --color-read-only: #898989;
+    --color-on-read-only: #fff;
+
+    /* Outline */
+    --color-outline: #898989;
+    --color-outline-1: #f5f5f5;
+    --color-outline-2: #e7e7e7;
+    --color-outline-3: #bdbdbd;
+    --color-outline-4: #fff;
+    --color-outline-5: #d9d9d9;
+    --color-outline-hover: #5c5c5c;
+
+    /* Overlay */
+    --color-overlay-1: #000;
+    --color-overlay-2: #000;
+    --color-overlay-3: #000;
+    --color-overlay-4: #fff;
+
+    /* Table */
+    --color-table-collapse: #f5f5f5;
+    --color-table-main-category: #fff;
+    --color-table-row: #fff;
+    --color-table-subcategory: #f5f5f5;
+    --color-table-title: #e7e7e7;
+    --color-table-total: #e7e7e7;
+
+    /* ===== Palette Scales ===== */
+
+    /* Steel Blue — 主色色階 (源自 #9BDAF2 / #5A90A6) */
+    --color-steel-50: #E8F4FA;
+    --color-steel-100: #C8E8F6;
+    --color-steel-200: #9BDAF2;
+    --color-steel-300: #74C4E5;
+    --color-steel-400: #5AACC9;
+    --color-steel-500: #5A90A6;
+    --color-steel-600: #4A7A8F;
+    --color-steel-700: #3B6578;
+    --color-steel-800: #2D5062;
+    --color-steel-900: #1F3B4C;
+    --color-steel-1000: #122736;
+
+    /* Rose — 輔助色色階 (源自 #F2B3C0) */
+    --color-rose-50: #FDF0F3;
+    --color-rose-100: #FBDCE3;
+    --color-rose-200: #F2B3C0;
+    --color-rose-300: #E8899E;
+    --color-rose-400: #DE6580;
+    --color-rose-500: #D4728A;
+    --color-rose-600: #BF5A74;
+    --color-rose-700: #A8445F;
+    --color-rose-800: #8A304B;
+    --color-rose-900: #6C1F38;
+    --color-rose-1000: #4E1126;
+
+    /* Olive — 橄欖色階 (源自 #F2ED83 / #A6A262) */
+    --color-olive-50: #FDFCE8;
+    --color-olive-100: #F9F7C4;
+    --color-olive-200: #F2ED83;
+    --color-olive-300: #E0DA5C;
+    --color-olive-400: #C4BF47;
+    --color-olive-500: #A6A262;
+    --color-olive-600: #8F8B4F;
+    --color-olive-700: #78753E;
+    --color-olive-800: #615E2F;
+    --color-olive-900: #4A4722;
+    --color-olive-1000: #333115;
+
+    /* Gray */
+    --color-gray-0: #fff;
+    --color-gray-100: #f5f5f5;
+    --color-gray-1000: #262626;
+    --color-gray-1100: #000;
+    --color-gray-150: #e7e7e7;
+    --color-gray-200: #d9d9d9;
+    --color-gray-300: #bdbdbd;
+    --color-gray-400: #a3a3a3;
+    --color-gray-500: #898989;
+    --color-gray-600: #707070;
+    --color-gray-700: #5c5c5c;
+    --color-gray-800: #494949;
+    --color-gray-900: #373737;
+
+    /* Green */
+    --color-green-100: #e9f8f0;
+    --color-green-1000: #032c16;
+    --color-green-150: #cbefdc;
+    --color-green-200: #ade6c7;
+    --color-green-300: #6ed09b;
+    --color-green-400: #3bb875;
+    --color-green-500: #1d9c58;
+    --color-green-600: #0f8144;
+    --color-green-700: #0a6a36;
+    --color-green-800: #06542a;
+    --color-green-900: #044020;
+
+    /* Orange */
+    --color-orange-100: #fff3e6;
+    --color-orange-1000: #3f1d00;
+    --color-orange-150: #ffe2c2;
+    --color-orange-200: #ffd19d;
+    --color-orange-300: #ffab50;
+    --color-orange-400: #f28815;
+    --color-orange-500: #d56c00;
+    --color-orange-600: #b25700;
+    --color-orange-700: #944600;
+    --color-orange-800: #763700;
+    --color-orange-900: #592a00;
+
+    /* Red */
+    --color-red-100: #fdf2f2;
+    --color-red-1000: #550000;
+    --color-red-150: #fce1e1;
+    --color-red-200: #facfcf;
+    --color-red-300: #f7a9a9;
+    --color-red-400: #f38282;
+    --color-red-500: #ec5555;
+    --color-red-600: #dd1b1b;
+    --color-red-700: #bc0000;
+    --color-red-800: #970000;
+    --color-red-900: #750000;
+
+    /* ===== Shadows ===== */
+    --shadow-light-down-1: 0px 4px 14px 0px rgb(0 0 0 / 10%);
+    --shadow-light-down-2: 0px 6px 10px 0px rgb(0 0 0 / 12%);
+    --shadow-light-down-3: 0px 2px 4px 0px rgb(0 0 0 / 6%);
+    --shadow-light-up-2: 0px -4px 8px 0px rgb(0 0 0 / 10%);
+    --shadow-light-up-3: 0px -4px 8px 0px rgb(0 0 0 / 8%);
+    --shadow-dark-down-2: 0px 4px 8px 0px rgb(0 0 0 / 20%);
+    --shadow-dark-down-3: 0px 4px 8px 0px rgb(0 0 0 / 16%);
+    --shadow-dark-up-2: 0px -4px 8px 0px rgb(0 0 0 / 20%);
+    --shadow-dark-up-3: 0px -4px 8px 0px rgb(0 0 0 / 16%);
+}
