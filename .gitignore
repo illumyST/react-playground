@@ -32,3 +32,6 @@ backend/**/.pytest_cache
 # Hospital mock server
 backend/hospital/mock-server/dist
 backend/hospital/mock-server/src/backup
+
+# TypeScript incremental build info
+*.tsbuildinfo
