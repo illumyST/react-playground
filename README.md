@@ -109,7 +109,7 @@ pnpm setup:copilot-backend
 pnpm dev:copilot-backend
 ```
 
-啟動前請先在 `env/.env.development` 設定 `GEMINI_API_KEY`。
+啟動前請先在 `env/.env.development.local` 設定 `GEMINI_API_KEY`（此檔不進版控；Vite、Node runtime、Python backend 都會讓 `.local` 優先於 `env/.env.development`）。
 
 ## Environment Variables
 

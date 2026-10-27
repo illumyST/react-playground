@@ -16,7 +16,7 @@ pnpm dev:copilot-backend
 
 ## 環境變數
 
-請在 `env/.env.development` 設定下列值：
+請在 `env/.env.development.local` 設定下列值（此檔不進版控，會優先於 `env/.env.development`）：
 
 - `GEMINI_API_KEY`
 - `COPILOTKIT_MODEL`（可選，預設 `gemini-2.5-flash`）

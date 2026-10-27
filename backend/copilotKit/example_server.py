@@ -12,6 +12,9 @@ from openai import OpenAI
 
 repo_root = Path(__file__).resolve().parents[2]
 env_file = '.env.production' if os.getenv('NODE_ENV') == 'production' else '.env.development'
+# 與 Vite 相同：.local（不進版控，放 API key 等機密）優先於共用的 env 檔。
+# load_dotenv 預設不覆寫已存在的變數，所以先載入 .local。
+load_dotenv(repo_root / 'env' / f'{env_file}.local')
 load_dotenv(repo_root / 'env' / env_file)
 
 app = FastAPI()
@@ -22,7 +25,7 @@ def build_client() -> OpenAI:
     if not api_key:
         raise RuntimeError(
             'GEMINI_API_KEY or GOOGLE_GENERATIVE_AI_API_KEY is not set. '
-            'Update env/.env.development before starting Highcharts Copilot backend.'
+            'Update env/.env.development.local before starting Highcharts Copilot backend.'
         )
 
     return OpenAI(
