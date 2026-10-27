@@ -1,1 +1,0 @@
-"""Highcharts Copilot backend package."""

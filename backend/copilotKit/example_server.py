@@ -10,7 +10,7 @@ from fastapi import FastAPI
 from openai import OpenAI
 
 
-repo_root = Path(__file__).resolve().parents[1]
+repo_root = Path(__file__).resolve().parents[2]
 env_file = '.env.production' if os.getenv('NODE_ENV') == 'production' else '.env.development'
 load_dotenv(repo_root / 'env' / env_file)
 

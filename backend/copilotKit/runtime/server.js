@@ -6,7 +6,7 @@ import dotenv from 'dotenv';
 
 const currentFile = fileURLToPath(import.meta.url);
 const currentDir = path.dirname(currentFile);
-const repoRoot = path.resolve(currentDir, '..');
+const repoRoot = path.resolve(currentDir, '..', '..', '..');
 const envFile = process.env.NODE_ENV === 'production' ? '.env.production' : '.env.development';
 
 dotenv.config({ path: path.join(repoRoot, 'env', envFile) });

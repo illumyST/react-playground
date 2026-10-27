@@ -9,13 +9,13 @@
   "packageManager": "pnpm@9.12.0",
   "type": "module",
   "scripts": {
-    "dev": "concurrently -k -s first \"node runtime/server.js\" \"vite --mode development\"",
+    "dev": "concurrently -k -s first \"node backend/copilotKit/runtime/server.js\" \"vite --mode development\"",
     "build": "tsc -b && vite build --mode production",
     "lint": "eslint .",
     "preview": "vite preview",
-    "dev:copilot-runtime": "node runtime/server.js",
-    "setup:copilot-backend": "python3 -m venv backend/.venv && ./backend/.venv/bin/python -m pip install --upgrade pip && ./backend/.venv/bin/python -m pip install -r backend/requirements.txt",
-    "dev:copilot-backend": "./backend/.venv/bin/python -m uvicorn backend.example_server:app --reload --host 0.0.0.0 --port 8000"
+    "dev:copilot-runtime": "node backend/copilotKit/runtime/server.js",
+    "setup:copilot-backend": "python3 -m venv backend/copilotKit/.venv && ./backend/copilotKit/.venv/bin/python -m pip install --upgrade pip && ./backend/copilotKit/.venv/bin/python -m pip install -r backend/copilotKit/requirements.txt",
+    "dev:copilot-backend": "./backend/copilotKit/.venv/bin/python -m uvicorn backend.copilotKit.example_server:app --reload --host 0.0.0.0 --port 8000"
   },
   "dependencies": {
     "@copilotkit/react-core": "^1.51.3",
