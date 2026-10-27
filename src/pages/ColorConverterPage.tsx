@@ -118,7 +118,7 @@ const ColorConverterPage = (): React.ReactNode => {
             />
             {rgbError && (
               <p className="text-sm text-red-500">
-                Invalid value! Remember to add ',' between 0-255 numbers.
+                Invalid value! Remember to add &apos;,&apos; between 0-255 numbers.
               </p>
             )}
           </div>

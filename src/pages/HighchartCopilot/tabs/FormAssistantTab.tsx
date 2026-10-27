@@ -56,7 +56,7 @@ const FormAssistantTab: React.FC = () => {
     if (!def) return;
     let parsed: string | number = value;
     if (def.type === 'number') {
-      const n = Number(value.replace(/[^0-9.\-]/g, ''));
+      const n = Number(value.replace(/[^0-9.-]/g, ''));
       parsed = Number.isFinite(n) ? n : (form[key] as number) || 0;
     }
     setForm((prev) => ({ ...prev, [key]: parsed }));
@@ -71,11 +71,11 @@ const FormAssistantTab: React.FC = () => {
     const match = text.match(/\{[\s\S]*\}/);
     if (!match) return;
     try {
-      const obj = JSON.parse(match[0]) as Record<string, any>;
+      const obj = JSON.parse(match[0]) as Record<string, unknown>;
       const next: FormState = { ...form };
       for (const def of SCHEMA) {
         const v = obj[def.key];
-        if (typeof v !== 'undefined' && v !== null) {
+        if (typeof v === 'string' || typeof v === 'number') {
           next[def.key] = v;
         }
       }
@@ -91,7 +91,7 @@ const FormAssistantTab: React.FC = () => {
 
   useEffect(() => {
     if (visibleMessages && visibleMessages.length > 0) {
-      const lastMsg: any = visibleMessages[visibleMessages.length - 1];
+      const lastMsg: unknown = visibleMessages[visibleMessages.length - 1];
       if (hasMessageRole(lastMsg, Role.Assistant)) {
         const content = getMessageText(lastMsg.content);
         setAssistantText(content);
@@ -101,7 +101,7 @@ const FormAssistantTab: React.FC = () => {
 
   useEffect(() => {
     if (!isLoading && visibleMessages && visibleMessages.length > 0) {
-      const lastMsg: any = visibleMessages[visibleMessages.length - 1];
+      const lastMsg: unknown = visibleMessages[visibleMessages.length - 1];
       if (hasMessageRole(lastMsg, Role.Assistant)) {
         applyAIResult(getMessageText(lastMsg.content));
       }
@@ -161,7 +161,7 @@ const FormAssistantTab: React.FC = () => {
                 </label>
                 <Input
                   type={f.type === 'number' ? 'text' : f.type === 'date' ? 'date' : 'text'}
-                  value={(form[f.key] as any) ?? ''}
+                  value={form[f.key] ?? ''}
                   onChange={(e) => updateField(f.key, e.target.value)}
                   className={
                     missing.includes(f.key)

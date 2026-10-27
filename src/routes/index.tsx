@@ -1,6 +1,6 @@
 import { createBrowserRouter, type RouteObject } from 'react-router-dom';
-import { lazy, Suspense } from 'react';
-import { Loading } from '@/components';
+import { lazy } from 'react';
+import { SuspenseWrap } from '@/components';
 import { hospitalRoute } from '@/pages/Hospital/routes';
 
 const SidebarLayout = lazy(() => import('@/components/layout/SidebarLayout'));
@@ -15,10 +15,6 @@ const DocusaurusPage = lazy(() => import('@/pages/DocusaurusPage'));
 const NotFoundPage = lazy(() => import('@/pages/NotFoundPage'));
 const ColorConverterPage = lazy(() => import('@/pages/ColorConverterPage'));
 const HighchartCopilotPage = lazy(() => import('@/pages/HighchartCopilot'));
-
-const SuspenseWrap = ({ children }: { children: React.ReactNode }) => (
-  <Suspense fallback={<Loading className="py-7xl" size="large" />}>{children}</Suspense>
-);
 
 export const routes: RouteObject[] = [
   {

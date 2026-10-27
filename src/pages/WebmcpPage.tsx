@@ -8,7 +8,7 @@ const Declarative = (): React.ReactNode => {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const isAgent = (e.nativeEvent as any).agentInvoked;
+    const isAgent = (e.nativeEvent as SubmitEvent & { agentInvoked?: boolean }).agentInvoked;
     const formData = new FormData(e.currentTarget);
     const name = formData.get('name');
     const gender = formData.get('gender');
@@ -148,14 +148,30 @@ const Declarative = (): React.ReactNode => {
 
 /* ─── Imperative Tab ─── */
 
+// WebMCP 仍是實驗性 API，TS 內建型別沒有 navigator.modelContext，這裡只宣告用到的部分
+interface WebmcpTool {
+  name: string;
+  description: string;
+  inputSchema: Record<string, unknown>;
+  annotations?: Record<string, string>;
+  execute: (input: { text: string }) => unknown;
+}
+
+type WebmcpNavigator = Navigator & {
+  modelContext?: {
+    registerTool: (tool: WebmcpTool) => void;
+    unregisterTool?: (name: string) => void;
+  };
+};
+
 const Imperative = (): React.ReactNode => {
   const [logs, setLogs] = useState<string[]>([]);
 
   useEffect(() => {
-    const nav = window.navigator as any;
-    if (!nav.modelContext) return;
+    const { modelContext } = window.navigator as WebmcpNavigator;
+    if (!modelContext) return;
 
-    nav.modelContext.registerTool({
+    modelContext.registerTool({
       name: 'addTodo',
       description: 'Add a new item to the todo list via Imperative API',
       inputSchema: { type: 'object', properties: { text: { type: 'string' } } },
@@ -166,7 +182,7 @@ const Imperative = (): React.ReactNode => {
       },
     });
 
-    return () => nav.modelContext.unregisterTool?.('addTodo');
+    return () => modelContext.unregisterTool?.('addTodo');
   }, []);
 
   return (

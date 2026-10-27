@@ -112,7 +112,7 @@ const CopilotWidget: React.FC<CopilotWidgetProps> = ({ selectionStats }) => {
 
   useEffect(() => {
     if (messages.length > 0) {
-      const lastMsg: any = messages[messages.length - 1];
+      const lastMsg: unknown = messages[messages.length - 1];
       if (hasMessageRole(lastMsg, Role.Assistant)) {
         setDynamicSuggestions(extractFollowUps(getMessageText(lastMsg.content)));
       }
@@ -339,7 +339,7 @@ function extractFollowUps(text: string): string[] {
       .replace(/^.*?[：:]\s*/u, '')
       .trim();
 
-    const re = /(?:^|[\n\r])\s*\d+[\.、\)]\s*([^\n\r]+)/gu;
+    const re = /(?:^|[\n\r])\s*\d+[.、)]\s*([^\n\r]+)/gu;
     let m: RegExpExecArray | null;
     while ((m = re.exec(after)) && items.length < maxLen) {
       const normalized = normalizeItem(m[1]);
@@ -368,7 +368,7 @@ function extractFollowUps(text: string): string[] {
 function normalizeItem(s: string): string | null {
   const q = (s || '')
     .trim()
-    .replace(/^[\s\-•\d\.、\)]+/u, '')
+    .replace(/^[\s\-•\d.、)]+/u, '')
     .replace(/[。；;]+$/u, '')
     .trim();
   if (!q) return null;
