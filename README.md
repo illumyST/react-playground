@@ -43,7 +43,7 @@
 - Remotion（Remotion）
 - TanStack Query 5、Jotai（Hospital、Mock Admin）
 - Chakra UI v3、FontAwesome、jsoneditor（僅 Mock Admin，樣式隔離在 `/hospital/mock-admin` 範圍內）
-- `@ricky0123/vad-web`、`onnxruntime-web`、lucide-react（Audio VAD）
+- `@ricky0123/vad-web`、`onnxruntime-web`（Audio VAD）
 
 **後端 / 本地服務**
 
@@ -275,7 +275,7 @@ mock server 依 request header `x-mock-scenario` 回傳不同情境的資料（`
 ### 注意事項
 
 - **單執行緒**：`ort.env.wasm.numThreads = 1`，不需要 SharedArrayBuffer，因此沒有設定 COOP / COEP 標頭（避免影響其他頁面載入外部資源）
-- **樣式隔離**：原專案的全域 CSS token 與 class（`.btn`、`.badge`、`.glass-panel` 等）都限定在 `.audio-vad` 容器內
+- **樣式**：已改用本專案的 Tailwind token 與共用元件（`Button`、`Loading`、`Icon`），不再使用原專案的深色主題 CSS；波形 Canvas 無法使用 class，色彩以常數對應 `tokens.css`
 - **audioTest 下拉選單**：引用 `public/audioTest/*.webm`，這些音檔未進版控，需自行放入才能使用
 
 ## 程式碼風格與 Lint
