@@ -52,6 +52,12 @@ const TOOLS: ToolCard[] = [
     title: 'Remotion',
     description: '影片字幕播放器',
   },
+  {
+    to: '/highchart-copilot',
+    icon: 'ChartLineUp',
+    title: 'Highcharts Copilot',
+    description: '整合 CopilotKit 的圖表與表單助理',
+  },
 ];
 
 const HomePage = (): React.ReactNode => {

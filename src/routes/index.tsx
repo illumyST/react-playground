@@ -12,6 +12,8 @@ const MetronomePage = lazy(() => import('@/pages/MetronomePage'));
 const WebmcpPage = lazy(() => import('@/pages/WebmcpPage'));
 const DocusaurusPage = lazy(() => import('@/pages/DocusaurusPage'));
 const NotFoundPage = lazy(() => import('@/pages/NotFoundPage'));
+const ColorConverterPage = lazy(() => import('@/pages/ColorConverterPage'));
+const HighchartCopilotPage = lazy(() => import('@/pages/HighchartCopilot'));
 
 const SuspenseWrap = ({ children }: { children: React.ReactNode }) => (
   <Suspense fallback={<Loading className="py-7xl" size="large" />}>
@@ -40,6 +42,8 @@ export const routes: RouteObject[] = [
       { path: '/webmcp', element: <SuspenseWrap><WebmcpPage /></SuspenseWrap> },
       { path: '/docusaurus', element: <SuspenseWrap><DocusaurusPage /></SuspenseWrap> },
       { path: '/remotion', element: <SuspenseWrap><RemotionPage /></SuspenseWrap> },
+      { path: '/color-converter', element: <SuspenseWrap><ColorConverterPage /></SuspenseWrap> },
+      { path: '/highchart-copilot', element: <SuspenseWrap><HighchartCopilotPage /></SuspenseWrap> },
     ],
   },
   { path: '*', element: <SuspenseWrap><NotFoundPage /></SuspenseWrap> },

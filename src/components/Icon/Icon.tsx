@@ -1,4 +1,5 @@
 import {
+  ChartLineUpIcon,
   HouseIcon,
   UsersThreeIcon,
   SmileyIcon,
@@ -23,6 +24,7 @@ interface props {
 }
 
 const ICONS = {
+  ChartLineUp: ChartLineUpIcon,
   House: HouseIcon, // home
   UsersThree: UsersThreeIcon, // grouping tool
   Smiley: SmileyIcon, // emoji

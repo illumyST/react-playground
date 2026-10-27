@@ -18,6 +18,8 @@ const NAV_ITEMS: NavItem[] = [
   { to: '/webmcp', label: 'WebMCP', icon: 'Globe' },
   { to: '/docusaurus', label: 'Docusaurus', icon: 'FileDoc' },
   { to: '/remotion', label: 'Remotion', icon: 'FilmSlate' },
+  { to: '/color-converter', label: 'Color Converter', icon: 'MagnifyingGlass' },
+  { to: '/highchart-copilot', label: 'Highcharts Copilot', icon: 'ChartLineUp' },
 ];
 
 const SidebarLayout = (): React.ReactNode => {
