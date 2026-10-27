@@ -11,6 +11,8 @@
   "scripts": {
     "dev": "concurrently -k -s first -n runtime,mock,vite \"node backend/copilotKit/runtime/server.js\" \"pnpm dev:hospital-mock\" \"vite --mode development\"",
     "build": "tsc -b && vite build --mode production",
+    "build:cloudflare": "BASE_PATH=/project/ pnpm build",
+    "deploy:cloudflare": "pnpm build:cloudflare && pnpm dlx wrangler@4 deploy",
     "lint": "eslint .",
     "preview": "vite preview",
     "dev:copilot-runtime": "node backend/copilotKit/runtime/server.js",

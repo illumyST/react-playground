@@ -56,7 +56,11 @@ const SidebarLayout = (): React.ReactNode => {
             onClick={() => setSidebarOpen(false)}
             className="mb-xl flex items-center gap-md hover:opacity-80 transition-opacity"
           >
-            <img src="/stone.svg" alt="Stone logo" className="h-[28px] w-auto" />
+            <img
+              src={`${import.meta.env.BASE_URL}stone.svg`}
+              alt="Stone logo"
+              className="h-[28px] w-auto"
+            />
             <span className="title-lg">Stone&apos;s Home</span>
           </Link>
           <nav>

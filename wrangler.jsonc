@@ -1,0 +1,18 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "react-playground",
+  "main": "worker/index.js",
+  "compatibility_date": "2026-10-01",
+  "assets": {
+    "directory": "./dist",
+    "binding": "ASSETS",
+    // 一律先經過 Worker 去除 /project 前綴；找不到檔案時回傳 index.html 交給 React Router
+    "run_worker_first": true,
+    "not_found_handling": "single-page-application",
+  },
+  "routes": [
+    { "pattern": "stoneisme.com/project", "zone_name": "stoneisme.com" },
+    { "pattern": "stoneisme.com/project/*", "zone_name": "stoneisme.com" },
+  ],
+  "workers_dev": false,
+}

@@ -165,6 +165,8 @@ pnpm dev:hospital-mock
 | `pnpm setup:copilot-backend` | 建立 Python venv 並安裝 backend 套件              |
 | `pnpm dev:copilot-backend`   | 啟動 Python backend（uvicorn，自動 reload）       |
 | `pnpm dev:hospital-mock`     | 單獨啟動 Hospital mock server（tsx watch）        |
+| `pnpm build:cloudflare`      | 以 `/project/` 為 base 建置（部署用）             |
+| `pnpm deploy:cloudflare`     | 建置並以 Wrangler 部署到 Cloudflare               |
 
 ## Environment Variables
 
@@ -260,15 +262,15 @@ mock server 依 request header `x-mock-scenario` 回傳不同情境的資料（`
 
 ### 模型與 WASM 檔案
 
-模型與 WASM **不放在 `public/`**，而是由 `vite.config.ts` 的 `vadAssets` plugin 直接取自 `node_modules`：
+模型與 WASM **不放在 `public/`**，而是由 `vite.config.ts` 的 `vadAssets` plugin 直接取自 `node_modules`（`onnxruntime-web` 已 alias 為純 WASM build `onnxruntime-web/wasm`）：
 
-| 檔案                                        | 來源                      |
-| ------------------------------------------- | ------------------------- |
-| `silero_vad_legacy.onnx`                    | `@ricky0123/vad-web/dist` |
-| `ort-wasm-simd-threaded.jsep.mjs` / `.wasm` | `onnxruntime-web/dist`    |
+| 檔案                                   | 來源                      |
+| -------------------------------------- | ------------------------- |
+| `silero_vad_legacy.onnx`               | `@ricky0123/vad-web/dist` |
+| `ort-wasm-simd-threaded.mjs` / `.wasm` | `onnxruntime-web/dist`    |
 
 - **開發**：攔截 `/vad/*` 請求直接串流檔案（避免 Vite 轉換 `.mjs`）
-- **建置**：輸出至 `dist/vad/`（約 31MB）
+- **建置**：輸出至 `dist/vad/`（約 17MB）
 
 若升級 `onnxruntime-web` 後載入失敗，請確認預設 bundle 引用的 WASM 檔名是否改變，並同步更新 `VAD_ASSETS`。
 
@@ -277,6 +279,29 @@ mock server 依 request header `x-mock-scenario` 回傳不同情境的資料（`
 - **單執行緒**：`ort.env.wasm.numThreads = 1`，不需要 SharedArrayBuffer，因此沒有設定 COOP / COEP 標頭（避免影響其他頁面載入外部資源）
 - **樣式**：已改用本專案的 Tailwind token 與共用元件（`Button`、`Loading`、`Icon`），不再使用原專案的深色主題 CSS；波形 Canvas 無法使用 class，色彩以常數對應 `tokens.css`
 - **audioTest 下拉選單**：引用 `public/audioTest/*.webm`，這些音檔未進版控，需自行放入才能使用
+
+## 部署（Cloudflare）
+
+正式站：<https://stoneisme.com/project/>（主站 `stoneisme.com` 為 GitHub Pages，`/project` 路徑由 Cloudflare Worker 接手）
+
+```bash
+pnpm deploy:cloudflare
+```
+
+- 需先以 `pnpm dlx wrangler@4 login` 登入 Cloudflare（Wrangler 不加入專案依賴）
+- 設定在 `wrangler.jsonc`：Worker `react-playground`，路由 `stoneisme.com/project`、`stoneisme.com/project/*`
+- `worker/index.js` 去除 `/project` 前綴後交給靜態資源，並把靜態資源回傳的轉址補回前綴；找不到檔案時回傳 `index.html` 交給 React Router
+- 建置時以 `BASE_PATH=/project/` 設定 Vite `base`；程式中的 public 檔案路徑與 Router `basename` 都使用 `import.meta.env.BASE_URL`
+- `public/docusaurus` 寫死 baseUrl `/docusaurus/`，建置時由 `docusaurusBase` plugin 改寫為 `/project/docusaurus/`
+- Cloudflare 單檔上限 25MiB：`public/.assetsignore` 排除未使用的 `remotion/to-river.mp4`；ONNX Runtime 改用純 WASM build（14MB）
+
+### 限制
+
+正式站只有靜態前端，以下需要後端的功能無法使用：
+
+- Highcharts Copilot（需 CopilotKit runtime 與 Python backend）
+- Hospital、Mock Admin（需 mock server）
+- Emoji、Weather（`env/.env.production` 未設定 API key）
 
 ## 程式碼風格與 Lint
 
