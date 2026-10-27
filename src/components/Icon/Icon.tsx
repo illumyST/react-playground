@@ -12,6 +12,7 @@ import {
   MetronomeIcon,
   SmileyIcon,
   UsersThreeIcon,
+  WaveformIcon,
 } from '@phosphor-icons/react';
 
 type IconName = keyof typeof ICONS;
@@ -38,6 +39,7 @@ const ICONS = {
   CaretDown: CaretDownIcon,
   CaretUp: CaretUpIcon,
   FirstAid: FirstAidKitIcon, // hospital
+  Waveform: WaveformIcon, // audio vad
 };
 
 const Icon = ({ iconName, className = '', size = 24, weight = 'regular' }: props) => {

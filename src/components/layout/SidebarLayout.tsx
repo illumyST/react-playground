@@ -21,6 +21,7 @@ const NAV_ITEMS: NavItem[] = [
   { to: '/color-converter', label: 'Color Converter', icon: 'MagnifyingGlass' },
   { to: '/highchart-copilot', label: 'Highcharts Copilot', icon: 'ChartLineUp' },
   { to: '/hospital', label: 'Hospital', icon: 'FirstAid' },
+  { to: '/audio-vad', label: 'Audio VAD', icon: 'Waveform' },
 ];
 
 const SidebarLayout = (): React.ReactNode => {

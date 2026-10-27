@@ -15,6 +15,7 @@ const DocusaurusPage = lazy(() => import('@/pages/DocusaurusPage'));
 const NotFoundPage = lazy(() => import('@/pages/NotFoundPage'));
 const ColorConverterPage = lazy(() => import('@/pages/ColorConverterPage'));
 const HighchartCopilotPage = lazy(() => import('@/pages/HighchartCopilot'));
+const AudioVadPage = lazy(() => import('@/pages/AudioVad/AudioVadPage'));
 
 export const routes: RouteObject[] = [
   {
@@ -107,6 +108,14 @@ export const routes: RouteObject[] = [
         element: (
           <SuspenseWrap>
             <HighchartCopilotPage />
+          </SuspenseWrap>
+        ),
+      },
+      {
+        path: '/audio-vad',
+        element: (
+          <SuspenseWrap>
+            <AudioVadPage />
           </SuspenseWrap>
         ),
       },
