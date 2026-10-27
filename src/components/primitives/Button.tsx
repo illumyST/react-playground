@@ -87,7 +87,9 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
         disabled={disabled || isLoading}
         {...props}
       >
-        {isLoading && <span className="h-lg w-lg animate-spin rounded-full border-2 border-current border-t-transparent" />}
+        {isLoading && (
+          <span className="h-lg w-lg animate-spin rounded-full border-2 border-current border-t-transparent" />
+        )}
         {children}
       </button>
     );

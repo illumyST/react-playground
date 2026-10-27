@@ -1,7 +1,11 @@
 import { createServer } from 'node:http';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { CopilotRuntime, GoogleGenerativeAIAdapter, copilotRuntimeNodeHttpEndpoint } from '@copilotkit/runtime';
+import {
+  CopilotRuntime,
+  copilotRuntimeNodeHttpEndpoint,
+  GoogleGenerativeAIAdapter,
+} from '@copilotkit/runtime';
 import dotenv from 'dotenv';
 
 const currentFile = fileURLToPath(import.meta.url);
@@ -16,7 +20,9 @@ const geminiApiKey = process.env.GOOGLE_GENERATIVE_AI_API_KEY ?? process.env.GEM
 if (geminiApiKey) {
   process.env.GOOGLE_GENERATIVE_AI_API_KEY = geminiApiKey;
 } else {
-  throw new Error('Missing GEMINI_API_KEY or GOOGLE_GENERATIVE_AI_API_KEY in env/.env.development.');
+  throw new Error(
+    'Missing GEMINI_API_KEY or GOOGLE_GENERATIVE_AI_API_KEY in env/.env.development.',
+  );
 }
 
 const runtime = new CopilotRuntime({

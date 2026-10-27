@@ -1,4 +1,4 @@
-import React, { useMemo, useState, useEffect } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { useCopilotChat } from '@copilotkit/react-core';
 import { Role, TextMessage } from '@copilotkit/runtime-client-gql';
 import { Button, Input } from '@/components';
@@ -49,10 +49,7 @@ const FormAssistantTab: React.FC = () => {
 
   const { visibleMessages, appendMessage, isLoading } = chat;
 
-  const requiredKeys = useMemo(
-    () => SCHEMA.filter((f) => f.required).map((f) => f.key),
-    [],
-  );
+  const requiredKeys = useMemo(() => SCHEMA.filter((f) => f.required).map((f) => f.key), []);
 
   const updateField = (key: FieldKey, value: string) => {
     const def = SCHEMA.find((d) => d.key === key);
@@ -177,8 +174,11 @@ const FormAssistantTab: React.FC = () => {
             ))}
           </div>
           <div className="mt-md rounded-xl bg-surface-2 px-md py-sm text-xs text-on-surface-variant">
-            必填欄位缺漏：{missing.length
-              ? SCHEMA.filter((field) => missing.includes(field.key)).map((field) => field.label).join('、')
+            必填欄位缺漏：
+            {missing.length
+              ? SCHEMA.filter((field) => missing.includes(field.key))
+                  .map((field) => field.label)
+                  .join('、')
               : '無'}
           </div>
         </section>

@@ -31,10 +31,7 @@ const SidebarLayout = (): React.ReactNode => {
       {/* Mobile topbar */}
       <div className="sticky top-0 z-20 flex h-[48px] items-center bg-surface-1 border-b border-outline-2 lg:hidden">
         <span className="sr-only">Open sidebar</span>
-        <button
-          className="accessible-zone ml-md"
-          onClick={() => setSidebarOpen(true)}
-        >
+        <button className="accessible-zone ml-md" onClick={() => setSidebarOpen(true)}>
           <svg className="size-[24px]" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20">
             <path
               clipRule="evenodd"

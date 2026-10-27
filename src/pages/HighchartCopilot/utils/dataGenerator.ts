@@ -17,8 +17,7 @@ export const generateMockData = (): AssetDataPoint[] => {
     date.setDate(startDate.getDate() + i);
 
     // Add volatility: +/- 1% to 3%
-    const volatility =
-      (Math.random() * 0.04 + 0.01) * (Math.random() > 0.5 ? 1 : -1);
+    const volatility = (Math.random() * 0.04 + 0.01) * (Math.random() > 0.5 ? 1 : -1);
 
     // Apply change
     currentValue = currentValue * (1 + volatility);

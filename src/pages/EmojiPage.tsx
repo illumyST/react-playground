@@ -2,8 +2,7 @@ import axios from 'axios';
 import { useEffect, useState } from 'react';
 import Clipboard from 'clipboard';
 import { useNavigate } from 'react-router-dom';
-import { Loading, Input } from '@/components';
-
+import { Input, Loading } from '@/components';
 
 // api source: https://emoji-api.com/
 
@@ -31,8 +30,7 @@ const EmojiPage = (): React.ReactNode => {
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const navigate = useNavigate();
 
-  const goToPosts = (data: string) =>
-    navigate({ pathname: '/emoji', search: `?data=${data}` });
+  const goToPosts = (data: string) => navigate({ pathname: '/emoji', search: `?data=${data}` });
 
   const getEmoji = async (e?: React.ChangeEvent<HTMLInputElement>) => {
     setIsLoading(true);
@@ -40,15 +38,16 @@ const EmojiPage = (): React.ReactNode => {
     setTypeFilter('');
     goToPosts(data);
 
-
-
     try {
-      const res = await axios.get(import.meta.env.VITE_EMOJI_API_URL || 'https://emoji-api.com/emojis', {
-        params: {
-          search: data,
-          access_key: import.meta.env.VITE_EMOJI_API_KEY,
+      const res = await axios.get(
+        import.meta.env.VITE_EMOJI_API_URL || 'https://emoji-api.com/emojis',
+        {
+          params: {
+            search: data,
+            access_key: import.meta.env.VITE_EMOJI_API_KEY,
+          },
         },
-      });
+      );
 
       const responseData = res.data;
 
@@ -126,9 +125,7 @@ const EmojiPage = (): React.ReactNode => {
                 <tbody className="divide-y divide-outline-2">
                   {result.length > 0 &&
                     result
-                      .filter((item) =>
-                        typeFilter ? item.group === typeFilter : true,
-                      )
+                      .filter((item) => (typeFilter ? item.group === typeFilter : true))
                       .map((emoji) => (
                         <tr
                           className="copy-to-clipboard group cursor-pointer transition-colors hover:bg-surface-3"

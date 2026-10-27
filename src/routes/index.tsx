@@ -17,9 +17,7 @@ const ColorConverterPage = lazy(() => import('@/pages/ColorConverterPage'));
 const HighchartCopilotPage = lazy(() => import('@/pages/HighchartCopilot'));
 
 const SuspenseWrap = ({ children }: { children: React.ReactNode }) => (
-  <Suspense fallback={<Loading className="py-7xl" size="large" />}>
-    {children}
-  </Suspense>
+  <Suspense fallback={<Loading className="py-7xl" size="large" />}>{children}</Suspense>
 );
 
 export const routes: RouteObject[] = [
@@ -35,20 +33,98 @@ export const routes: RouteObject[] = [
       </SuspenseWrap>
     ),
     children: [
-      { path: '/', index: true, element: <SuspenseWrap><HomePage /></SuspenseWrap> },
-      { path: '/grouping', element: <SuspenseWrap><GroupingPage /></SuspenseWrap> },
-      { path: '/emoji', element: <SuspenseWrap><EmojiPage /></SuspenseWrap> },
-      { path: '/weather', element: <SuspenseWrap><WeatherPage /></SuspenseWrap> },
-      { path: '/metronome', element: <SuspenseWrap><MetronomePage /></SuspenseWrap> },
-      { path: '/webmcp', element: <SuspenseWrap><WebmcpPage /></SuspenseWrap> },
-      { path: '/docusaurus', element: <SuspenseWrap><DocusaurusPage /></SuspenseWrap> },
-      { path: '/remotion', element: <SuspenseWrap><RemotionPage /></SuspenseWrap> },
-      { path: '/color-converter', element: <SuspenseWrap><ColorConverterPage /></SuspenseWrap> },
-      { path: '/highchart-copilot', element: <SuspenseWrap><HighchartCopilotPage /></SuspenseWrap> },
+      {
+        path: '/',
+        index: true,
+        element: (
+          <SuspenseWrap>
+            <HomePage />
+          </SuspenseWrap>
+        ),
+      },
+      {
+        path: '/grouping',
+        element: (
+          <SuspenseWrap>
+            <GroupingPage />
+          </SuspenseWrap>
+        ),
+      },
+      {
+        path: '/emoji',
+        element: (
+          <SuspenseWrap>
+            <EmojiPage />
+          </SuspenseWrap>
+        ),
+      },
+      {
+        path: '/weather',
+        element: (
+          <SuspenseWrap>
+            <WeatherPage />
+          </SuspenseWrap>
+        ),
+      },
+      {
+        path: '/metronome',
+        element: (
+          <SuspenseWrap>
+            <MetronomePage />
+          </SuspenseWrap>
+        ),
+      },
+      {
+        path: '/webmcp',
+        element: (
+          <SuspenseWrap>
+            <WebmcpPage />
+          </SuspenseWrap>
+        ),
+      },
+      {
+        path: '/docusaurus',
+        element: (
+          <SuspenseWrap>
+            <DocusaurusPage />
+          </SuspenseWrap>
+        ),
+      },
+      {
+        path: '/remotion',
+        element: (
+          <SuspenseWrap>
+            <RemotionPage />
+          </SuspenseWrap>
+        ),
+      },
+      {
+        path: '/color-converter',
+        element: (
+          <SuspenseWrap>
+            <ColorConverterPage />
+          </SuspenseWrap>
+        ),
+      },
+      {
+        path: '/highchart-copilot',
+        element: (
+          <SuspenseWrap>
+            <HighchartCopilotPage />
+          </SuspenseWrap>
+        ),
+      },
       hospitalRoute,
     ],
   },
-  { path: '*', element: <SuspenseWrap><NotFoundPage /></SuspenseWrap> },
+  {
+    path: '*',
+    element: (
+      <SuspenseWrap>
+        <NotFoundPage />
+      </SuspenseWrap>
+    ),
+  },
 ];
 
 export const router = createBrowserRouter(routes);

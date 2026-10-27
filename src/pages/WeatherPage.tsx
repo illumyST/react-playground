@@ -2,7 +2,6 @@ import axios from 'axios';
 import { useState } from 'react';
 import { Button, Input } from '@/components';
 
-
 interface WeatherData {
   city: string;
   wind: string;
@@ -35,15 +34,16 @@ const WeatherPage = (): React.ReactNode => {
       return;
     }
 
-
-
     try {
-      const res = await axios.get(import.meta.env.VITE_WEATHER_API_URL || 'https://api.openweathermap.org/data/2.5/weather', {
-        params: {
-          q: city,
-          appid: import.meta.env.VITE_WEATHER_API_KEY,
+      const res = await axios.get(
+        import.meta.env.VITE_WEATHER_API_URL || 'https://api.openweathermap.org/data/2.5/weather',
+        {
+          params: {
+            q: city,
+            appid: import.meta.env.VITE_WEATHER_API_KEY,
+          },
         },
-      });
+      );
 
       const info = res.data;
       setWeatherInfo(
@@ -84,18 +84,10 @@ const WeatherPage = (): React.ReactNode => {
           <div className="flex flex-wrap">
             <div className="flex h-full flex-col p-lg text-left sm:p-2xl">
               <h3 className="title-lg">{weatherInfo.city}</h3>
-              <p className="mb-md text-xs text-on-surface-variant">
-                {weatherInfo.description}
-              </p>
-              <p className="mt-xs text-on-surface-variant">
-                溫度：{weatherInfo.temp}°C
-              </p>
-              <p className="mt-xs text-on-surface-variant">
-                濕度：{weatherInfo.humidity}
-              </p>
-              <p className="mt-xs text-on-surface-variant">
-                風速：{weatherInfo.wind}
-              </p>
+              <p className="mb-md text-xs text-on-surface-variant">{weatherInfo.description}</p>
+              <p className="mt-xs text-on-surface-variant">溫度：{weatherInfo.temp}°C</p>
+              <p className="mt-xs text-on-surface-variant">濕度：{weatherInfo.humidity}</p>
+              <p className="mt-xs text-on-surface-variant">風速：{weatherInfo.wind}</p>
             </div>
           </div>
         </div>

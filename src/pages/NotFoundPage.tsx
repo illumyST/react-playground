@@ -7,19 +7,21 @@ const NotFoundPage = (): React.ReactNode => {
     <div className="flex min-h-[60vh] flex-col items-center justify-center space-y-xl text-center">
       <Icon iconName="MagnifyingGlass" size={48} />
       <h1 className="title-3xl">404 Not Found</h1>
-      <p className="text-on-surface-variant">
-        找不到您要的頁面，請確認網址是否正確。
-      </p>
-        <Button onClick={(e)=>{
+      <p className="text-on-surface-variant">找不到您要的頁面，請確認網址是否正確。</p>
+      <Button
+        onClick={(e) => {
           // for docusaurus
           if (window !== window.parent) {
             e.preventDefault();
             window.parent.location.href = '/';
           } else {
-          // nomal case
+            // nomal case
             navigate('/');
           }
-        }}>回首頁</Button>
+        }}
+      >
+        回首頁
+      </Button>
     </div>
   );
 };

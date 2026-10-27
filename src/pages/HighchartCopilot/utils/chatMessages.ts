@@ -1,4 +1,7 @@
-export function hasMessageRole(message: unknown, role: string): message is {
+export function hasMessageRole(
+  message: unknown,
+  role: string,
+): message is {
   id?: string;
   role: string;
   content?: unknown;

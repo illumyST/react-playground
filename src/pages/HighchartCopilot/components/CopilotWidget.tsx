@@ -212,11 +212,7 @@ const CopilotWidget: React.FC<CopilotWidgetProps> = ({ selectionStats }) => {
           {messages.map((msg, idx) => (
             <div
               key={msg.id}
-              className={`flex ${
-                hasMessageRole(msg, Role.User)
-                  ? 'justify-end'
-                  : 'justify-start'
-              }`}
+              className={`flex ${hasMessageRole(msg, Role.User) ? 'justify-end' : 'justify-start'}`}
             >
               <div
                 className={`
@@ -255,9 +251,7 @@ const CopilotWidget: React.FC<CopilotWidgetProps> = ({ selectionStats }) => {
                           type="button"
                           onClick={() =>
                             appendMessage
-                              ? void appendMessage(
-                                  new TextMessage({ role: Role.User, content: s }),
-                                )
+                              ? void appendMessage(new TextMessage({ role: Role.User, content: s }))
                               : undefined
                           }
                           className="rounded-full border border-outline-2 bg-surface-2 px-md py-xs text-xs text-on-surface transition-colors hover:bg-surface-3"
@@ -372,7 +366,7 @@ function extractFollowUps(text: string): string[] {
 }
 
 function normalizeItem(s: string): string | null {
-  let q = (s || '')
+  const q = (s || '')
     .trim()
     .replace(/^[\s\-•\d\.、\)]+/u, '')
     .replace(/[。；;]+$/u, '')

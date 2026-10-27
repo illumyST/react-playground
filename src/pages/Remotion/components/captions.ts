@@ -11,7 +11,7 @@ export type EditableCaption = {
   id: string;
   text: string;
   startTime: number; // seconds
-  endTime: number;   // seconds
+  endTime: number; // seconds
   emphasis: boolean;
 };
 
@@ -19,10 +19,7 @@ export type EditableCaption = {
  * 編輯面板以秒為單位比較直覺；真正交給 Remotion 播放時，
  * 仍要先轉成 frame，才能和播放器目前幀數對齊。
  */
-export const editableCaptionToSegment = (
-  entry: EditableCaption,
-  fps: number
-): CaptionSegment => ({
+export const editableCaptionToSegment = (entry: EditableCaption, fps: number): CaptionSegment => ({
   id: entry.id,
   text: entry.text,
   startFrame: Math.round(entry.startTime * fps),
@@ -32,8 +29,7 @@ export const editableCaptionToSegment = (
 
 const MIN_CAPTION_FRAMES = 18;
 
-const sanitizeLine = (line: string): string =>
-  line.replace(/^[-*]\s+/, '').trim();
+const sanitizeLine = (line: string): string => line.replace(/^[-*]\s+/, '').trim();
 
 const getCaptionWeight = (text: string): number => {
   const visibleCharacters = [...text.replace(/\s+/g, '')].length;
@@ -44,28 +40,19 @@ const getCaptionWeight = (text: string): number => {
 };
 
 export const parseLyricsMarkdown = (markdown: string): string[] =>
-  markdown
-    .split(/\r?\n/u)
-    .map(sanitizeLine)
-    .filter(Boolean);
+  markdown.split(/\r?\n/u).map(sanitizeLine).filter(Boolean);
 
-export const buildCaptionTimeline = (
-  lines: string[],
-  totalFrames: number
-): CaptionSegment[] => {
+export const buildCaptionTimeline = (lines: string[], totalFrames: number): CaptionSegment[] => {
   if (lines.length === 0) {
     return [];
   }
 
   const introPadding = Math.min(18, Math.max(8, Math.round(totalFrames * 0.02)));
-  const availableFrames = Math.max(
-    totalFrames - introPadding,
-    lines.length * MIN_CAPTION_FRAMES
-  );
+  const availableFrames = Math.max(totalFrames - introPadding, lines.length * MIN_CAPTION_FRAMES);
   const weights = lines.map(getCaptionWeight);
   const weightTotal = weights.reduce((sum, weight) => sum + weight, 0);
   const allocations = weights.map((weight) =>
-    Math.max(MIN_CAPTION_FRAMES, Math.floor((weight / weightTotal) * availableFrames))
+    Math.max(MIN_CAPTION_FRAMES, Math.floor((weight / weightTotal) * availableFrames)),
   );
   let allocatedFrames = allocations.reduce((sum, frames) => sum + frames, 0);
   let cursor = 0;
@@ -91,8 +78,7 @@ export const buildCaptionTimeline = (
 
   return lines.map((text, index) => {
     const allocated = allocations[index] ?? MIN_CAPTION_FRAMES;
-    const endFrame =
-      index === lines.length - 1 ? totalFrames : currentFrame + allocated;
+    const endFrame = index === lines.length - 1 ? totalFrames : currentFrame + allocated;
     const segment: CaptionSegment = {
       id: `caption-${index + 1}`,
       text,
@@ -113,7 +99,5 @@ export const formatFrameTime = (frame: number, fps: number): string => {
   const seconds = totalSeconds - minutes * 60;
 
   // 顯示成 mm:ss.s，方便側邊欄直接對照字幕區間。
-  return `${String(minutes).padStart(2, '0')}:${seconds
-    .toFixed(1)
-    .padStart(4, '0')}`;
+  return `${String(minutes).padStart(2, '0')}:${seconds.toFixed(1).padStart(4, '0')}`;
 };

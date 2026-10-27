@@ -65,9 +65,7 @@ const HomePage = (): React.ReactNode => {
     <div className="space-y-2xl">
       <div>
         <h1 className="title-3xl mb-sm">Stone&apos;s Playground</h1>
-        <p className="text-on-surface-variant">
-          選擇下方任一工具開始使用
-        </p>
+        <p className="text-on-surface-variant">選擇下方任一工具開始使用</p>
       </div>
 
       <div className="grid gap-lg sm:grid-cols-2 lg:grid-cols-3">

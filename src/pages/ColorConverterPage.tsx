@@ -2,7 +2,8 @@ import { useState } from 'react';
 import { Input } from '@/components';
 
 const hexRegex = /^#([A-Fa-f0-9]{6})$/i;
-const rgbRegex = /^\s*(([01]?[0-9]{1,2}|2[0-4][0-9]|25[0-5])\s*,\s*){2}([01]?[0-9]{1,2}|2[0-4][0-9]|25[0-5])\s*$/;
+const rgbRegex =
+  /^\s*(([01]?[0-9]{1,2}|2[0-4][0-9]|25[0-5])\s*,\s*){2}([01]?[0-9]{1,2}|2[0-4][0-9]|25[0-5])\s*$/;
 
 const hexToRgb = (hex: string) => {
   if (!hexRegex.test(hex)) return null;
@@ -97,7 +98,9 @@ const ColorConverterPage = (): React.ReactNode => {
               className={hexError ? 'border-red-500 focus-visible:ring-red-500' : ''}
             />
             {hexError && (
-              <p className="text-sm text-red-500">Invalid value! Please provide 6 hex characters.</p>
+              <p className="text-sm text-red-500">
+                Invalid value! Please provide 6 hex characters.
+              </p>
             )}
           </div>
 

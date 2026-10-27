@@ -1,17 +1,17 @@
 import {
-  ChartLineUpIcon,
-  HouseIcon,
-  UsersThreeIcon,
-  SmileyIcon,
-  CloudSunIcon,
-  MetronomeIcon,
-  GlobeIcon,
-  FileDocIcon,
-  FilmSlateIcon,
-  MagnifyingGlassIcon,
   CaretDownIcon,
   CaretUpIcon,
+  ChartLineUpIcon,
+  CloudSunIcon,
+  FileDocIcon,
+  FilmSlateIcon,
   FirstAidKitIcon,
+  GlobeIcon,
+  HouseIcon,
+  MagnifyingGlassIcon,
+  MetronomeIcon,
+  SmileyIcon,
+  UsersThreeIcon,
 } from '@phosphor-icons/react';
 
 type IconName = keyof typeof ICONS;
@@ -40,12 +40,7 @@ const ICONS = {
   FirstAid: FirstAidKitIcon, // hospital
 };
 
-const Icon = ({
-  iconName,
-  className = '',
-  size = 24,
-  weight = 'regular',
-}: props) => {
+const Icon = ({ iconName, className = '', size = 24, weight = 'regular' }: props) => {
   const IconComponent = ICONS[iconName];
   return <IconComponent className={className} size={size} weight={weight} />;
 };

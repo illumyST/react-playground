@@ -21,9 +21,7 @@ const DashboardTab: React.FC = () => {
   // 3. Derived Stats
   const selectedData = useMemo(() => {
     if (!selection) return [] as ReturnType<typeof generateMockData>;
-    return data.filter(
-      (d) => d.timestamp >= selection.min && d.timestamp <= selection.max,
-    );
+    return data.filter((d) => d.timestamp >= selection.min && d.timestamp <= selection.max);
   }, [data, selection]);
 
   const stats: RangeStats | null = useMemo(() => {
@@ -44,9 +42,7 @@ const DashboardTab: React.FC = () => {
           <p className="text-xs font-medium uppercase tracking-[0.12em] text-on-surface-variant">
             目前資產價值
           </p>
-          <p className="mt-xs text-2xl font-bold">
-            {formatCurrency(data[data.length - 1].value)}
-          </p>
+          <p className="mt-xs text-2xl font-bold">{formatCurrency(data[data.length - 1].value)}</p>
         </div>
         <div
           className={`rounded-2xl border border-outline-2 bg-surface-1 p-lg shadow-light-down-1 ${
@@ -57,9 +53,7 @@ const DashboardTab: React.FC = () => {
             選取區間變動
           </p>
           <p className={`mt-xs text-2xl font-bold ${getDeltaTone(stats?.delta ?? null)}`}>
-            {stats
-              ? `${stats.delta > 0 ? '+' : ''}${formatCurrency(stats.delta)}`
-              : '-'}
+            {stats ? `${stats.delta > 0 ? '+' : ''}${formatCurrency(stats.delta)}` : '-'}
           </p>
         </div>
         <div className="rounded-2xl border border-outline-2 bg-surface-1 p-lg shadow-light-down-1">
@@ -74,9 +68,7 @@ const DashboardTab: React.FC = () => {
           <p className="text-xs font-medium uppercase tracking-[0.12em] text-on-surface-variant">
             資料筆數
           </p>
-          <p className="mt-xs text-2xl font-bold">
-            {stats ? stats.dataPointsCount : data.length}
-          </p>
+          <p className="mt-xs text-2xl font-bold">{stats ? stats.dataPointsCount : data.length}</p>
         </div>
       </div>
 

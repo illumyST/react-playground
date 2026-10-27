@@ -17,18 +17,11 @@ export type SubtitledVideoCompositionProps = {
 };
 
 // 依目前 frame 找出要顯示的字幕；超過最後一段時保留最後一句，避免畫面瞬間變空。
-const findActiveCaption = (
-  captions: CaptionSegment[],
-  frame: number
-): CaptionSegment | undefined =>
-  captions.find(
-    (caption) => frame >= caption.startFrame && frame < caption.endFrame
-  ) ?? captions.at(-1);
+const findActiveCaption = (captions: CaptionSegment[], frame: number): CaptionSegment | undefined =>
+  captions.find((caption) => frame >= caption.startFrame && frame < caption.endFrame) ??
+  captions.at(-1);
 
-const SubtitledVideoComposition = ({
-  videoSrc,
-  captions,
-}: SubtitledVideoCompositionProps) => {
+const SubtitledVideoComposition = ({ videoSrc, captions }: SubtitledVideoCompositionProps) => {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
   // public 目錄下的素材會透過 staticFile 映射成 Remotion composition 可讀的路徑。
@@ -69,7 +62,7 @@ const SubtitledVideoComposition = ({
           {
             extrapolateLeft: 'clamp',
             extrapolateRight: 'clamp',
-          }
+          },
         );
 
   return (
