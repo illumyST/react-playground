@@ -8,6 +8,7 @@ export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, path.resolve(__dirname, 'env'), '');
   process.env = Object.assign(process.env, env);
   const runtimePort = env.COPILOTKIT_RUNTIME_PORT ?? '4000';
+  const hospitalMockTarget = env.HOSPITAL_MOCK_SERVER_TARGET ?? 'http://127.0.0.1:5005';
 
   return {
     plugins: [react(), tailwindcss()],
@@ -18,6 +19,14 @@ export default defineConfig(({ mode }) => {
           target: `http://127.0.0.1:${runtimePort}`,
           changeOrigin: true,
           secure: false,
+        },
+        '/hospital-api': {
+          target: hospitalMockTarget,
+          changeOrigin: true,
+        },
+        '/mock-api': {
+          target: hospitalMockTarget,
+          changeOrigin: true,
         },
       },
     },

@@ -11,6 +11,7 @@ import {
   MagnifyingGlassIcon,
   CaretDownIcon,
   CaretUpIcon,
+  FirstAidKitIcon,
 } from '@phosphor-icons/react';
 
 type IconName = keyof typeof ICONS;
@@ -36,6 +37,7 @@ const ICONS = {
   MagnifyingGlass: MagnifyingGlassIcon, // search / 404
   CaretDown: CaretDownIcon,
   CaretUp: CaretUpIcon,
+  FirstAid: FirstAidKitIcon, // hospital
 };
 
 const Icon = ({

@@ -20,6 +20,7 @@ const NAV_ITEMS: NavItem[] = [
   { to: '/remotion', label: 'Remotion', icon: 'FilmSlate' },
   { to: '/color-converter', label: 'Color Converter', icon: 'MagnifyingGlass' },
   { to: '/highchart-copilot', label: 'Highcharts Copilot', icon: 'ChartLineUp' },
+  { to: '/hospital', label: 'Hospital', icon: 'FirstAid' },
 ];
 
 const SidebarLayout = (): React.ReactNode => {

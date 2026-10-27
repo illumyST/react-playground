@@ -30,11 +30,16 @@
 - WebMCP：Declarative / Imperative API 範例頁
 - Docusaurus：嵌入靜態文件站內容
 - Remotion：可編輯字幕時間軸與影片播放實驗
+- Hospital：醫療資訊產品的前端 shell 練習（Dashboard / Integrations / Sticky Table / Settings），子路由 `/hospital/mock-admin` 為 mock API 管理後台
 
 ## 專案結構
 
 ```text
 .
+├─ backend/
+│  ├─ copilotKit/      # Highcharts Copilot：Python backend + runtime/（Node CopilotKit runtime）
+│  └─ hospital/
+│     └─ mock-server/  # Hospital 的 Express mock server（pnpm workspace package）
 ├─ env/                # Vite environment files
 ├─ public/             # 靜態資源與 Docusaurus 輸出
 ├─ src/
@@ -67,6 +72,16 @@ pnpm dev
 
 - Vite 前端開發伺服器
 - Highcharts Copilot 需要的本地 Node runtime（預設 `http://127.0.0.1:4000/copilotkit`）
+- Hospital mock server（預設 `http://127.0.0.1:5005`）
+
+### Hospital mock server
+
+`backend/hospital/mock-server` 是 pnpm workspace package，根目錄 `pnpm install` 會一併安裝。Vite dev server 透過 proxy 轉送：
+
+- `/hospital-api/*`：Hospital 頁面使用的 API（依 `x-mock-scenario` header 切換情境）
+- `/mock-api/*`：Mock Admin 的管理 API（router / api / scenario / config / rollback），以及動態 mock API
+
+單獨啟動：`pnpm dev:hospital-mock`
 
 ### 常用指令
 
@@ -116,6 +131,9 @@ Vite 會從 ./env 讀取環境變數。在程式碼中，透過 Vite 原生的 `
 - COPILOTKIT_RUNTIME_PORT：Node runtime 本地埠號
 - COPILOTKIT_MODEL：Gemini model 名稱
 - GEMINI_API_KEY：供 Highcharts Copilot runtime/backend 使用的 Gemini API key
+- HOSPITAL_MOCK_SERVER_TARGET：Vite proxy 轉送 `/hospital-api`、`/mock-api` 的目標
+- VITE_HOSPITAL_API_URL：Hospital 頁面的 API 前綴
+- VITE_MOCK_ADMIN_API_URL：Mock Admin 的 API 前綴（需與 mock server 的 `MOCK_API_URL` 一致）
 
 ### 這次盤點後，適合放入 env 的值
 

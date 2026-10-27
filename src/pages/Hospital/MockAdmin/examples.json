@@ -1,0 +1,219 @@
+[
+  {
+    "title": "顯示任意內容",
+    "desc": "丟什麼 value, 就回傳什麼 value",
+    "example": {
+      "isSuccess": {
+        "type": "static",
+        "value": true
+      }
+    },
+    "result": {
+      "isSuccess": true
+    }
+  },
+  {
+    "title": "顯示 Name",
+    "urlTitle": "name",
+    "url": "https://fakerjs.dev/api/company.html#name",
+    "example": {
+      "name": {
+        "type": "name"
+      }
+    },
+    "result": {
+      "name": "Constance Spencer"
+    }
+  },
+  {
+    "title": "顯示整數 int",
+    "urlTitle": "int",
+    "url": "https://fakerjs.dev/api/number.html#int",
+    "options": {
+      "min": "最小值",
+      "max": "最大值"
+    },
+    "example": {
+      "age": {
+        "type": "int",
+        "option": {
+          "min": 20,
+          "max": 60
+        }
+      }
+    },
+    "result": {
+      "age": 44
+    }
+  },
+  {
+    "title": "顯示 email",
+    "urlTitle": "email",
+    "url": "https://fakerjs.dev/api/internet.html#email",
+    "example": {
+      "email": {
+        "type": "email"
+      }
+    },
+    "result": {
+      "email": "Rhoda82@gmail.com"
+    }
+  },
+  {
+    "title": "顯示日期",
+    "urlTitle": "date",
+    "url": "https://fakerjs.dev/api/date.html",
+    "example": {
+      "birthday": {
+        "type": "date"
+      }
+    },
+    "result": {
+      "birthday": "2025-05-22T14:56:54.407Z"
+    }
+  },
+  {
+    "title": "顯示 string",
+    "desc": "產生多行假字",
+    "urlTitle": "lorem",
+    "url": "https://fakerjs.dev/api/lorem.html#lines",
+    "example": {
+      "options": {
+        "type": "string",
+        "option": {
+          "min": 2,
+          "max": 5
+        }
+      }
+    },
+    "result": {
+      "desc": "Accedo tersus sui conculco unus.\nCaelestis umbra agnosco tui adficio tergum.Ipsam defleo provident virga vulgivagus acervus inflammatio.\nSub tibi censura arto trans.\nCrastinus tremo claro virgo beatus arma hic totidem tutis."
+    }
+  },
+  {
+    "title": "顯示金額",
+    "urlTitle": "amount",
+    "url": "https://fakerjs.dev/api/finance.html#amount",
+    "options": {
+      "max": "最大值",
+      "min": "最小值",
+      "dsc": "小數點",
+      "symbol": "符號"
+    },
+    "example": {
+      "assets": {
+        "type": "amount",
+        "option": {
+          "max": 100000,
+          "dec": 2,
+          "symbol": "$"
+        }
+      }
+    },
+    "result": {
+      "assets": "$71533.00"
+    }
+  },
+  {
+    "title": "顯示 float",
+    "urlTitle": "float",
+    "url": "https://fakerjs.dev/api/number.html#float",
+    "example": {
+      "number": {
+        "type": "float"
+      }
+    },
+    "result": {
+      "number": 0.6599934789079983
+    }
+  },
+  {
+    "title": "Create Selection",
+    "desc": "隨機多選一,可用於 Enum",
+    "example": {
+      "currency": {
+        "type": "select",
+        "items": ["USD", "JPY", "CHF", "GBP", "AUD"]
+      }
+    },
+    "result": {
+      "currency": "USD"
+    }
+  },
+  {
+    "title": "Create Object",
+    "desc": "產生物件",
+    "example": {
+      "children": {
+        "type": "object",
+        "content": {
+          "name": {
+            "type": "name"
+          },
+          "age": {
+            "type": "int",
+            "option": {
+              "min": 0,
+              "max": 20
+            }
+          }
+        }
+      }
+    },
+    "result": {
+      "children": {
+        "name": "Bernardo West",
+        "age": 18
+      }
+    }
+  },
+  {
+    "title": "Create Tuple",
+    "desc": "產生 Tuple",
+    "example": {
+      "type": "tuple",
+      "configItems": [
+        {
+          "type": "name"
+        },
+        {
+          "type": "email"
+        },
+        {
+          "type": "object",
+          "content": {
+            "name": {
+              "type": "name"
+            },
+            "age": {
+              "type": "int",
+              "option": {
+                "min": 0,
+                "max": 20
+              }
+            },
+            "assets": {
+              "type": "amount",
+              "option": {
+                "max": 100,
+                "dec": 2,
+                "symbol": "$"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "result": {
+      "tuple": [
+        "Jermain Predovic",
+        "Eusebio_DAmore@yahoo.com",
+        {
+          "name": "Dustin Stiedemann",
+          "age": 7,
+          "assets": "$44.14"
+        }
+      ]
+    }
+  }
+]

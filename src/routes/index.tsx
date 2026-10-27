@@ -1,6 +1,7 @@
 import { createBrowserRouter, type RouteObject } from 'react-router-dom';
 import { lazy, Suspense } from 'react';
 import { Loading } from '@/components';
+import { hospitalRoute } from '@/pages/Hospital/routes';
 
 const SidebarLayout = lazy(() => import('@/components/layout/SidebarLayout'));
 const HomePage = lazy(() => import('@/pages/HomePage'));
@@ -44,6 +45,7 @@ export const routes: RouteObject[] = [
       { path: '/remotion', element: <SuspenseWrap><RemotionPage /></SuspenseWrap> },
       { path: '/color-converter', element: <SuspenseWrap><ColorConverterPage /></SuspenseWrap> },
       { path: '/highchart-copilot', element: <SuspenseWrap><HighchartCopilotPage /></SuspenseWrap> },
+      hospitalRoute,
     ],
   },
   { path: '*', element: <SuspenseWrap><NotFoundPage /></SuspenseWrap> },
