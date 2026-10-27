@@ -1,5 +1,6 @@
 import React from 'react';
-import { Activity, CheckCircle, Clock, Layers, Play, Sparkles, XCircle } from 'lucide-react';
+import { Button, Icon } from '@/components';
+import { cn } from '@/utils/classnames';
 import type { SpeechDetectionResult, SpeechSegment } from '../services/audio/speech-detection';
 import type { DecodedAudio } from '../services/audio/audio-decoder';
 
@@ -53,316 +54,103 @@ export const DetectionResultCard: React.FC<DetectionResultCardProps> = ({
     }
   };
 
+  const stats = [
+    { label: '音訊總時長', value: formatTime(result.totalAudioDurationMs) },
+    { label: '人聲總時長', value: formatTime(result.totalSpeechDurationMs) },
+    { label: '偵測人聲片段數', value: `${result.segments.length} 段` },
+    { label: '語音佔比', value: `${result.speechRatio}%` },
+  ];
+
   return (
-    <div className="glass-panel" style={{ padding: '24px', marginBottom: '24px' }}>
+    <section className="space-y-xl rounded-lg border border-outline-2 bg-surface-1 p-xl shadow-light-down-3">
       {/* 核心判定 Banner */}
       <div
-        style={{
-          display: 'flex',
-          flexWrap: 'wrap',
-          alignItems: 'center',
-          justifyContent: 'space-between',
-          gap: '16px',
-          padding: '20px 24px',
-          borderRadius: 'var(--radius-md)',
-          background: result.hasSpeech
-            ? 'linear-gradient(135deg, rgba(16, 185, 129, 0.18), rgba(6, 182, 212, 0.12))'
-            : 'linear-gradient(135deg, rgba(148, 163, 184, 0.1), rgba(30, 41, 59, 0.2))',
-          border: `1px solid ${
-            result.hasSpeech ? 'rgba(16, 185, 129, 0.4)' : 'rgba(148, 163, 184, 0.2)'
-          }`,
-          boxShadow: result.hasSpeech ? '0 0 30px -5px rgba(16, 185, 129, 0.2)' : 'none',
-          marginBottom: '20px',
-        }}
+        className={cn(
+          'flex flex-wrap items-center justify-between gap-lg rounded-lg border px-xl py-lg',
+          result.hasSpeech
+            ? 'border-success-outline bg-success-container-1'
+            : 'border-outline-2 bg-surface-3',
+        )}
       >
-        <div style={{ display: 'flex', alignItems: 'center', gap: '14px' }}>
-          {result.hasSpeech ? (
-            <div
-              style={{
-                width: '44px',
-                height: '44px',
-                borderRadius: '50%',
-                background: 'rgba(16, 185, 129, 0.2)',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-              }}
-            >
-              <CheckCircle size={28} color="#34d399" />
-            </div>
-          ) : (
-            <div
-              style={{
-                width: '44px',
-                height: '44px',
-                borderRadius: '50%',
-                background: 'rgba(148, 163, 184, 0.15)',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-              }}
-            >
-              <XCircle size={28} color="#94a3b8" />
-            </div>
-          )}
-
+        <div className="flex items-center gap-md">
+          <Icon
+            iconName={result.hasSpeech ? 'CheckCircle' : 'XCircle'}
+            size={40}
+            weight="fill"
+            className={result.hasSpeech ? 'text-success-variant-1' : 'text-neutral-variant-2'}
+          />
           <div>
-            <div
-              style={{
-                fontSize: '0.78rem',
-                fontWeight: 700,
-                letterSpacing: '0.08em',
-                textTransform: 'uppercase',
-                color: result.hasSpeech ? '#34d399' : '#94a3b8',
-                marginBottom: '2px',
-              }}
-            >
-              VAD 分析判定結果
-            </div>
-            <div
-              style={{
-                fontSize: '1.45rem',
-                fontWeight: 800,
-                color: result.hasSpeech ? '#ffffff' : '#cbd5e1',
-              }}
-            >
-              {result.hasSpeech ? '✅ 檢測到人聲 (Speech Detected)' : '⚪ 未檢測到人聲 (No Speech)'}
+            <div className="text-xs text-on-surface-variant">VAD 分析判定結果</div>
+            <div className={cn('title-xl', result.hasSpeech ? 'text-success' : 'text-on-surface')}>
+              {result.hasSpeech ? '檢測到人聲 (Speech Detected)' : '未檢測到人聲 (No Speech)'}
             </div>
           </div>
         </div>
 
-        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-          <span className="badge badge-indigo">
-            <Sparkles size={13} />
-            分析耗時 {result.analysisTimeMs} ms
-          </span>
-          <span className={result.hasSpeech ? 'badge badge-emerald' : 'badge badge-slate'}>
-            語音佔比 {result.speechRatio}%
-          </span>
-        </div>
+        <span className="rounded-full border border-outline-2 bg-surface-2 px-md py-xs text-xs text-on-surface">
+          分析耗時 {result.analysisTimeMs} ms
+        </span>
       </div>
 
-      {/* 4 個關鍵統計卡片 */}
-      <div
-        style={{
-          display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(160px, 1fr))',
-          gap: '12px',
-          marginBottom: '20px',
-        }}
-      >
-        <div
-          style={{
-            background: 'rgba(12, 17, 29, 0.5)',
-            padding: '14px',
-            borderRadius: 'var(--radius-sm)',
-            border: '1px solid var(--border-subtle)',
-          }}
-        >
+      {/* 關鍵統計 */}
+      <div className="grid grid-cols-2 gap-md lg:grid-cols-4">
+        {stats.map((stat) => (
           <div
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-              gap: '6px',
-              color: 'var(--text-muted)',
-              fontSize: '0.75rem',
-              marginBottom: '4px',
-            }}
+            key={stat.label}
+            className="rounded-md border border-outline-2 bg-surface-3 px-lg py-md"
           >
-            <Clock size={13} />
-            音訊總時長
+            <div className="text-xs text-on-surface-variant">{stat.label}</div>
+            <div className="font-mono text-lg font-bold text-on-surface">{stat.value}</div>
           </div>
-          <div className="font-mono" style={{ fontSize: '1.15rem', fontWeight: 700 }}>
-            {formatTime(result.totalAudioDurationMs)}
-          </div>
-        </div>
-
-        <div
-          style={{
-            background: 'rgba(12, 17, 29, 0.5)',
-            padding: '14px',
-            borderRadius: 'var(--radius-sm)',
-            border: '1px solid var(--border-subtle)',
-          }}
-        >
-          <div
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-              gap: '6px',
-              color: 'var(--text-muted)',
-              fontSize: '0.75rem',
-              marginBottom: '4px',
-            }}
-          >
-            <Activity size={13} />
-            人聲總時長
-          </div>
-          <div
-            className="font-mono"
-            style={{
-              fontSize: '1.15rem',
-              fontWeight: 700,
-              color: result.hasSpeech ? '#34d399' : 'inherit',
-            }}
-          >
-            {formatTime(result.totalSpeechDurationMs)}
-          </div>
-        </div>
-
-        <div
-          style={{
-            background: 'rgba(12, 17, 29, 0.5)',
-            padding: '14px',
-            borderRadius: 'var(--radius-sm)',
-            border: '1px solid var(--border-subtle)',
-          }}
-        >
-          <div
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-              gap: '6px',
-              color: 'var(--text-muted)',
-              fontSize: '0.75rem',
-              marginBottom: '4px',
-            }}
-          >
-            <Layers size={13} />
-            偵測人聲片段數
-          </div>
-          <div
-            className="font-mono"
-            style={{ fontSize: '1.15rem', fontWeight: 700, color: 'var(--accent-cyan)' }}
-          >
-            {result.segments.length}{' '}
-            <span style={{ fontSize: '0.75rem', fontWeight: 400 }}>段</span>
-          </div>
-        </div>
-
-        <div
-          style={{
-            background: 'rgba(12, 17, 29, 0.5)',
-            padding: '14px',
-            borderRadius: 'var(--radius-sm)',
-            border: '1px solid var(--border-subtle)',
-          }}
-        >
-          <div
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-              gap: '6px',
-              color: 'var(--text-muted)',
-              fontSize: '0.75rem',
-              marginBottom: '4px',
-            }}
-          >
-            <Sparkles size={13} />
-            語音佔比
-          </div>
-          <div
-            className="font-mono"
-            style={{ fontSize: '1.15rem', fontWeight: 700, color: 'var(--accent-indigo)' }}
-          >
-            {result.speechRatio}%
-          </div>
-        </div>
+        ))}
       </div>
 
       {/* 語音片段清單表格 */}
       <div>
-        <h4 style={{ fontSize: '0.95rem', fontWeight: 700, marginBottom: '12px' }}>
-          人聲片段明細列表 (Speech Segments)
-        </h4>
+        <h3 className="title-sm mb-md">人聲片段明細列表 (Speech Segments)</h3>
 
         {result.segments.length === 0 ? (
-          <div
-            style={{
-              padding: '24px',
-              textAlign: 'center',
-              background: 'rgba(12, 17, 29, 0.3)',
-              borderRadius: 'var(--radius-sm)',
-              border: '1px solid var(--border-subtle)',
-              color: 'var(--text-muted)',
-              fontSize: '0.85rem',
-            }}
-          >
+          <div className="rounded-md border border-outline-2 bg-surface-3 p-2xl text-center text-sm text-on-surface-variant">
             本音檔未偵測到任何符合門檻的人聲片段（如屬微弱語音，可嘗試降低 positiveSpeechThreshold）
           </div>
         ) : (
-          <div style={{ overflowX: 'auto' }}>
-            <table
-              style={{
-                width: '100%',
-                borderCollapse: 'collapse',
-                fontSize: '0.82rem',
-                textAlign: 'left',
-              }}
-            >
-              <thead>
-                <tr
-                  style={{
-                    borderBottom: '1px solid var(--border-subtle)',
-                    color: 'var(--text-muted)',
-                  }}
-                >
-                  <th style={{ padding: '8px 12px' }}>#</th>
-                  <th style={{ padding: '8px 12px' }}>起始時間</th>
-                  <th style={{ padding: '8px 12px' }}>結束時間</th>
-                  <th style={{ padding: '8px 12px' }}>時長</th>
-                  <th style={{ padding: '8px 12px', textAlign: 'right' }}>操作</th>
+          <div className="overflow-x-auto rounded-md border border-outline-2">
+            <table className="w-full text-left text-sm">
+              <thead className="bg-surface-3 text-on-surface-variant">
+                <tr>
+                  <th className="px-md py-sm">#</th>
+                  <th className="px-md py-sm">起始時間</th>
+                  <th className="px-md py-sm">結束時間</th>
+                  <th className="px-md py-sm">時長</th>
+                  <th className="px-md py-sm text-right">操作</th>
                 </tr>
               </thead>
               <tbody>
-                {result.segments.map((seg, idx) => {
-                  const isCurrent = seg.id === activeSegmentId;
-                  return (
-                    <tr
-                      key={seg.id}
-                      style={{
-                        borderBottom: '1px solid rgba(255, 255, 255, 0.04)',
-                        background: isCurrent ? 'rgba(6, 182, 212, 0.08)' : 'transparent',
-                        transition: 'background 0.15s ease',
-                      }}
-                    >
-                      <td style={{ padding: '10px 12px', color: 'var(--text-muted)' }}>
-                        {idx + 1}
-                      </td>
-                      <td className="font-mono" style={{ padding: '10px 12px', color: '#38bdf8' }}>
-                        {formatTime(seg.startMs)}
-                      </td>
-                      <td className="font-mono" style={{ padding: '10px 12px', color: '#818cf8' }}>
-                        {formatTime(seg.endMs)}
-                      </td>
-                      <td
-                        className="font-mono"
-                        style={{ padding: '10px 12px', color: '#34d399', fontWeight: 600 }}
-                      >
-                        {seg.durationMs} ms
-                      </td>
-                      <td style={{ padding: '10px 12px', textAlign: 'right' }}>
-                        <button
-                          onClick={() => playSegmentAudio(seg)}
-                          className="btn btn-secondary"
-                          style={{
-                            fontSize: '0.72rem',
-                            padding: '4px 10px',
-                            borderRadius: '6px',
-                          }}
-                        >
-                          <Play size={11} fill="currentColor" />
-                          單段試聽
-                        </button>
-                      </td>
-                    </tr>
-                  );
-                })}
+                {result.segments.map((seg, idx) => (
+                  <tr
+                    key={seg.id}
+                    className={cn(
+                      'border-t border-outline-2 transition-colors',
+                      seg.id === activeSegmentId ? 'bg-primary-container' : 'hover:bg-surface-3',
+                    )}
+                  >
+                    <td className="px-md py-sm text-on-surface-variant">{idx + 1}</td>
+                    <td className="px-md py-sm font-mono">{formatTime(seg.startMs)}</td>
+                    <td className="px-md py-sm font-mono">{formatTime(seg.endMs)}</td>
+                    <td className="px-md py-sm font-mono">{seg.durationMs} ms</td>
+                    <td className="px-md py-sm text-right">
+                      <Button variant="ghost" size="small" onClick={() => playSegmentAudio(seg)}>
+                        <Icon iconName="Play" size={14} weight="fill" />
+                        單段試聽
+                      </Button>
+                    </td>
+                  </tr>
+                ))}
               </tbody>
             </table>
           </div>
         )}
       </div>
-    </div>
+    </section>
   );
 };

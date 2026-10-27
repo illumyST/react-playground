@@ -1,5 +1,6 @@
 import React, { useRef, useState } from 'react';
-import { CheckCircle2, FileAudio, Mic, PlayCircle, Square, Upload } from 'lucide-react';
+import { Button, Icon } from '@/components';
+import { cn } from '@/utils/classnames';
 import {
   AudioRecorder,
   PRESET_SAMPLES,
@@ -124,31 +125,17 @@ export const AudioUploader: React.FC<AudioUploaderProps> = ({
   };
 
   return (
-    <div className="glass-panel" style={{ padding: '24px', marginBottom: '24px' }}>
-      <div
-        style={{
-          display: 'flex',
-          justifyContent: 'space-between',
-          alignItems: 'center',
-          marginBottom: '16px',
-        }}
-      >
-        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-          <FileAudio size={18} color="var(--accent-cyan)" />
-          <h2 style={{ fontSize: '1.05rem', fontWeight: 700 }}>選擇或錄製音訊檔案</h2>
+    <section className="rounded-lg border border-outline-2 bg-surface-1 p-xl shadow-light-down-3">
+      <div className="mb-lg flex flex-wrap items-center justify-between gap-sm">
+        <div className="flex items-center gap-sm">
+          <Icon iconName="FileAudio" size={20} className="text-primary" />
+          <h2 className="title-md">選擇或錄製音訊檔案</h2>
         </div>
         {currentFilename && (
-          <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-            <CheckCircle2 size={14} color="#34d399" />
-            <span style={{ fontSize: '0.8rem', color: 'var(--text-secondary)' }}>
-              目前檔案：
-              <span
-                className="font-mono"
-                style={{ color: 'var(--text-primary)', marginLeft: '4px' }}
-              >
-                {currentFilename}
-              </span>
-            </span>
+          <div className="flex items-center gap-xs text-sm text-on-surface-variant">
+            <Icon iconName="CheckCircle" size={16} className="text-success-variant-1" />
+            目前檔案：
+            <span className="font-mono text-on-surface">{currentFilename}</span>
           </div>
         )}
       </div>
@@ -159,154 +146,92 @@ export const AudioUploader: React.FC<AudioUploaderProps> = ({
         onDragLeave={handleDragLeave}
         onDrop={handleDrop}
         onClick={() => fileInputRef.current?.click()}
-        style={{
-          border: `2px dashed ${isDragging ? 'var(--accent-cyan)' : 'var(--border-subtle)'}`,
-          borderRadius: 'var(--radius-md)',
-          padding: '36px 20px',
-          textAlign: 'center',
-          background: isDragging ? 'rgba(6, 182, 212, 0.08)' : 'rgba(12, 17, 29, 0.5)',
-          cursor: isAnalyzing ? 'not-allowed' : 'pointer',
-          transition: 'all 0.2s ease',
-          marginBottom: '18px',
-        }}
+        className={cn(
+          'mb-lg rounded-lg border-2 border-dashed px-xl py-5xl text-center transition-colors',
+          isDragging
+            ? 'border-primary bg-primary-container'
+            : 'border-outline-3 bg-surface-3 hover:border-primary',
+          isAnalyzing ? 'cursor-not-allowed' : 'cursor-pointer',
+        )}
       >
         <input
           type="file"
           ref={fileInputRef}
           onChange={handleFileInput}
           accept="audio/*,.webm,.mp3,.wav,.m4a,.ogg,.flac"
-          style={{ display: 'none' }}
+          className="hidden"
           disabled={isAnalyzing}
         />
-        <div
-          style={{
-            width: '48px',
-            height: '48px',
-            borderRadius: '50%',
-            background: 'rgba(99, 102, 241, 0.12)',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            margin: '0 auto 12px auto',
-          }}
-        >
-          <Upload size={22} color="var(--accent-indigo)" />
+        <div className="mx-auto mb-md flex size-[48px] items-center justify-center rounded-full bg-primary-container text-primary">
+          <Icon iconName="UploadSimple" size={22} />
         </div>
-        <p style={{ fontWeight: 600, fontSize: '0.95rem', marginBottom: '4px' }}>
-          點擊上傳 或 拖曳音檔至此處
-        </p>
-        <p style={{ color: 'var(--text-muted)', fontSize: '0.8rem' }}>
+        <p className="title-sm">點擊上傳 或 拖曳音檔至此處</p>
+        <p className="text-sm text-on-surface-variant">
           支援 WebM, MP3, WAV, M4A, OGG 等常見音訊格式 (前端直接解碼)
         </p>
       </div>
 
-      {/* Preset Dataset & Microphone Recording (Phase 6 / FE-4) */}
-      <div
-        style={{
-          display: 'flex',
-          flexWrap: 'wrap',
-          alignItems: 'center',
-          justifyContent: 'space-between',
-          gap: '12px',
-          paddingTop: '12px',
-          borderTop: '1px solid var(--border-subtle)',
-        }}
-      >
-        {/* Preset Buttons */}
-        <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: '8px' }}>
-          <span style={{ fontSize: '0.8rem', color: 'var(--text-muted)', marginRight: '4px' }}>
-            快速測試集 (FE-4):
-          </span>
+      {/* 快速測試集與麥克風錄音 */}
+      <div className="flex flex-wrap items-center justify-between gap-md border-t border-outline-2 pt-lg">
+        <div className="flex flex-wrap items-center gap-sm">
+          <span className="text-sm text-on-surface-variant">快速測試集：</span>
           {PRESET_SAMPLES.map((preset) => (
-            <button
+            <Button
               key={preset.id}
+              variant="outlined"
+              size="small"
               onClick={() => handlePresetSelect(preset)}
               disabled={isAnalyzing || isRecording}
-              className="btn btn-secondary"
-              style={{
-                fontSize: '0.78rem',
-                padding: '6px 12px',
-                borderRadius: '8px',
-              }}
               title={preset.description}
             >
-              <PlayCircle size={14} />
+              <Icon iconName="PlayCircle" size={16} />
               {preset.name}
-            </button>
+            </Button>
           ))}
 
           {/* audioTest 資料夾音檔選單 */}
-          <div style={{ display: 'inline-flex', alignItems: 'center', marginLeft: '6px' }}>
-            <select
-              defaultValue=""
-              onChange={(e) => {
-                if (e.target.value) {
-                  handleAudioTestSelect(e.target.value);
-                  e.target.value = '';
-                }
-              }}
-              disabled={isAnalyzing || isRecording}
-              style={{
-                fontSize: '0.78rem',
-                padding: '6px 10px',
-                borderRadius: '8px',
-                background: 'rgba(30, 41, 59, 0.7)',
-                color: 'var(--text-primary)',
-                border: '1px solid var(--border-subtle)',
-                outline: 'none',
-                cursor: 'pointer',
-              }}
-            >
-              <option value="" disabled>
-                📂 選擇 audioTest 測試音檔...
+          <select
+            defaultValue=""
+            onChange={(e) => {
+              if (e.target.value) {
+                handleAudioTestSelect(e.target.value);
+                e.target.value = '';
+              }
+            }}
+            disabled={isAnalyzing || isRecording}
+            className="cursor-pointer rounded-md border border-outline bg-surface-1 px-sm py-xs text-sm text-on-surface focus:outline-none focus:ring-2 focus:ring-primary/50 disabled:opacity-50"
+          >
+            <option value="" disabled>
+              選擇 audioTest 測試音檔...
+            </option>
+            {AUDIO_TEST_FILES.map((item) => (
+              <option key={item.name} value={item.name}>
+                {item.label}
               </option>
-              {AUDIO_TEST_FILES.map((item) => (
-                <option key={item.name} value={item.name}>
-                  {item.label}
-                </option>
-              ))}
-            </select>
-          </div>
+            ))}
+          </select>
         </div>
 
-        {/* Microphone Quick Recorder */}
-        <div>
-          {isRecording ? (
-            <button
-              onClick={stopRecording}
-              className="btn btn-danger"
-              style={{ fontSize: '0.82rem', padding: '6px 14px' }}
-            >
-              <span
-                style={{
-                  width: '8px',
-                  height: '8px',
-                  borderRadius: '50%',
-                  background: '#f43f5e',
-                  display: 'inline-block',
-                }}
-                className="animate-pulse-glow"
-              />
-              <Square size={14} fill="#fda4af" />
-              停止錄音 ({recordSeconds}s) 並分析
-            </button>
-          ) : (
-            <button
-              onClick={startRecording}
-              disabled={isAnalyzing}
-              className="btn btn-secondary"
-              style={{
-                fontSize: '0.82rem',
-                padding: '6px 14px',
-                borderColor: 'rgba(244, 63, 94, 0.3)',
-              }}
-            >
-              <Mic size={14} color="#f43f5e" />
-              麥克風即時錄製人聲測試
-            </button>
-          )}
-        </div>
+        {/* 麥克風錄音 */}
+        {isRecording ? (
+          <Button color="product" size="small" onClick={stopRecording}>
+            <span className="size-[8px] animate-pulse rounded-full bg-white" />
+            <Icon iconName="Stop" size={16} weight="fill" />
+            停止錄音 ({recordSeconds}s) 並分析
+          </Button>
+        ) : (
+          <Button
+            variant="outlined"
+            color="product"
+            size="small"
+            onClick={startRecording}
+            disabled={isAnalyzing}
+          >
+            <Icon iconName="Microphone" size={16} />
+            麥克風即時錄製人聲測試
+          </Button>
+        )}
       </div>
-    </div>
+    </section>
   );
 };

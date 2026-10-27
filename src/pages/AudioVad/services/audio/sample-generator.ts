@@ -114,21 +114,21 @@ export function createSineToneSample(frequency: number = 440, durationSec: numbe
 export const PRESET_SAMPLES: PresetSample[] = [
   {
     id: 'silence',
-    name: '🔇 純靜音 (Silence)',
+    name: '純靜音 (Silence)',
     description: '3秒完全靜音，振幅為0',
     expectedSpeech: false,
     createBlob: async () => createSilenceSample(3),
   },
   {
     id: 'fan-noise',
-    name: '💨 模擬風扇雜音 (Fan Noise)',
+    name: '模擬風扇雜音 (Fan Noise)',
     description: '3秒低頻模擬冷氣/風扇背景音',
     expectedSpeech: false,
     createBlob: async () => createFanNoiseSample(3),
   },
   {
     id: 'tone',
-    name: '🔔 440Hz 單音 (Pure Tone)',
+    name: '440Hz 單音 (Pure Tone)',
     description: '2秒機械式正弦單音，無人聲',
     expectedSpeech: false,
     createBlob: async () => createSineToneSample(440, 2),

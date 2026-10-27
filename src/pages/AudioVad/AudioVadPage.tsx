@@ -1,6 +1,4 @@
 import React, { useState } from 'react';
-import './audioVad.css';
-import { Header } from './components/Header';
 import { AudioUploader } from './components/AudioUploader';
 import { WaveformVisualizer } from './components/WaveformVisualizer';
 import { ParameterControls } from './components/ParameterControls';
@@ -14,7 +12,9 @@ import {
   type SpeechSegment,
 } from './services/audio/speech-detection';
 import type { DecodedAudio } from './services/audio/audio-decoder';
-import { AlertTriangle, Loader2, Sparkles } from 'lucide-react';
+import { Icon, Loading } from '@/components';
+
+const TECH_TAGS = ['Silero VAD + ONNX WASM', '@ricky0123/vad-web', '純前端零伺服端傳輸'];
 
 const AudioVadPage: React.FC = () => {
   const [file, setFile] = useState<Blob | File | null>(null);
@@ -89,26 +89,28 @@ const AudioVadPage: React.FC = () => {
   };
 
   return (
-    <div className="audio-vad">
-      <Header />
+    <div className="flex w-full min-h-main flex-col space-y-lg text-left">
+      <div className="space-y-sm">
+        <h1 className="title-2xl">Audio VAD</h1>
+        <p className="text-sm text-on-surface-variant">
+          直接在前端瀏覽器分析音檔 samples，精確判定是否有人講話並標記片段時間
+        </p>
+        <div className="flex flex-wrap gap-sm">
+          {TECH_TAGS.map((tag) => (
+            <span
+              key={tag}
+              className="rounded-full border border-outline-2 bg-surface-2 px-md py-xs text-xs text-on-surface"
+            >
+              {tag}
+            </span>
+          ))}
+        </div>
+      </div>
 
       {/* 錯誤通知 Banner */}
       {error && (
-        <div
-          style={{
-            display: 'flex',
-            alignItems: 'center',
-            gap: '10px',
-            padding: '14px 18px',
-            borderRadius: 'var(--radius-md)',
-            background: 'rgba(244, 63, 94, 0.15)',
-            border: '1px solid rgba(244, 63, 94, 0.3)',
-            color: '#fda4af',
-            marginBottom: '20px',
-            fontSize: '0.875rem',
-          }}
-        >
-          <AlertTriangle size={18} />
+        <div className="flex items-center gap-sm rounded-lg border border-error-outline bg-error-container-1 px-lg py-md text-sm text-error">
+          <Icon iconName="Warning" size={18} />
           <span>{error}</span>
         </div>
       )}
@@ -122,25 +124,10 @@ const AudioVadPage: React.FC = () => {
 
       {/* 分析中載入狀態 */}
       {isAnalyzing && (
-        <div
-          className="glass-panel"
-          style={{
-            padding: '36px 24px',
-            textAlign: 'center',
-            marginBottom: '24px',
-            borderColor: 'rgba(99, 102, 241, 0.3)',
-          }}
-        >
-          <Loader2
-            size={36}
-            color="var(--accent-indigo)"
-            className="animate-spin"
-            style={{ margin: '0 auto 16px auto' }}
-          />
-          <h3 style={{ fontSize: '1.1rem', fontWeight: 700, marginBottom: '6px' }}>
-            語音特徵提取與分析中
-          </h3>
-          <p style={{ color: 'var(--text-secondary)', fontSize: '0.875rem' }}>
+        <div className="space-y-sm rounded-lg border border-outline-2 bg-surface-1 p-2xl text-center shadow-light-down-3">
+          <Loading size="large" />
+          <h3 className="title-md">語音特徵提取與分析中</h3>
+          <p className="text-sm text-on-surface-variant">
             {statusMessage || '請稍候，模型正在瀏覽器本機端 WASM 核心計算中...'}
           </p>
         </div>
@@ -179,69 +166,39 @@ const AudioVadPage: React.FC = () => {
 
       {/* 未上傳檔案時之導引提示卡片 */}
       {!result && !isAnalyzing && (
-        <div
-          className="glass-panel"
-          style={{
-            padding: '28px',
-            background: 'rgba(18, 24, 38, 0.4)',
-            borderStyle: 'dashed',
-          }}
-        >
-          <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '10px' }}>
-            <Sparkles size={18} color="var(--accent-cyan)" />
-            <h3 style={{ fontSize: '1rem', fontWeight: 700 }}>如何使用本工具驗證？</h3>
-          </div>
-          <ul
-            style={{
-              paddingLeft: '20px',
-              fontSize: '0.85rem',
-              color: 'var(--text-secondary)',
-              lineHeight: 1.8,
-            }}
-          >
+        <div className="rounded-lg border border-dashed border-outline-3 bg-surface-1 p-xl">
+          <h3 className="title-sm mb-sm">如何使用本工具驗證？</h3>
+          <ul className="list-disc space-y-xs pl-xl text-sm text-on-surface-variant">
             <li>
-              <strong>快速驗證 (FE-4)</strong>：點選上方「純靜音」、「風扇雜音」或「440Hz
-              單音」預設集，預期判定皆為「未檢測到人聲 (No Speech)」。
+              <strong className="text-on-surface">快速驗證</strong>
+              ：點選上方「純靜音」、「風扇雜音」或「440Hz 單音」預設集，預期判定皆為「未檢測到人聲
+              (No Speech)」。
             </li>
             <li>
-              <strong>真人語音測試</strong>：點擊「麥克風即時錄製人聲測試」，對著麥克風說話 3~5
+              <strong className="text-on-surface">真人語音測試</strong>
+              ：點擊「麥克風即時錄製人聲測試」，對著麥克風說話 3~5
               秒後停止，系統將立即解碼並精確框出人聲區段。
             </li>
             <li>
-              <strong>本機音檔分析</strong>：拖曳您手邊既有的音訊檔案（如 <code>.webm</code>,{' '}
-              <code>.m4a</code>, <code>.mp3</code>, <code>.wav</code>
-              ）即可完全在前端分析，不用擔心資料隱私外洩。
+              <strong className="text-on-surface">本機音檔分析</strong>
+              ：拖曳您手邊既有的音訊檔案（如 <code>.webm</code>, <code>.m4a</code>,{' '}
+              <code>.mp3</code>, <code>.wav</code>）即可完全在前端分析，不用擔心資料隱私外洩。
             </li>
             <li>
-              <strong>參數微調 (FE-5)</strong>
+              <strong className="text-on-surface">參數微調</strong>
               ：分析完成後可透過下方滑桿即時調節門檻，直接測試不同雜訊環境下的最佳判定參數。
             </li>
           </ul>
         </div>
       )}
 
-      {/* Footer */}
-      <footer
-        style={{
-          marginTop: '48px',
-          paddingTop: '20px',
-          borderTop: '1px solid var(--border-subtle)',
-          display: 'flex',
-          justifyContent: 'space-between',
-          alignItems: 'center',
-          flexWrap: 'wrap',
-          gap: '12px',
-          fontSize: '0.78rem',
-          color: 'var(--text-muted)',
-        }}
-      >
+      <footer className="mt-auto flex flex-wrap items-center justify-between gap-md border-t border-outline-2 pt-lg text-xs text-on-surface-variant">
         <div>
           基於 <strong>@ricky0123/vad-web</strong> (Silero VAD) 與 Web Audio API 實現
         </div>
-        <div style={{ display: 'flex', gap: '16px' }}>
+        <div className="flex gap-lg">
           <span>純客戶端運算 (WASM)</span>
           <span>零伺服端延遲</span>
-          <span>高相容性 AudioDecoder</span>
         </div>
       </footer>
     </div>

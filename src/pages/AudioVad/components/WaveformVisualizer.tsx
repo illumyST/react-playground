@@ -1,7 +1,19 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { Pause, Play, RotateCcw, Volume2 } from 'lucide-react';
+import { Button, Icon } from '@/components';
 import type { DecodedAudio } from '../services/audio/audio-decoder';
 import type { SpeechSegment } from '../services/audio/speech-detection';
+
+// Canvas 無法使用 Tailwind class，色彩對應 src/styles/tokens.css 的 token
+const COLORS = {
+  centerLine: '#d9d9d9', // gray-200
+  speechBar: '#5A90A6', // steel-500
+  silenceBar: '#bdbdbd', // gray-300
+  segmentFill: 'rgba(155, 218, 242, 0.25)', // steel-200
+  segmentFillActive: 'rgba(155, 218, 242, 0.55)',
+  segmentStroke: '#74C4E5', // steel-300
+  segmentStrokeActive: '#3B6578', // steel-700
+  playhead: '#D4728A', // rose-500
+};
 
 interface WaveformVisualizerProps {
   decodedAudio: DecodedAudio;
@@ -84,7 +96,7 @@ export const WaveformVisualizer: React.FC<WaveformVisualizerProps> = ({
     ctx.clearRect(0, 0, width, height);
 
     // 1. 繪製背景網格與中線
-    ctx.strokeStyle = 'rgba(255, 255, 255, 0.05)';
+    ctx.strokeStyle = COLORS.centerLine;
     ctx.lineWidth = 1;
     ctx.beginPath();
     ctx.moveTo(0, centerY);
@@ -100,21 +112,11 @@ export const WaveformVisualizer: React.FC<WaveformVisualizerProps> = ({
       const segWidth = Math.max(2, endX - startX);
       const isActive = seg.id === activeSegmentId;
 
-      // 漸層覆蓋區域
-      const segGradient = ctx.createLinearGradient(0, 0, 0, height);
-      if (isActive) {
-        segGradient.addColorStop(0, 'rgba(6, 182, 212, 0.45)');
-        segGradient.addColorStop(1, 'rgba(99, 102, 241, 0.45)');
-      } else {
-        segGradient.addColorStop(0, 'rgba(16, 185, 129, 0.25)');
-        segGradient.addColorStop(1, 'rgba(6, 182, 212, 0.15)');
-      }
-
-      ctx.fillStyle = segGradient;
+      ctx.fillStyle = isActive ? COLORS.segmentFillActive : COLORS.segmentFill;
       ctx.fillRect(startX, 0, segWidth, height);
 
       // 上下邊緣邊線
-      ctx.strokeStyle = isActive ? '#06b6d4' : '#10b981';
+      ctx.strokeStyle = isActive ? COLORS.segmentStrokeActive : COLORS.segmentStroke;
       ctx.lineWidth = isActive ? 2 : 1;
       ctx.strokeRect(startX, 0, segWidth, height);
     });
@@ -134,11 +136,7 @@ export const WaveformVisualizer: React.FC<WaveformVisualizerProps> = ({
       const isInSpeech = segments.some((seg) => timeAtBar >= seg.startMs && timeAtBar <= seg.endMs);
 
       ctx.beginPath();
-      if (isInSpeech) {
-        ctx.fillStyle = '#34d399'; // 人聲處為亮綠翡翠色
-      } else {
-        ctx.fillStyle = 'rgba(148, 163, 184, 0.35)'; // 無人聲為柔和灰藍
-      }
+      ctx.fillStyle = isInSpeech ? COLORS.speechBar : COLORS.silenceBar;
 
       // 上下對稱柱
       ctx.roundRect(x, centerY - barHeight, barWidth, barHeight * 2, 1.5);
@@ -148,15 +146,15 @@ export const WaveformVisualizer: React.FC<WaveformVisualizerProps> = ({
     // 4. 繪製當前播放指針 (Playhead)
     const playheadX = (currentTimeMs / totalDuration) * width;
     if (playheadX >= 0 && playheadX <= width) {
-      ctx.strokeStyle = '#f43f5e';
+      ctx.strokeStyle = COLORS.playhead;
       ctx.lineWidth = 2;
       ctx.beginPath();
       ctx.moveTo(playheadX, 0);
       ctx.lineTo(playheadX, height);
       ctx.stroke();
 
-      // 指針頂部微光圓球
-      ctx.fillStyle = '#f43f5e';
+      // 指針頂部圓點
+      ctx.fillStyle = COLORS.playhead;
       ctx.beginPath();
       ctx.arc(playheadX, 6, 4, 0, Math.PI * 2);
       ctx.fill();
@@ -190,98 +188,53 @@ export const WaveformVisualizer: React.FC<WaveformVisualizerProps> = ({
   };
 
   return (
-    <div className="glass-panel" style={{ padding: '24px', marginBottom: '24px' }}>
-      <div
-        style={{
-          display: 'flex',
-          justifyContent: 'space-between',
-          alignItems: 'center',
-          marginBottom: '16px',
-        }}
-      >
-        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-          <Volume2 size={18} color="var(--accent-emerald)" />
-          <h3 style={{ fontSize: '1.05rem', fontWeight: 700 }}>音訊波形與人聲區間時間軸</h3>
+    <section className="rounded-lg border border-outline-2 bg-surface-1 p-xl shadow-light-down-3">
+      <div className="mb-lg flex flex-wrap items-center justify-between gap-sm">
+        <div className="flex items-center gap-sm">
+          <Icon iconName="SpeakerHigh" size={20} className="text-primary" />
+          <h2 className="title-md">音訊波形與人聲區間時間軸</h2>
         </div>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-            <span
-              style={{
-                width: '10px',
-                height: '10px',
-                borderRadius: '2px',
-                background: '#34d399',
-                display: 'inline-block',
-              }}
-            />
-            <span style={{ fontSize: '0.75rem', color: 'var(--text-secondary)' }}>
-              人聲區間 (Speech Segment)
-            </span>
+        <div className="flex items-center gap-md">
+          <div className="flex items-center gap-xs text-xs text-on-surface-variant">
+            <span className="inline-block size-[10px] rounded-sm bg-steel-500" />
+            人聲區間 (Speech Segment)
           </div>
-          <span className="font-mono" style={{ fontSize: '0.85rem', color: 'var(--accent-cyan)' }}>
+          <span className="font-mono text-sm text-primary">
             {formatTime(currentTimeMs)} / {formatTime(decodedAudio.durationMs)}
           </span>
         </div>
       </div>
 
       {/* Canvas 波形容器 */}
-      <div
-        style={{
-          position: 'relative',
-          width: '100%',
-          height: '120px',
-          background: 'rgba(9, 13, 22, 0.7)',
-          borderRadius: 'var(--radius-md)',
-          border: '1px solid var(--border-subtle)',
-          cursor: 'crosshair',
-          overflow: 'hidden',
-          marginBottom: '16px',
-        }}
-      >
-        <canvas
-          ref={canvasRef}
-          onClick={handleCanvasClick}
-          style={{ width: '100%', height: '100%', display: 'block' }}
-        />
+      <div className="relative mb-lg h-[120px] w-full cursor-crosshair overflow-hidden rounded-md border border-outline-2 bg-surface-3">
+        <canvas ref={canvasRef} onClick={handleCanvasClick} className="block size-full" />
       </div>
 
       {/* 播放控制列 */}
-      <div
-        style={{
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'space-between',
-          flexWrap: 'wrap',
-          gap: '12px',
-        }}
-      >
-        <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-          <button
-            onClick={handlePlayPause}
-            className="btn btn-primary"
-            style={{ padding: '8px 16px', borderRadius: '10px' }}
-          >
-            {isPlaying ? <Pause size={16} /> : <Play size={16} fill="white" />}
+      <div className="flex flex-wrap items-center justify-between gap-md">
+        <div className="flex items-center gap-sm">
+          <Button size="small" onClick={handlePlayPause}>
+            <Icon iconName={isPlaying ? 'Pause' : 'Play'} size={16} weight="fill" />
             {isPlaying ? '暫停播放' : '播放音訊'}
-          </button>
-          <button
+          </Button>
+          <Button
+            variant="outlined"
+            size="small"
             onClick={() => {
               if (audioRef.current) {
                 audioRef.current.currentTime = 0;
                 setCurrentTimeMs(0);
               }
             }}
-            className="btn btn-secondary"
-            style={{ padding: '8px 12px', borderRadius: '10px' }}
             title="回到開頭"
           >
-            <RotateCcw size={15} />
-          </button>
+            <Icon iconName="ArrowCounterClockwise" size={16} />
+          </Button>
         </div>
 
-        <div style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>
-          提示：點擊波形任何位置即可跳轉播放；高亮綠色區塊為 VAD 偵測到之語音區間
-        </div>
+        <p className="text-xs text-on-surface-variant">
+          提示：點擊波形任何位置即可跳轉播放；藍色區塊為 VAD 偵測到之語音區間
+        </p>
       </div>
 
       {/* 隱藏原生 Audio 標籤 */}
@@ -293,6 +246,6 @@ export const WaveformVisualizer: React.FC<WaveformVisualizerProps> = ({
           onPause={() => setIsPlaying(false)}
         />
       )}
-    </div>
+    </section>
   );
 };

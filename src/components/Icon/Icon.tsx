@@ -1,8 +1,12 @@
 import {
+  ArrowCounterClockwiseIcon,
+  ArrowsClockwiseIcon,
   CaretDownIcon,
   CaretUpIcon,
   ChartLineUpIcon,
+  CheckCircleIcon,
   CloudSunIcon,
+  FileAudioIcon,
   FileDocIcon,
   FilmSlateIcon,
   FirstAidKitIcon,
@@ -10,9 +14,19 @@ import {
   HouseIcon,
   MagnifyingGlassIcon,
   MetronomeIcon,
+  MicrophoneIcon,
+  PauseIcon,
+  PlayCircleIcon,
+  PlayIcon,
+  SlidersHorizontalIcon,
   SmileyIcon,
+  SpeakerHighIcon,
+  StopIcon,
+  UploadSimpleIcon,
   UsersThreeIcon,
+  WarningIcon,
   WaveformIcon,
+  XCircleIcon,
 } from '@phosphor-icons/react';
 
 type IconName = keyof typeof ICONS;
@@ -40,6 +54,21 @@ const ICONS = {
   CaretUp: CaretUpIcon,
   FirstAid: FirstAidKitIcon, // hospital
   Waveform: WaveformIcon, // audio vad
+  // audio vad 頁面內使用
+  ArrowCounterClockwise: ArrowCounterClockwiseIcon,
+  ArrowsClockwise: ArrowsClockwiseIcon,
+  CheckCircle: CheckCircleIcon,
+  FileAudio: FileAudioIcon,
+  Microphone: MicrophoneIcon,
+  Pause: PauseIcon,
+  Play: PlayIcon,
+  PlayCircle: PlayCircleIcon,
+  SlidersHorizontal: SlidersHorizontalIcon,
+  SpeakerHigh: SpeakerHighIcon,
+  Stop: StopIcon,
+  UploadSimple: UploadSimpleIcon,
+  Warning: WarningIcon,
+  XCircle: XCircleIcon,
 };
 
 const Icon = ({ iconName, className = '', size = 24, weight = 'regular' }: props) => {
