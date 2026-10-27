@@ -3,15 +3,18 @@ import globals from 'globals';
 import react from 'eslint-plugin-react';
 import reactHooks from 'eslint-plugin-react-hooks';
 import reactRefresh from 'eslint-plugin-react-refresh';
+import prettierRecommended from 'eslint-plugin-prettier/recommended';
 import tseslint from 'typescript-eslint';
 import { defineConfig, globalIgnores } from 'eslint/config';
 
-// Prettier integration (keeps last for formatting)
-const prettierRecommended = require('eslint-plugin-prettier/recommended');
-
 export default defineConfig([
-  globalIgnores(['dist', 'node_modules']),
-  prettierRecommended,
+  globalIgnores([
+    'dist',
+    'node_modules',
+    'public',
+    'backend/copilotKit/.venv',
+    'backend/hospital/mock-server/dist',
+  ]),
   {
     files: ['**/*.{ts,tsx,js,jsx}'],
     extends: [
@@ -33,13 +36,6 @@ export default defineConfig([
     },
     settings: {
       react: { version: 'detect' },
-      'import/resolver': {
-        typescript: true,
-        node: true,
-      },
-    },
-    plugins: {
-      react,
     },
     rules: {
       // React 19: allow prop spreading but warn if excessive
@@ -61,9 +57,29 @@ export default defineConfig([
           ignoreCase: true,
         },
       ],
-      'import/order': [
-        'off',
-      ],
     },
   },
+  // Node 端程式：Copilot runtime、Hospital mock server、設定檔
+  {
+    files: ['backend/**/*.{ts,js,cjs}', '*.config.{ts,js,cjs}'],
+    languageOptions: {
+      globals: {
+        ...globals.node,
+      },
+    },
+    rules: {
+      'no-console': 'off',
+    },
+  },
+  {
+    files: ['**/*.cjs'],
+    languageOptions: {
+      sourceType: 'commonjs',
+    },
+    rules: {
+      '@typescript-eslint/no-require-imports': 'off',
+    },
+  },
+  // Prettier integration (keeps last for formatting)
+  prettierRecommended,
 ]);
