@@ -1,5 +1,5 @@
-import { useState, useRef, useCallback } from 'react';
-import { useForm, type SubmitHandler } from 'react-hook-form';
+import { useCallback, useRef, useState } from 'react';
+import { type SubmitHandler, useForm } from 'react-hook-form';
 import Clipboard from 'clipboard';
 import { useEffect } from 'react';
 import { Button, Input } from '@/components';
@@ -11,8 +11,7 @@ type Inputs = {
 
 type GroupData = Array<string[]>;
 
-const shuffle = (array: string[]): string[] =>
-  [...array].sort(() => Math.random() - 0.5);
+const shuffle = (array: string[]): string[] => [...array].sort(() => Math.random() - 0.5);
 
 const genCopyStr = (group: GroupData = []): string =>
   group.map((g, i) => `第${i + 1}組：${g.join(',')}`).join('; ');
@@ -42,19 +41,13 @@ const Result = ({ groupProp }: ResultProps): React.ReactNode => {
     setCopyStr(genCopyStr(groupProp));
   }, [groupProp]);
 
-  const handleDragStart = useCallback(
-    (groupIdx: number, itemIdx: number) => {
-      dragItem.current = { groupIdx, itemIdx };
-    },
-    [],
-  );
+  const handleDragStart = useCallback((groupIdx: number, itemIdx: number) => {
+    dragItem.current = { groupIdx, itemIdx };
+  }, []);
 
-  const handleDragEnter = useCallback(
-    (groupIdx: number, itemIdx: number) => {
-      dragOverItem.current = { groupIdx, itemIdx };
-    },
-    [],
-  );
+  const handleDragEnter = useCallback((groupIdx: number, itemIdx: number) => {
+    dragOverItem.current = { groupIdx, itemIdx };
+  }, []);
 
   const handleDragEnd = useCallback(() => {
     if (!dragItem.current || !dragOverItem.current) return;
@@ -89,9 +82,7 @@ const Result = ({ groupProp }: ResultProps): React.ReactNode => {
             }}
             onDrop={handleDragEnd}
           >
-            <div className="bg-surface-5 p-sm text-center font-bold">
-              第{gIdx + 1}組
-            </div>
+            <div className="bg-surface-5 p-sm text-center font-bold">第{gIdx + 1}組</div>
             <div className="flex flex-col gap-md p-lg text-center text-on-surface">
               {members.map((name, mIdx) => (
                 <div
@@ -129,9 +120,7 @@ const GroupingPage = (): React.ReactNode => {
 
   const onSubmit: SubmitHandler<Inputs> = (data) => {
     // 整理參加者資料
-    const participants = shuffle(
-      data.participant.split(/\s*,\s*/).filter((item) => item !== ''),
-    );
+    const participants = shuffle(data.participant.split(/\s*,\s*/).filter((item) => item !== ''));
 
     // 建立組別
     const newGroup = Array.from({ length: +data.gnumber }, (): string[] => []);

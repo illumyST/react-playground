@@ -2,7 +2,7 @@ import axios from 'axios';
 import { useEffect, useState } from 'react';
 import Clipboard from 'clipboard';
 import { useNavigate } from 'react-router-dom';
-import { Loading, Input } from '@/components';
+import { Input, Loading } from '@/components';
 
 // api source: https://emoji-api.com/
 
@@ -30,31 +30,41 @@ const EmojiPage = (): React.ReactNode => {
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const navigate = useNavigate();
 
-  const goToPosts = (data: string) =>
-    navigate({ pathname: '/emoji', search: `?data=${data}` });
+  const goToPosts = (data: string) => navigate({ pathname: '/emoji', search: `?data=${data}` });
 
   const getEmoji = async (e?: React.ChangeEvent<HTMLInputElement>) => {
     setIsLoading(true);
     const data = e?.target.value || '';
     setTypeFilter('');
     goToPosts(data);
-    axios
-      // 這個 api 掛了！！！
-      .get('https://emoji-api.com/emojis', {
-        params: {
-          search: data,
-          access_key: '11698457883fe881f5ae1d05a58e25565bba420b',
+
+    try {
+      const res = await axios.get(
+        import.meta.env.VITE_EMOJI_API_URL || 'https://emoji-api.com/emojis',
+        {
+          params: {
+            search: data,
+            access_key: import.meta.env.VITE_EMOJI_API_KEY,
+          },
         },
-      })
-      .then((res) => {
-        setIsLoading(false);
-        if (res.data?.status === 'error') {
-          setResult([]);
-          return;
-        }
-        setResult(res.data);
-        setTypeFilterList(getUniqueGroups(res.data));
-      });
+      );
+
+      const responseData = res.data;
+
+      if (!Array.isArray(responseData)) {
+        setResult([]);
+        setTypeFilterList([]);
+        return;
+      }
+
+      setResult(responseData);
+      setTypeFilterList(getUniqueGroups(responseData));
+    } catch {
+      setResult([]);
+      setTypeFilterList([]);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   useEffect(() => {
@@ -115,9 +125,7 @@ const EmojiPage = (): React.ReactNode => {
                 <tbody className="divide-y divide-outline-2">
                   {result.length > 0 &&
                     result
-                      .filter((item) =>
-                        typeFilter ? item.group === typeFilter : true,
-                      )
+                      .filter((item) => (typeFilter ? item.group === typeFilter : true))
                       .map((emoji) => (
                         <tr
                           className="copy-to-clipboard group cursor-pointer transition-colors hover:bg-surface-3"

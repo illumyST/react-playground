@@ -24,13 +24,7 @@ export interface InputProps
 
 export const Input = forwardRef<HTMLInputElement, InputProps>(
   ({ className, inputSize, ...props }, ref) => {
-    return (
-      <input
-        ref={ref}
-        className={cn(inputVariants({ inputSize, className }))}
-        {...props}
-      />
-    );
+    return <input ref={ref} className={cn(inputVariants({ inputSize, className }))} {...props} />;
   },
 );
 

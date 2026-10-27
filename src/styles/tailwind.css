@@ -259,12 +259,12 @@
 /* overlay style - 會在原件上蓋上一層透明色 */
 @utility overlay-2 {
     /* 在畫面上蓋上4%的黑色 */
-    @apply relative after:pointer-events-none after:absolute after:inset-0 after:bg-black after:opacity-[0.04];
+    @apply relative after:pointer-events-none after:absolute after:inset-0 after:rounded-[inherit] after:bg-black after:opacity-[0.04];
 }
 
 @utility overlay-3 {
     /* 在畫面上蓋上6%的黑色 */
-    @apply relative after:pointer-events-none after:absolute after:inset-0 after:bg-black after:opacity-[0.06];
+    @apply relative after:pointer-events-none after:absolute after:inset-0 after:rounded-[inherit] after:bg-black after:opacity-[0.06];
 }
 
 @utility accessible-zone {

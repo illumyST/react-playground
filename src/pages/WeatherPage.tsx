@@ -23,31 +23,42 @@ const createWeatherData = (
 const WeatherPage = (): React.ReactNode => {
   const [weatherInfo, setWeatherInfo] = useState<WeatherData>(createWeatherData());
 
-  const getWeather = (e: React.SyntheticEvent) => {
+  const getWeather = async (e: React.SyntheticEvent) => {
     e.preventDefault();
-    const apiKey = '6557810176c36fac5f0db536711a6c52';
 
     const form = e.target as HTMLFormElement;
     const formData = new FormData(form);
     const city = formData.get('city') as string;
 
-    axios
-      .get(
-        `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}`,
-      )
-      .then((res) => {
-        const info = res.data;
-        setWeatherInfo(
-          createWeatherData(
-            city,
-            info.wind.speed,
-            info.main.humidity,
-            Math.round(info.main.temp - 273.15),
-            info.weather[0].description,
-            info.weather[0].icon,
-          ),
-        );
-      });
+    if (!city) {
+      return;
+    }
+
+    try {
+      const res = await axios.get(
+        import.meta.env.VITE_WEATHER_API_URL || 'https://api.openweathermap.org/data/2.5/weather',
+        {
+          params: {
+            q: city,
+            appid: import.meta.env.VITE_WEATHER_API_KEY,
+          },
+        },
+      );
+
+      const info = res.data;
+      setWeatherInfo(
+        createWeatherData(
+          city,
+          info.wind.speed,
+          info.main.humidity,
+          Math.round(info.main.temp - 273.15),
+          info.weather[0].description,
+          info.weather[0].icon,
+        ),
+      );
+    } catch {
+      setWeatherInfo(createWeatherData());
+    }
   };
 
   return (
@@ -64,7 +75,7 @@ const WeatherPage = (): React.ReactNode => {
           <div className="relative h-[200px] w-[200px] shrink-0 overflow-hidden">
             <img
               className="h-full w-full object-contain"
-              src={`https://openweathermap.org/img/wn/${weatherInfo.icon}@4x.png`}
+              src={`${import.meta.env.VITE_WEATHER_ICON_BASE_URL || 'https://openweathermap.org/img/wn'}/${weatherInfo.icon}@4x.png`}
               alt="weatherIcon"
               width={200}
               height={200}
@@ -73,18 +84,10 @@ const WeatherPage = (): React.ReactNode => {
           <div className="flex flex-wrap">
             <div className="flex h-full flex-col p-lg text-left sm:p-2xl">
               <h3 className="title-lg">{weatherInfo.city}</h3>
-              <p className="mb-md text-xs text-on-surface-variant">
-                {weatherInfo.description}
-              </p>
-              <p className="mt-xs text-on-surface-variant">
-                溫度：{weatherInfo.temp}°C
-              </p>
-              <p className="mt-xs text-on-surface-variant">
-                濕度：{weatherInfo.humidity}
-              </p>
-              <p className="mt-xs text-on-surface-variant">
-                風速：{weatherInfo.wind}
-              </p>
+              <p className="mb-md text-xs text-on-surface-variant">{weatherInfo.description}</p>
+              <p className="mt-xs text-on-surface-variant">溫度：{weatherInfo.temp}°C</p>
+              <p className="mt-xs text-on-surface-variant">濕度：{weatherInfo.humidity}</p>
+              <p className="mt-xs text-on-surface-variant">風速：{weatherInfo.wind}</p>
             </div>
           </div>
         </div>

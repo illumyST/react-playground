@@ -1,0 +1,13 @@
+{
+  "captions": [
+    { "id": "caption-1", "text": "在草地躺著看星空",        "startTime": 0.5,  "endTime": 6,     "emphasis": false },
+    { "id": "caption-2", "text": "聽著歌 心也慢慢地放空",  "startTime": 6,    "endTime": 11.5,  "emphasis": false },
+    { "id": "caption-3", "text": "左手 牽著你右手",        "startTime": 11.5, "endTime": 17,    "emphasis": false },
+    { "id": "caption-4", "text": "深夜 還有好多話想說",    "startTime": 17,   "endTime": 22,    "emphasis": false },
+    { "id": "caption-5", "text": "(但是不行 要回家了)",    "startTime": 22,   "endTime": 24,    "emphasis": true  },
+    { "id": "caption-6", "text": "有時候我們會吵架",       "startTime": 24.5, "endTime": 27.3,  "emphasis": false },
+    { "id": "caption-7", "text": "因為在意的事情不一樣",   "startTime": 27.3, "endTime": 30.5,  "emphasis": false },
+    { "id": "caption-8", "text": "右手 牽著我左手",        "startTime": 30.5, "endTime": 32.8,  "emphasis": false },
+    { "id": "caption-9", "text": "吵完 還是好多話想說",    "startTime": 32.8, "endTime": 36.0,  "emphasis": false }
+  ]
+}

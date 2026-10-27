@@ -22,3 +22,19 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Python backend
+backend/**/.venv
+backend/**/__pycache__
+backend/**/.pytest_cache
+*.pyc
+
+# Hospital mock server
+backend/hospital/mock-server/dist
+backend/hospital/mock-server/src/backup
+
+# TypeScript incremental build info
+*.tsbuildinfo
+
+# Cloudflare Wrangler
+.wrangler

@@ -1,0 +1,429 @@
+[
+  {
+    "id": 1,
+    "label": "default",
+    "isChecked": true,
+    "response": {
+      "returnCode": "0000",
+      "returnDesc": "Success",
+      "systemTime": "$datetime",
+      "content": {
+        "items": [
+          {
+            "id": "station-1",
+            "station": "Care Station 01",
+            "floor": "3F / Wing B",
+            "owner": "Ops 01",
+            "status": "ready",
+            "capacity": "24 beds",
+            "latency": "83 ms",
+            "sync": "2026-06-05 14:11",
+            "notes": "Telemetry normal"
+          },
+          {
+            "id": "station-2",
+            "station": "Care Station 02",
+            "floor": "4F / Wing C",
+            "owner": "Ops 02",
+            "status": "ready",
+            "capacity": "28 beds",
+            "latency": "86 ms",
+            "sync": "2026-06-05 14:12",
+            "notes": "Telemetry normal"
+          },
+          {
+            "id": "station-3",
+            "station": "Care Station 03",
+            "floor": "5F / Wing D",
+            "owner": "Ops 03",
+            "status": "watch",
+            "capacity": "32 beds",
+            "latency": "89 ms",
+            "sync": "2026-06-05 14:13",
+            "notes": "Requires platform review"
+          },
+          {
+            "id": "station-4",
+            "station": "Care Station 04",
+            "floor": "6F / Wing A",
+            "owner": "Ops 04",
+            "status": "ready",
+            "capacity": "36 beds",
+            "latency": "92 ms",
+            "sync": "2026-06-05 14:14",
+            "notes": "Telemetry normal"
+          },
+          {
+            "id": "station-5",
+            "station": "Care Station 05",
+            "floor": "7F / Wing E",
+            "owner": "Ops 05",
+            "status": "offline",
+            "capacity": "40 beds",
+            "latency": "95 ms",
+            "sync": "2026-06-05 14:15",
+            "notes": "Requires platform review"
+          },
+          {
+            "id": "station-6",
+            "station": "Care Station 06",
+            "floor": "2F / Wing F",
+            "owner": "Ops 06",
+            "status": "ready",
+            "capacity": "44 beds",
+            "latency": "98 ms",
+            "sync": "2026-06-05 14:16",
+            "notes": "Telemetry normal"
+          },
+          {
+            "id": "station-7",
+            "station": "Care Station 07",
+            "floor": "3F / Wing B",
+            "owner": "Ops 07",
+            "status": "ready",
+            "capacity": "48 beds",
+            "latency": "101 ms",
+            "sync": "2026-06-05 14:17",
+            "notes": "Telemetry normal"
+          },
+          {
+            "id": "station-8",
+            "station": "Care Station 08",
+            "floor": "4F / Wing C",
+            "owner": "Ops 08",
+            "status": "ready",
+            "capacity": "52 beds",
+            "latency": "104 ms",
+            "sync": "2026-06-05 14:18",
+            "notes": "Telemetry normal"
+          },
+          {
+            "id": "station-9",
+            "station": "Care Station 09",
+            "floor": "5F / Wing D",
+            "owner": "Ops 09",
+            "status": "watch",
+            "capacity": "56 beds",
+            "latency": "107 ms",
+            "sync": "2026-06-05 14:19",
+            "notes": "Requires platform review"
+          },
+          {
+            "id": "station-10",
+            "station": "Care Station 10",
+            "floor": "6F / Wing A",
+            "owner": "Ops 10",
+            "status": "ready",
+            "capacity": "60 beds",
+            "latency": "110 ms",
+            "sync": "2026-06-05 14:20",
+            "notes": "Telemetry normal"
+          },
+          {
+            "id": "station-11",
+            "station": "Care Station 11",
+            "floor": "7F / Wing E",
+            "owner": "Ops 11",
+            "status": "offline",
+            "capacity": "64 beds",
+            "latency": "113 ms",
+            "sync": "2026-06-05 14:21",
+            "notes": "Requires platform review"
+          },
+          {
+            "id": "station-12",
+            "station": "Care Station 12",
+            "floor": "2F / Wing F",
+            "owner": "Ops 12",
+            "status": "ready",
+            "capacity": "68 beds",
+            "latency": "116 ms",
+            "sync": "2026-06-05 14:22",
+            "notes": "Telemetry normal"
+          },
+          {
+            "id": "station-13",
+            "station": "Care Station 13",
+            "floor": "3F / Wing B",
+            "owner": "Ops 13",
+            "status": "ready",
+            "capacity": "72 beds",
+            "latency": "119 ms",
+            "sync": "2026-06-05 14:23",
+            "notes": "Telemetry normal"
+          },
+          {
+            "id": "station-14",
+            "station": "Care Station 14",
+            "floor": "4F / Wing C",
+            "owner": "Ops 14",
+            "status": "ready",
+            "capacity": "76 beds",
+            "latency": "122 ms",
+            "sync": "2026-06-05 14:24",
+            "notes": "Telemetry normal"
+          },
+          {
+            "id": "station-15",
+            "station": "Care Station 15",
+            "floor": "5F / Wing D",
+            "owner": "Ops 15",
+            "status": "watch",
+            "capacity": "20 beds",
+            "latency": "125 ms",
+            "sync": "2026-06-05 14:25",
+            "notes": "Requires platform review"
+          },
+          {
+            "id": "station-16",
+            "station": "Care Station 16",
+            "floor": "6F / Wing A",
+            "owner": "Ops 16",
+            "status": "ready",
+            "capacity": "24 beds",
+            "latency": "128 ms",
+            "sync": "2026-06-05 14:26",
+            "notes": "Telemetry normal"
+          },
+          {
+            "id": "station-17",
+            "station": "Care Station 17",
+            "floor": "7F / Wing E",
+            "owner": "Ops 17",
+            "status": "offline",
+            "capacity": "28 beds",
+            "latency": "131 ms",
+            "sync": "2026-06-05 14:27",
+            "notes": "Requires platform review"
+          },
+          {
+            "id": "station-18",
+            "station": "Care Station 18",
+            "floor": "2F / Wing F",
+            "owner": "Ops 18",
+            "status": "ready",
+            "capacity": "32 beds",
+            "latency": "134 ms",
+            "sync": "2026-06-05 14:28",
+            "notes": "Telemetry normal"
+          },
+          {
+            "id": "station-19",
+            "station": "Care Station 19",
+            "floor": "3F / Wing B",
+            "owner": "Ops 19",
+            "status": "ready",
+            "capacity": "36 beds",
+            "latency": "137 ms",
+            "sync": "2026-06-05 14:29",
+            "notes": "Telemetry normal"
+          },
+          {
+            "id": "station-20",
+            "station": "Care Station 20",
+            "floor": "4F / Wing C",
+            "owner": "Ops 20",
+            "status": "ready",
+            "capacity": "40 beds",
+            "latency": "140 ms",
+            "sync": "2026-06-05 14:30",
+            "notes": "Telemetry normal"
+          },
+          {
+            "id": "station-21",
+            "station": "Care Station 21",
+            "floor": "5F / Wing D",
+            "owner": "Ops 21",
+            "status": "watch",
+            "capacity": "44 beds",
+            "latency": "143 ms",
+            "sync": "2026-06-05 14:31",
+            "notes": "Requires platform review"
+          },
+          {
+            "id": "station-22",
+            "station": "Care Station 22",
+            "floor": "6F / Wing A",
+            "owner": "Ops 22",
+            "status": "ready",
+            "capacity": "48 beds",
+            "latency": "146 ms",
+            "sync": "2026-06-05 14:32",
+            "notes": "Telemetry normal"
+          },
+          {
+            "id": "station-23",
+            "station": "Care Station 23",
+            "floor": "7F / Wing E",
+            "owner": "Ops 23",
+            "status": "offline",
+            "capacity": "52 beds",
+            "latency": "149 ms",
+            "sync": "2026-06-05 14:33",
+            "notes": "Requires platform review"
+          },
+          {
+            "id": "station-24",
+            "station": "Care Station 24",
+            "floor": "2F / Wing F",
+            "owner": "Ops 24",
+            "status": "ready",
+            "capacity": "56 beds",
+            "latency": "152 ms",
+            "sync": "2026-06-05 14:34",
+            "notes": "Telemetry normal"
+          },
+          {
+            "id": "station-25",
+            "station": "Care Station 25",
+            "floor": "3F / Wing B",
+            "owner": "Ops 25",
+            "status": "ready",
+            "capacity": "60 beds",
+            "latency": "155 ms",
+            "sync": "2026-06-05 14:35",
+            "notes": "Telemetry normal"
+          },
+          {
+            "id": "station-26",
+            "station": "Care Station 26",
+            "floor": "4F / Wing C",
+            "owner": "Ops 26",
+            "status": "ready",
+            "capacity": "64 beds",
+            "latency": "158 ms",
+            "sync": "2026-06-05 14:36",
+            "notes": "Telemetry normal"
+          },
+          {
+            "id": "station-27",
+            "station": "Care Station 27",
+            "floor": "5F / Wing D",
+            "owner": "Ops 27",
+            "status": "watch",
+            "capacity": "68 beds",
+            "latency": "161 ms",
+            "sync": "2026-06-05 14:37",
+            "notes": "Requires platform review"
+          },
+          {
+            "id": "station-28",
+            "station": "Care Station 28",
+            "floor": "6F / Wing A",
+            "owner": "Ops 28",
+            "status": "ready",
+            "capacity": "72 beds",
+            "latency": "164 ms",
+            "sync": "2026-06-05 14:38",
+            "notes": "Telemetry normal"
+          },
+          {
+            "id": "station-29",
+            "station": "Care Station 29",
+            "floor": "7F / Wing E",
+            "owner": "Ops 29",
+            "status": "offline",
+            "capacity": "76 beds",
+            "latency": "167 ms",
+            "sync": "2026-06-05 14:39",
+            "notes": "Requires platform review"
+          },
+          {
+            "id": "station-30",
+            "station": "Care Station 30",
+            "floor": "2F / Wing F",
+            "owner": "Ops 30",
+            "status": "ready",
+            "capacity": "20 beds",
+            "latency": "170 ms",
+            "sync": "2026-06-05 14:40",
+            "notes": "Telemetry normal"
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": 2,
+    "label": "warning",
+    "isChecked": false,
+    "response": {
+      "returnCode": "0000",
+      "returnDesc": "Success",
+      "systemTime": "$datetime",
+      "content": {
+        "items": [
+          {
+            "id": "station-1",
+            "station": "Care Station 01",
+            "floor": "3F / Wing B",
+            "owner": "Ops 01",
+            "status": "watch",
+            "capacity": "28 beds",
+            "latency": "157 ms",
+            "sync": "2026-06-05 14:11",
+            "notes": "Escalated to platform on-call"
+          },
+          {
+            "id": "station-2",
+            "station": "Care Station 02",
+            "floor": "4F / Wing C",
+            "owner": "Ops 02",
+            "status": "offline",
+            "capacity": "32 beds",
+            "latency": "206 ms",
+            "sync": "2026-06-05 14:12",
+            "notes": "Escalated to platform on-call"
+          },
+          {
+            "id": "station-3",
+            "station": "Care Station 03",
+            "floor": "5F / Wing D",
+            "owner": "Ops 03",
+            "status": "watch",
+            "capacity": "36 beds",
+            "latency": "221 ms",
+            "sync": "2026-06-05 14:13",
+            "notes": "Escalated to platform on-call"
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": 3,
+    "label": "limited-access",
+    "isChecked": false,
+    "response": {
+      "returnCode": "0000",
+      "returnDesc": "Success",
+      "systemTime": "$datetime",
+      "content": {
+        "items": [
+          {
+            "id": "station-1",
+            "station": "Care Station 01",
+            "floor": "Remote / Wing A",
+            "owner": "Audit 01",
+            "status": "ready",
+            "capacity": "12 beds",
+            "latency": "118 ms",
+            "sync": "2026-06-05 14:11",
+            "notes": "Restricted shell profile"
+          },
+          {
+            "id": "station-2",
+            "station": "Care Station 02",
+            "floor": "Remote / Wing B",
+            "owner": "Audit 02",
+            "status": "watch",
+            "capacity": "16 beds",
+            "latency": "152 ms",
+            "sync": "2026-06-05 14:12",
+            "notes": "Restricted shell profile"
+          }
+        ]
+      }
+    }
+  }
+]

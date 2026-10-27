@@ -1,0 +1,92 @@
+[
+  {
+    "id": "hospitalTechStarter",
+    "title": "Hospital Tech Starter",
+    "children": [
+      {
+        "id": "HospitalAuthSession",
+        "title": "Auth Session",
+        "url": "/hospital-api/auth/session",
+        "path": "hospitalTechStarter",
+        "filename": "HOSPITAL_AUTH_Session",
+        "current": "success",
+        "apis": ["success", "noData", "error"],
+        "delayTime": 0,
+        "isCrypto": false,
+        "httpStatus": 200
+      },
+      {
+        "id": "HospitalNavigationMenu",
+        "title": "Navigation Menu",
+        "url": "/hospital-api/navigation/menu",
+        "path": "hospitalTechStarter",
+        "filename": "HOSPITAL_NAV_Menu",
+        "current": "success",
+        "apis": ["success", "noData", "error"],
+        "delayTime": 0,
+        "isCrypto": false,
+        "httpStatus": 200
+      },
+      {
+        "id": "HospitalCareStationSnapshot",
+        "title": "Care Station Snapshot",
+        "url": "/hospital-api/care-station/snapshot",
+        "path": "hospitalTechStarter",
+        "filename": "HOSPITAL_CARE_StationSnapshot",
+        "current": "success",
+        "apis": ["success", "noData", "error"],
+        "delayTime": 0,
+        "isCrypto": false,
+        "httpStatus": 200
+      },
+      {
+        "id": "HospitalIntegrationsList",
+        "title": "Integrations List",
+        "url": "/hospital-api/integrations/list",
+        "path": "hospitalTechStarter",
+        "filename": "HOSPITAL_INTG_List",
+        "current": "success",
+        "apis": ["success", "noData", "error"],
+        "delayTime": 0,
+        "isCrypto": false,
+        "httpStatus": 200
+      },
+      {
+        "id": "HospitalStationsList",
+        "title": "Stations List",
+        "url": "/hospital-api/stations/list",
+        "path": "hospitalTechStarter",
+        "filename": "HOSPITAL_STATION_List",
+        "current": "success",
+        "apis": ["success", "noData", "error"],
+        "delayTime": 0,
+        "isCrypto": false,
+        "httpStatus": 200
+      },
+      {
+        "id": "HospitalMockScenarios",
+        "title": "Mock Scenarios",
+        "url": "/hospital-api/mock/scenarios",
+        "path": "hospitalTechStarter",
+        "filename": "HOSPITAL_MOCK_Scenarios",
+        "current": "success",
+        "apis": ["success", "noData", "error"],
+        "delayTime": 0,
+        "isCrypto": false,
+        "httpStatus": 200
+      },
+      {
+        "id": "HospitalSystemProbe",
+        "title": "System Probe",
+        "url": "/hospital-api/system/probe",
+        "path": "hospitalTechStarter",
+        "filename": "HOSPITAL_SYS_Probe",
+        "current": "success",
+        "apis": ["success", "noData", "error"],
+        "delayTime": 0,
+        "isCrypto": false,
+        "httpStatus": 200
+      }
+    ]
+  }
+]

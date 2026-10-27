@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { Button } from '@/components';
 
 /* ─── Declarative Tab ─── */
@@ -8,7 +8,7 @@ const Declarative = (): React.ReactNode => {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const isAgent = (e.nativeEvent as any).agentInvoked;
+    const isAgent = (e.nativeEvent as SubmitEvent & { agentInvoked?: boolean }).agentInvoked;
     const formData = new FormData(e.currentTarget);
     const name = formData.get('name');
     const gender = formData.get('gender');
@@ -23,9 +23,15 @@ const Declarative = (): React.ReactNode => {
   return (
     <div className="max-w-[576px] rounded-lg border border-outline-2 bg-surface-1 p-2xl shadow-light-down-3">
       <h2 className="title-lg mb-lg">Declarative API (個人資料表單)</h2>
-      <ul className="mb-lg list-disc space-y-xs pl-xl text-sm text-on-surface-variant">
-        <li>使用標準 HTML 表單宣告 Tool 等待 Agent 填寫。設定 <code>toolautosubmit</code> 屬性，當 Agent 填寫完畢會自動送出。</li>
-        <li>Agent 操作期間會對應觸發 <code>:tool-form-active</code> 和 <code>:tool-submit-active</code> CSS</li>
+      <ul className="text-left mb-lg list-disc space-y-xs pl-xl text-sm text-on-surface-variant">
+        <li>
+          使用標準 HTML 表單宣告 Tool 等待 Agent 填寫。設定 <code>toolautosubmit</code> 屬性，當
+          Agent 填寫完畢會自動送出。
+        </li>
+        <li>
+          Agent 操作期間會對應觸發 <code>:tool-form-active</code> 和{' '}
+          <code>:tool-submit-active</code> CSS
+        </li>
       </ul>
 
       <form
@@ -38,12 +44,20 @@ const Declarative = (): React.ReactNode => {
         }}
       >
         <div className="flex flex-col gap-xs">
-          <label htmlFor="name" className="text-sm font-bold text-on-surface">姓名</label>
+          <label htmlFor="name" className="text-sm font-bold text-on-surface">
+            姓名
+          </label>
           <input
-            id="name" type="text" name="name" required
+            id="name"
+            type="text"
+            name="name"
+            required
             className="rounded-md border border-outline-2 bg-surface-1 px-md py-sm outline-none focus:border-steel-500"
             placeholder="請輸入姓名"
-            {...{ toolparamtitle: 'User Name', toolparamdescription: 'The real full name of the user' }}
+            {...{
+              toolparamtitle: 'User Name',
+              toolparamdescription: 'The real full name of the user',
+            }}
           />
         </div>
 
@@ -51,26 +65,57 @@ const Declarative = (): React.ReactNode => {
           <span className="text-sm font-bold text-on-surface">性別</span>
           <div
             className="flex items-center gap-xl rounded-md border border-outline-2 bg-surface-1 px-md py-sm"
-            {...{ toolparamtitle: 'User Gender', toolparamdescription: 'The gender identity of the user' }}
+            {...{
+              toolparamtitle: 'User Gender',
+              toolparamdescription: 'The gender identity of the user',
+            }}
           >
             <label className="flex cursor-pointer items-center gap-sm text-sm">
-              <input type="radio" name="gender" value="Male" required className="accent-steel-500 cursor-pointer" /> 男
+              <input
+                type="radio"
+                name="gender"
+                value="Male"
+                required
+                className="accent-steel-500 cursor-pointer"
+              />{' '}
+              男
             </label>
             <label className="flex cursor-pointer items-center gap-sm text-sm">
-              <input type="radio" name="gender" value="Female" required className="accent-steel-500 cursor-pointer" /> 女
+              <input
+                type="radio"
+                name="gender"
+                value="Female"
+                required
+                className="accent-steel-500 cursor-pointer"
+              />{' '}
+              女
             </label>
             <label className="flex cursor-pointer items-center gap-sm text-sm">
-              <input type="radio" name="gender" value="Other" required className="accent-steel-500 cursor-pointer" /> 其他
+              <input
+                type="radio"
+                name="gender"
+                value="Other"
+                required
+                className="accent-steel-500 cursor-pointer"
+              />{' '}
+              其他
             </label>
           </div>
         </div>
 
         <div className="flex flex-col gap-xs">
-          <label htmlFor="occupation" className="text-sm font-bold text-on-surface">職業</label>
+          <label htmlFor="occupation" className="text-sm font-bold text-on-surface">
+            職業
+          </label>
           <select
-            id="occupation" name="occupation" required
+            id="occupation"
+            name="occupation"
+            required
             className="rounded-md border border-outline-2 bg-surface-1 px-md py-sm outline-none focus:border-steel-500"
-            {...{ toolparamtitle: 'User Occupation', toolparamdescription: 'Currently working profession of the user' }}
+            {...{
+              toolparamtitle: 'User Occupation',
+              toolparamdescription: 'Currently working profession of the user',
+            }}
           >
             <option value="">請選擇職業...</option>
             <option value="Engineer">工程師</option>
@@ -79,15 +124,21 @@ const Declarative = (): React.ReactNode => {
           </select>
         </div>
 
-        <Button type="submit" className="mt-sm">Submit</Button>
-        <Button type="reset" variant="outlined">Reset</Button>
+        <Button type="submit" className="mt-sm">
+          Submit
+        </Button>
+        <Button type="reset" variant="outlined">
+          Reset
+        </Button>
       </form>
 
       {logs.length > 0 && (
         <div className="mt-2xl rounded-md border border-outline-2 bg-surface-3 p-lg">
           <h3 className="mb-sm text-sm font-bold">Execution Logs:</h3>
           <ul className="list-disc space-y-xs pl-xl font-mono text-sm text-on-surface-variant">
-            {logs.map((log, i) => <li key={i}>{log}</li>)}
+            {logs.map((log, i) => (
+              <li key={i}>{log}</li>
+            ))}
           </ul>
         </div>
       )}
@@ -97,14 +148,30 @@ const Declarative = (): React.ReactNode => {
 
 /* ─── Imperative Tab ─── */
 
+// WebMCP 仍是實驗性 API，TS 內建型別沒有 navigator.modelContext，這裡只宣告用到的部分
+interface WebmcpTool {
+  name: string;
+  description: string;
+  inputSchema: Record<string, unknown>;
+  annotations?: Record<string, string>;
+  execute: (input: { text: string }) => unknown;
+}
+
+type WebmcpNavigator = Navigator & {
+  modelContext?: {
+    registerTool: (tool: WebmcpTool) => void;
+    unregisterTool?: (name: string) => void;
+  };
+};
+
 const Imperative = (): React.ReactNode => {
   const [logs, setLogs] = useState<string[]>([]);
 
   useEffect(() => {
-    const nav = window.navigator as any;
-    if (!nav.modelContext) return;
+    const { modelContext } = window.navigator as WebmcpNavigator;
+    if (!modelContext) return;
 
-    nav.modelContext.registerTool({
+    modelContext.registerTool({
       name: 'addTodo',
       description: 'Add a new item to the todo list via Imperative API',
       inputSchema: { type: 'object', properties: { text: { type: 'string' } } },
@@ -115,15 +182,20 @@ const Imperative = (): React.ReactNode => {
       },
     });
 
-    return () => nav.modelContext.unregisterTool?.('addTodo');
+    return () => modelContext.unregisterTool?.('addTodo');
   }, []);
 
   return (
     <div className="max-w-[576px] rounded-lg border border-outline-2 bg-surface-1 p-2xl shadow-light-down-3">
       <h2 className="title-lg mb-lg">Imperative API</h2>
-      <ul className="mb-lg list-disc space-y-xs pl-xl text-sm text-on-surface-variant">
-        <li>切換到此 Tab 時，已自動透過 <code>navigator.modelContext.registerTool</code> 註冊了 <code>addTodo</code> Tool。</li>
-        <li>切換離開時會呼叫 <code>unregisterTool</code> 清除註冊。</li>
+      <ul className="text-left mb-lg list-disc space-y-xs pl-xl text-sm text-on-surface-variant">
+        <li>
+          切換到此 Tab 時，已自動透過 <code>navigator.modelContext.registerTool</code> 註冊了{' '}
+          <code>addTodo</code> Tool。
+        </li>
+        <li>
+          切換離開時會呼叫 <code>unregisterTool</code> 清除註冊。
+        </li>
       </ul>
       <div className="min-h-[120px] rounded-md border border-outline-2 bg-surface-3 p-lg">
         <h3 className="mb-sm text-sm font-bold">Tool Output:</h3>
@@ -131,7 +203,9 @@ const Imperative = (): React.ReactNode => {
           <p className="text-sm italic text-on-surface-variant">No tools executed yet</p>
         ) : (
           <ul className="list-disc space-y-xs pl-xl font-mono text-sm text-on-surface-variant">
-            {logs.map((log, i) => <li key={i}>{log}</li>)}
+            {logs.map((log, i) => (
+              <li key={i}>{log}</li>
+            ))}
           </ul>
         )}
       </div>
@@ -162,7 +236,9 @@ const WebmcpPage = (): React.ReactNode => {
 
       <div>
         <h1 className="title-2xl mb-sm">WebMCP Examples</h1>
-        <p className="text-on-surface-variant">切換 Tab 時，只會註冊該 Tab 的 Tool 供 Agent 使用。</p>
+        <p className="text-on-surface-variant">
+          切換 Tab 時，只會註冊該 Tab 的 Tool 供 Agent 使用。
+        </p>
       </div>
 
       <div className="flex space-x-sm border-b border-outline-2">

@@ -18,6 +18,10 @@ const NAV_ITEMS: NavItem[] = [
   { to: '/webmcp', label: 'WebMCP', icon: 'Globe' },
   { to: '/docusaurus', label: 'Docusaurus', icon: 'FileDoc' },
   { to: '/remotion', label: 'Remotion', icon: 'FilmSlate' },
+  { to: '/color-converter', label: 'Color Converter', icon: 'MagnifyingGlass' },
+  { to: '/highchart-copilot', label: 'Highcharts Copilot', icon: 'ChartLineUp' },
+  { to: '/hospital', label: 'Hospital', icon: 'FirstAid' },
+  { to: '/audio-vad', label: 'Audio VAD', icon: 'Waveform' },
 ];
 
 const SidebarLayout = (): React.ReactNode => {
@@ -28,10 +32,7 @@ const SidebarLayout = (): React.ReactNode => {
       {/* Mobile topbar */}
       <div className="sticky top-0 z-20 flex h-[48px] items-center bg-surface-1 border-b border-outline-2 lg:hidden">
         <span className="sr-only">Open sidebar</span>
-        <button
-          className="accessible-zone ml-md"
-          onClick={() => setSidebarOpen(true)}
-        >
+        <button className="accessible-zone ml-md" onClick={() => setSidebarOpen(true)}>
           <svg className="size-[24px]" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20">
             <path
               clipRule="evenodd"
@@ -55,7 +56,11 @@ const SidebarLayout = (): React.ReactNode => {
             onClick={() => setSidebarOpen(false)}
             className="mb-xl flex items-center gap-md hover:opacity-80 transition-opacity"
           >
-            <img src="/stone.svg" alt="Stone logo" className="h-[28px] w-auto" />
+            <img
+              src={`${import.meta.env.BASE_URL}stone.svg`}
+              alt="Stone logo"
+              className="h-[28px] w-auto"
+            />
             <span className="title-lg">Stone&apos;s Home</span>
           </Link>
           <nav>

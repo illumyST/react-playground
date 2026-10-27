@@ -1,13 +1,32 @@
 import {
-  HouseIcon,
-  UsersThreeIcon,
-  SmileyIcon,
+  ArrowCounterClockwiseIcon,
+  ArrowsClockwiseIcon,
+  CaretDownIcon,
+  CaretUpIcon,
+  ChartLineUpIcon,
+  CheckCircleIcon,
   CloudSunIcon,
-  MetronomeIcon,
-  GlobeIcon,
+  FileAudioIcon,
   FileDocIcon,
   FilmSlateIcon,
+  FirstAidKitIcon,
+  GlobeIcon,
+  HouseIcon,
   MagnifyingGlassIcon,
+  MetronomeIcon,
+  MicrophoneIcon,
+  PauseIcon,
+  PlayCircleIcon,
+  PlayIcon,
+  SlidersHorizontalIcon,
+  SmileyIcon,
+  SpeakerHighIcon,
+  StopIcon,
+  UploadSimpleIcon,
+  UsersThreeIcon,
+  WarningIcon,
+  WaveformIcon,
+  XCircleIcon,
 } from '@phosphor-icons/react';
 
 type IconName = keyof typeof ICONS;
@@ -21,6 +40,7 @@ interface props {
 }
 
 const ICONS = {
+  ChartLineUp: ChartLineUpIcon,
   House: HouseIcon, // home
   UsersThree: UsersThreeIcon, // grouping tool
   Smiley: SmileyIcon, // emoji
@@ -30,14 +50,28 @@ const ICONS = {
   FileDoc: FileDocIcon, // docusaurus
   FilmSlate: FilmSlateIcon, // remotion
   MagnifyingGlass: MagnifyingGlassIcon, // search / 404
+  CaretDown: CaretDownIcon,
+  CaretUp: CaretUpIcon,
+  FirstAid: FirstAidKitIcon, // hospital
+  Waveform: WaveformIcon, // audio vad
+  // audio vad 頁面內使用
+  ArrowCounterClockwise: ArrowCounterClockwiseIcon,
+  ArrowsClockwise: ArrowsClockwiseIcon,
+  CheckCircle: CheckCircleIcon,
+  FileAudio: FileAudioIcon,
+  Microphone: MicrophoneIcon,
+  Pause: PauseIcon,
+  Play: PlayIcon,
+  PlayCircle: PlayCircleIcon,
+  SlidersHorizontal: SlidersHorizontalIcon,
+  SpeakerHigh: SpeakerHighIcon,
+  Stop: StopIcon,
+  UploadSimple: UploadSimpleIcon,
+  Warning: WarningIcon,
+  XCircle: XCircleIcon,
 };
 
-const Icon = ({
-  iconName,
-  className = '',
-  size = 24,
-  weight = 'regular',
-}: props) => {
+const Icon = ({ iconName, className = '', size = 24, weight = 'regular' }: props) => {
   const IconComponent = ICONS[iconName];
   return <IconComponent className={className} size={size} weight={weight} />;
 };
