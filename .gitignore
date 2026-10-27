@@ -35,3 +35,6 @@ backend/hospital/mock-server/src/backup
 
 # TypeScript incremental build info
 *.tsbuildinfo
+
+# Cloudflare Wrangler
+.wrangler

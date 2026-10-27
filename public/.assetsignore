@@ -1,0 +1,2 @@
+# 部署至 Cloudflare 時排除：未使用且超過單檔 25MiB 上限
+remotion/to-river.mp4

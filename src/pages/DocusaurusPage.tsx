@@ -1,7 +1,7 @@
 const DocusaurusPage = (): React.ReactNode => {
   return (
     <iframe
-      src="/docusaurus/index.html"
+      src={`${import.meta.env.BASE_URL}docusaurus/index.html`}
       className="w-full min-h-main border-none"
       title="Docusaurus Documentation"
     />
