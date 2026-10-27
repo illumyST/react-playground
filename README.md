@@ -63,6 +63,11 @@ pnpm install
 pnpm dev
 ```
 
+`pnpm dev` 目前會同時啟動：
+
+- Vite 前端開發伺服器
+- Highcharts Copilot 需要的本地 Node runtime（預設 `http://127.0.0.1:4000/copilotkit`）
+
 ### 常用指令
 
 ```bash
@@ -71,6 +76,25 @@ pnpm build
 pnpm lint
 pnpm preview
 ```
+
+### Highcharts Copilot 需要的額外服務
+
+Highcharts Copilot 頁面除了 `pnpm dev` 啟動的前端與 Node runtime 之外，還需要一個額外的本地服務：
+
+- Python backend：提供 CopilotKit remote endpoint，實際呼叫 Gemini
+
+建議開兩個 terminal：
+
+```bash
+# Terminal 1: 前端 + Node runtime
+pnpm dev
+
+# Terminal 2: Python backend（首次先安裝）
+pnpm setup:copilot-backend
+pnpm dev:copilot-backend
+```
+
+啟動前請先在 `env/.env.development` 設定 `GEMINI_API_KEY`。
 
 ## Environment Variables
 
@@ -87,6 +111,11 @@ Vite 會從 ./env 讀取環境變數。在程式碼中，透過 Vite 原生的 `
 - VITE_WEATHER_API_URL：OpenWeather API endpoint
 - VITE_WEATHER_API_KEY：OpenWeather API key
 - VITE_WEATHER_ICON_BASE_URL：Weather icon base URL
+- VITE_COPILOT_RUNTIME_URL：前端 CopilotKit runtime URL
+- COPILOTKIT_BACKEND_URL：Node runtime 轉送到 Python backend 的 endpoint
+- COPILOTKIT_RUNTIME_PORT：Node runtime 本地埠號
+- COPILOTKIT_MODEL：Gemini model 名稱
+- GEMINI_API_KEY：供 Highcharts Copilot runtime/backend 使用的 Gemini API key
 
 ### 這次盤點後，適合放入 env 的值
 
