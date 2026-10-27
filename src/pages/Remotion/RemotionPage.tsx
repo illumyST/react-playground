@@ -11,8 +11,8 @@ import { Icon } from '@/components/Icon/Icon';
 import SubtitledVideoComposition from './components/SubtitledVideoComposition';
 
 const FPS = 30;
-const VIDEO_SOURCES = ['/remotion/stone.mp4'] as const;
-const CAPTIONS_SRC = '/remotion/captions.json';
+const VIDEO_SOURCES = [`${import.meta.env.BASE_URL}remotion/stone.mp4`] as const;
+const CAPTIONS_SRC = `${import.meta.env.BASE_URL}remotion/captions.json`;
 const DEFAULT_DURATION_IN_FRAMES = 26 * FPS;
 const FALLBACK_CAPTIONS: EditableCaption[] = [
   { id: 'caption-1', text: '在草地躺著看星空', startTime: 0.5, endTime: 6, emphasis: false },
